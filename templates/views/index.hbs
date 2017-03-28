@@ -1,0 +1,31 @@
+{{!< default}}
+{{!--
+/**
+* Engagement Lab Web Suite
+* Developed by Engagement Lab, 2016
+* ==============
+*
+* Index Page sample Template
+* ==========
+*/
+--}}
+
+
+<div class="container-fluid home">
+	<div class="row" style="color: white;">
+
+	{{index.title}}
+		
+	</div>
+
+	<div class="row">
+
+		{{#each prompt}}
+
+				<div class="prompt" id="{{prompt_key}}"></div>
+
+		{{/each}}
+		
+	</div>
+
+</div> <!-- .container-fluid -->

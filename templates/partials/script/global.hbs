@@ -1,0 +1,75 @@
+{{!< default}}
+{{!-- 
+/**
+ * Uncertainty Project
+ * Developed by Engagement Lab, 2016
+ * ==============
+ * 
+ * Script include for global logic
+ * ==========
+ */
+--}}
+
+<script type="text/javascript">
+
+	// var timeline = new TimelineMax();
+	$(document).ready(function() {
+
+		// Menu toggling
+	  $("#menu-close").click(function(e) {
+	    e.preventDefault();
+	    $("#sidebar-wrapper").toggleClass("active");
+	  });
+	  $("#menu-toggle").click(function(e) {
+	    e.preventDefault();
+	    $("#sidebar-wrapper").toggleClass("active");
+	  });
+
+	  {{#ifeq section "index"}}
+
+		  // Blurring/no blur
+		  $('.category').hover(
+		  	function () {
+			    $(this).children('.bg').removeClass("blur");
+			    $(this).children('.content').addClass("transparent");
+			  },
+			  function () {
+			    $(this).children('.bg').addClass("blur");
+			    $(this).children('.content').removeClass("transparent");
+			  }
+		  );
+			var timeline = TweenMax.to({}, 5, 
+			{
+				repeat: -1,
+				yoyo: true,
+				onRepeat:function(){
+					timeline.duration(Math.floor(Math.random() * (10 - 1 + 1)) + 1)
+				},
+			  onUpdateParams:["{self}"],
+			  onUpdate:function(tl){
+
+			    var tlp = (tl.progress()*9);
+			    TweenMax.set('#blurred',{'-webkit-filter':'blur(' + tlp + 'px' + ')','filter':'blur(' + tlp + 'px' + ')'});
+			  }
+			});
+
+		{{/ifeq}}
+
+		{{#ifeq section "category"}}
+
+      $("#title").lettering('words');
+
+      // display image caption on top of image
+			$("#body img").each(function() {
+					$(this).wrap('<figure class="image"></figure>')
+			    var imageCaption = $(this).attr("alt");
+			    if (imageCaption != '') {
+			        $("<figcaption>" + imageCaption +"</figure>").insertAfter(this);
+			    }
+			});
+
+		{{/ifeq}}
+
+	});
+	
+</script>
