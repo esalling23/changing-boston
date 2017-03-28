@@ -22,7 +22,10 @@
 
 		{{#each prompt}}
 
-				<div class="prompt" id="{{prompt_key}}"></div>
+			<div class="prompt-wrapper" id="{{prompt_key}}">
+				<div class="prompt initial">{{prompt_one}}</div>
+				<div class="prompt secondary">{{prompt_two}}</div>
+			</div>
 
 		{{/each}}
 		

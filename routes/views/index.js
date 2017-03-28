@@ -31,17 +31,25 @@ exports = module.exports = function(req, res) {
                 'createdAt': -1
             }
         });
-        var queryPrompt = Index.model.find({'enabled': true}, {}, {
+        var queryPrompt = Prompt.model.find({'enabled': true}, {}, {
             sort: {
                 'createdAt': -1
             }
         });
+        
         queryIndex.exec(function(err, resultIndex) {
             if (err) throw err;
 
             locals.index = resultIndex;
 
-            next();
+            queryPrompt.exec(function(err, resultPrompt) {
+                if (err) throw err;
+
+                locals.prompt = resultPrompt;
+
+                next();
+
+            });
 
         });
     });

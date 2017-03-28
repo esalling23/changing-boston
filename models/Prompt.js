@@ -25,7 +25,7 @@ var Prompt = new keystone.List('Prompt',
 		singular: 'Prompt',
 		track: true, 
 		map: { name: 'prompt_one' },
-		autokey: { path: 'prompt_key', from: 'name', unique: true }
+		autokey: { path: 'prompt_key', from: 'prompt_one', unique: true }
 	});
 
 /**
