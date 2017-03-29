@@ -1,7 +1,6 @@
 {
 	"name": "Changing Boston",
 	"database": "changing-boston",
-	"allowed_domains": ["changing-boston.com"],
 	"admin_nav": { 
 									"index": ["Index"]
 								}

@@ -1,0 +1,32 @@
+{{!< default}}
+{{!--
+/**
+* Engagement Lab Web Suite
+* Developed by Engagement Lab, 2016
+* ==============
+*
+* Index Page sample Template
+* ==========
+*/
+--}}
+
+
+<div class="container-fluid hub">
+	<div class="row" style="color: white;">
+		
+	</div>
+
+	<div class="row">
+
+		{{#each resource}}
+
+			<div class="prompt-wrapper" id="{{prompt_key}}">
+				<div class="prompt initial">{{prompt_one}}</div>
+				<div class="prompt secondary">{{prompt_two}}</div>
+			</div>
+
+		{{/each}}
+		
+	</div>
+
+</div> <!-- .container-fluid -->
