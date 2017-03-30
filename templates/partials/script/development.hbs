@@ -11,15 +11,19 @@
 --}}
 
 {{!-- SCRIPTS START --}}
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+
 {{!-- Jquery and Bootstap core js files --}}
-<script type="text/javascript" src="/js/jquery/jquery-2.1.4.js"></script>
-<script type="text/javascript" src="/js/jquery/jquery.plugin.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+{{!-- Socket.io --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.min.js"></script>
 
 {{!-- UI --}}
 <script type="text/javascript" src="/plugins/underscore.js"></script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js"></script>
+<script type="text/javascript" src="/plugins/sketch.min.js"></script>
 
 {{> script/global section=section key=key }}

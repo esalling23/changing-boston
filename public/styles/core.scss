@@ -10,7 +10,7 @@
 // Body
 .body {
   background-color: #000;
-  color: #fff;
+  color: white;
   font-family: "HalisLight";
 }
 
@@ -34,10 +34,45 @@
 
 }
 
-.home {
+// Response item
+.item {
+	background-color: white;
+	height: 200px;
+	width: 200px;
+	color: black;
+}
 
-	#title {
-
-	}
+// Prompt 
+.prompt {
+		font-size: 36px;
+		text-align: center;
+		color: white;
 
 }
+
+#toggle {
+	color: black;
+}
+
+.response-input {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+
+	input {
+		color: black;
+	}
+}
+
+// Response Archive
+.home {
+
+	
+}
+
+// Input page
+
+
+
+// Present page
+

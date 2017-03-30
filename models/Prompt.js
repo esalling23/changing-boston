@@ -24,8 +24,8 @@ var Prompt = new keystone.List('Prompt',
 		label: 'Prompts',
 		singular: 'Prompt',
 		track: true, 
-		map: { name: 'prompt_one' },
-		autokey: { path: 'prompt_key', from: 'prompt_one', unique: true }
+		map: { name: 'prompt' },
+		autokey: { path: 'prompt_key', from: 'prompt', unique: true }
 	});
 
 /**
@@ -33,11 +33,20 @@ var Prompt = new keystone.List('Prompt',
  * @main Prompt
  */
 Prompt.add({
-	prompt_one: { type: String, label: "First Prompt (Primer)", initial: true, required: true }, 
-	prompt_two: { type: String, label: "Second Prompt (Engagement)"}, 
+	prompt: { type: String, label: "Prompt", initial: true, required: true }, 
+	location: { type: Types.Location, label: "Location" },
+	responses: {
+		type: Types.Relationship, 
+		ref: 'Response', 
+		label: 'Responses',
+		many: true
+	},
 	enabled: { type: Boolean, label: "Enabled" },	
+	promptId: { type: String, noedit: true, hidden: true, default: 'TEST'},
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
+
+// TO DO: Add after that adds ID of 4 random letters for session sockets
 
 /**
  * Model Registration

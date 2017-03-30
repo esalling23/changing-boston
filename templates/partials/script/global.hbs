@@ -13,8 +13,38 @@
 <script type="text/javascript">
 
 	var currentprompt;
+	var socket;
+	var socketEvents;
+
+	var promptId = "{{promptId}}";
 
 	$(document).ready(function() {
+
+		// All possible socket event IDs
+	var eventIds = [
+	
+		'connect',
+		'disconnect',
+
+		'response:send', 
+		'response:update'
+
+		];
+
+		var registerEvents = function() {
+			$.each(eventIds, function(index, id) {
+	      
+	      socket.on(id, function(eventData) {
+	            
+	            socketEvents(id, eventData);
+
+	            if(typeof(gameEvents) == "function")
+	                gameEvents(id, eventData);
+
+	        });
+
+	    });
+		};
 
 		// Menu toggling
 	  $("#menu-close").click(function(e) {
@@ -26,25 +56,145 @@
 	    $("#sidebar-wrapper").toggleClass("active");
 	  });
 
+
+
 	  {{#ifeq section "index"}}
 
-	  // set interval for 10 seconds
-	  var promptinterval = setInterval(promptChange, 10000);
+			  // set interval for 10 seconds
+			  var promptinterval = setInterval(promptChange, 10000);
 
-		function promptChange() {
+				function promptChange() {
 
-			var prompts = $('.prompt-wrapper');
-			_.each(prompts, function(prompt){
-				$(prompt).hide;
+					var prompts = $('.prompt-wrapper');
+					_.each(prompts, function(prompt){
+						$(prompt).hide;
 
-			});
-		}
-		function abortTimer() { // to be called when you want to stop the timer
-		  clearInterval(tid);
-		}
-
+					});
+				}
+				function abortTimer() { // to be called when you want to stop the timer
+				  clearInterval(tid);
+				}
 		
 		{{/ifeq}}
+
+
+
+		{{#ifeq section "create"}}
+
+				var index = 0;
+
+				$('#toggle').change(function() {
+					toggleInput();
+				});
+
+				// Switch input type
+				function toggleInput() {
+				    var x = document.getElementById("toggle");
+				    var i = x.selectedIndex;
+
+				    if (x.options[i].text == "Text") {
+				    	$('.draw-input').hide();
+
+				    } else if (x.options[i].text == "Draw") {
+				    	$('.draw-input').show(function() {
+				    		// Make canvas editable
+					      $('#sketch').sketch();
+				    	});
+				    }
+				}
+
+	      // Submit drawing
+	      $('#draw-submit').click(function(){
+
+	      	var canvas = $('#sketch');
+
+		      //save canvas image as data url (png format by default)
+			    var dataURL = canvas.get(0).toDataURL();
+
+			    var id = "#image-" + index;
+
+			    var image = '<div class="item"><img id="' + id + '" src="' + dataURL + '"/></div>';
+
+			    $('#response-group').append(image);
+
+			    index++;
+
+	      });
+
+	      // Take Text Area Input
+				$('#prompt-input').keypress(function(e) {
+	          // Enter pressed?
+	          if(e.which == 10 || e.which == 13) {
+	              sendResponse($(this).val());
+	          }
+
+	      });
+
+	      // Send Response Input 
+	      function sendResponse(text) {
+
+	      	console.log(text);
+
+	      	var html = '<div class="item">' + text + '</div>';
+
+	      	$('#response-group').append(html);
+
+	      	// TO DO: Add to prompt in keystone
+
+	      	// var data = { 
+	      	// 	promptId: promptId, 
+	      	// 	response: text
+	      	// }
+
+	     //  	$.post("/api/response/", data, function(data){
+						// // console.log(data);
+						// console.log("trying to add response");
+	            
+	     //    });
+
+	      	// socket.emit('response:send', { text:text } );
+
+	      }
+		
+		{{/ifeq}}
+
+
+
+
+
+// TODO
+
+		// SOCKET EVENTS 
+
+		// Open Socket connection
+		// socket = io('//{{host}}', {
+		//  	path: '/creating-boston', 
+		//  	reconnection: true,
+		//  	'reconnectionDelay': 500,
+		//  	'maxReconnectionAttempts':Infinity
+		//  });
+
+  //   registerEvents();
+
+  //   socketEvents = function(eventId, eventData) {
+	    
+	 //    switch (eventId) {
+
+	 //        case 'connect':
+
+		//         console.log('connected');
+
+		//         break;
+
+	 //        case 'response:update':
+
+		//         console.log('response going up', eventData);
+
+		//         break;
+
+  //     }
+
+  //   };
 
 	});
 	

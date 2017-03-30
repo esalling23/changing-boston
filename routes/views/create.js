@@ -12,7 +12,6 @@
  * ==========
  */
 var keystone = require('keystone'),
-    Index = keystone.list('Index'),
     Prompt = keystone.list('Prompt'),
     _ = require('underscore');
 
@@ -22,41 +21,29 @@ exports = module.exports = function(req, res) {
         locals = res.locals;
 
     // Init locals
-    locals.section = 'index';
+    locals.section = 'create';
+    locals.promptId = 'TEST';
 
     view.on('init', function(next) {
 
-        var queryIndex = Index.model.findOne({}, {}, {
+        var queryPrompt = Prompt.model.findOne({}, {}, {
             sort: {
                 'createdAt': -1
             }
         });
-        var queryPrompt = Prompt.model.find({'enabled': true}, {}, {
-            sort: {
-                'createdAt': -1
-            }
-        })
-        .populate('responses');
         
-        queryIndex.exec(function(err, resultIndex) {
+        queryPrompt.exec(function(err, resultPrompt) {
             if (err) throw err;
 
-            locals.index = resultIndex;
+            locals.prompt = resultPrompt;
 
-            queryPrompt.exec(function(err, resultPrompt) {
-                if (err) throw err;
-
-                locals.prompt = resultPrompt;
-
-                next();
-
-            });
+            next();
 
         });
-        
+
     });
 
     // Render the view
-    view.render('index');
+    view.render('create');
 
 };

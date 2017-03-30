@@ -5,9 +5,9 @@
 	<!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		<title>The Uncertainty Dictionary</title>
-		<meta name="description" content="The Uncertainty Dictionary">
-		<meta name="author" content="Engagement Lab">
+		<title>Creating Spaces</title>
+		<meta name="description" content="Creating Spaces">
+		<meta name="author" content="Erica Salling">
 		<!-- Mobile Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		{{!-- <meta name="theme-color" content="#78cbd1"> --}}
@@ -41,12 +41,9 @@
 			{{!-- {{> footer}} --}}
 
 			<!-- page-wrapper end -->
-			{{#ifeq env "development"}}
 				{{> script/development section=section subSection=sub_section}}
-			{{else}}
-				{{> script/production section=section}}
-			{{/ifeq}}
 
+				
 			{{{isAdminEditorJS user}}}
 		</div>
 	</body>

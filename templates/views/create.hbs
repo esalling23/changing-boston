@@ -1,0 +1,58 @@
+{{!< default}}
+{{!--
+/**
+* Engagement Lab Web Suite
+* Developed by Engagement Lab, 2016
+* ==============
+*
+* Index Page sample Template
+* ==========
+*/
+--}}
+
+
+<div class="container-fluid present">
+	<div class="row" style="color: white;">
+		
+	</div>
+
+	<div class="prompt-wrapper" id="{{prompt_key}}">
+
+		<div class="row prompt">
+
+				{{prompt.prompt}}
+					
+		</div>
+
+		<div class="row grid responses" id="response-group"></div>
+
+	</div>
+
+	<div class="response-input">
+
+		<select id="toggle">
+		  <option value="text">Text</option>
+		  <option value="draw">Draw</option>
+		</select>
+
+		<div class="text-input">
+
+			<p>Leave your own response! Use enter to send!</p>
+
+			<input type="text" id="prompt-input" placeholder="...">
+
+		</div>
+
+		<div class="draw-input" style="display:none">
+
+			<div class="tools">
+			  <input id="draw-submit" type="submit" value="Send" style="width: 100px;">
+			</div>
+
+			<canvas style="background:white" id="sketch" width="200" height="200"></canvas>
+
+		</div>
+
+	</div>
+
+</div> <!-- .container-fluid -->

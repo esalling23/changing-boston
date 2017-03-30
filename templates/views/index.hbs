@@ -18,17 +18,30 @@
 		
 	</div>
 
-	<div class="row">
+	{{#each prompt}}
 
-		{{#each prompt}}
+	<div class="prompt-wrapper" id="{{prompt_key}}">
 
-			<div class="prompt-wrapper" id="{{prompt_key}}">
-				<div class="prompt initial">{{prompt_one}}</div>
-				<div class="prompt secondary">{{prompt_two}}</div>
-			</div>
+		<div class="location">Viewing responses from: <span>{{prompt.location}}</span></div>
 
-		{{/each}}
-		
+		<div class="row prompt">
+
+			{{prompt}}
+
+		</div>
+
+		<div class="row grid responses">
+
+			{{#each prompt.responses}}
+
+				{{this}}
+
+			{{/each}}
+
+		</div>
+
 	</div>
+
+	{{/each}}
 
 </div> <!-- .container-fluid -->
