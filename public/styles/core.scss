@@ -40,6 +40,15 @@
 	height: 200px;
 	width: 200px;
 	color: black;
+	text-align:center;
+	display: table;
+	margin: 5px;
+	font-size:18px;
+
+	p {
+		display: table-cell;
+		vertical-align: middle;
+	}
 }
 
 // Prompt 
@@ -58,8 +67,12 @@
 	position: absolute;
 	bottom: 0px;
 	width: 100%;
+	text-align:center;
 
-	input {
+	a {
+		background-color:white;
+		height: 60px;
+		width:80px;
 		color: black;
 	}
 }

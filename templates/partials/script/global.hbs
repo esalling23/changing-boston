@@ -94,12 +94,15 @@
 
 				    if (x.options[i].text == "Text") {
 				    	$('.draw-input').hide();
+				    	$('.text-input').show();
 
 				    } else if (x.options[i].text == "Draw") {
+				    	$('.text-input').hide();
 				    	$('.draw-input').show(function() {
 				    		// Make canvas editable
 					      $('#sketch').sketch();
 				    	});
+				    	
 				    }
 				}
 
@@ -113,9 +116,14 @@
 
 			    var id = "#image-" + index;
 
-			    var image = '<div class="item"><img id="' + id + '" src="' + dataURL + '"/></div>';
+			    var image = '<div class="item col-sm-3"><img id="' + id + '" src="' + dataURL + '"/></div>';
 
 			    $('#response-group').append(image);
+
+			    $('#eraser').click();
+
+			    // Make canvas editable
+		      $('#sketch').sketch();
 
 			    index++;
 
@@ -135,7 +143,7 @@
 
 	      	console.log(text);
 
-	      	var html = '<div class="item">' + text + '</div>';
+	      	var html = '<div class="item col-sm-3"><p>' + text + '</p></div>';
 
 	      	$('#response-group').append(html);
 
