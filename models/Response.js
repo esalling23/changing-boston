@@ -24,7 +24,7 @@ var Response = new keystone.List('Response',
 		label: 'Responses',
 		singular: 'Response',
 		track: true, 
-		autokey: { path: 'Response_key', from: 'name', unique: true }
+		autokey: { path: 'response_key', from: 'name', unique: true }
 	});
 
 /**
@@ -32,16 +32,29 @@ var Response = new keystone.List('Response',
  * @main Response
  */
 Response.add({
-	name: { type: String, lablel: 'Response Name', initial: true, required: true },
+	name: { type: String, label: 'Response Name', default: "response-", initial: true, required: true },
 	type: { type: Types.Select, label: "Response Type", options: 'Text, Draw', default: 'Text', initial: true, required: true }, 
 	text: { type: String, label: 'Response Text', 
 		dependsOn: { 'type': ['Text'] } 
 	},
-	drawing: { type: String, label: 'Response Text', 
+	drawing: { type: String, label: 'Response Drawing', 
 		dependsOn: { 'type': ['Draw'] } 
 	},
+	index: { type: Number, noedit:true, label: 'Response Index' },
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
+
+// Response.schema.pre('save', function(next) {
+
+//     // Save state for post hook
+//     this.wasNew = this.isNew;
+//     this.wasModified = this.isModified();
+
+//     this.name = this.title;
+
+//     next();
+
+// });
 
 /**
  * Model Registration

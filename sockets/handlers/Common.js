@@ -22,9 +22,11 @@ var Common = function (nsp, socket) {
 
         'response:send': function(package) {
 
+            console.log(package.promptId);
+
             Session.Get(package.promptId).
             SendResponse(currentSpace, package.data);
-            
+
         }
     
     };

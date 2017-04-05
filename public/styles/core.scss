@@ -7,10 +7,14 @@
 	visibility: hidden;
 }
 
+body, html {
+	overflow:hidden;
+}
+
 // Body
 .body {
-  background-color: #000;
-  color: white;
+  background-color: white;
+  color: black;
   font-family: "HalisLight";
 }
 
@@ -36,14 +40,29 @@
 
 // Response item
 .item {
-	background-color: white;
-	height: 200px;
-	width: 200px;
+	height: 150px;
+	width: 150px;
 	color: black;
 	text-align:center;
 	display: table;
-	margin: 5px;
-	font-size:18px;
+	margin: 30px;
+	font-size:24px;
+
+
+	&.text {
+		border: 2px solid black;
+		background-color: #ADD8E6;
+	}
+
+	&.icon {
+		height: 150px;
+		width: 150px;
+		background-color: transparent;
+		img {
+			height: 150px;
+			width: 150px;
+		}
+	}
 
 	p {
 		display: table-cell;
@@ -53,14 +72,41 @@
 
 // Prompt 
 .prompt {
-		font-size: 36px;
-		text-align: center;
-		color: white;
+	font-size: 36px;
+	text-align: center;
+	color: blue;
+  padding: 10px 0px;
+}
 
+#prompt-input {
+	color: black;
+	height: 80px;
+	width: 400px;
+	font-size:18px;
 }
 
 #toggle {
 	color: black;
+}
+
+.icon-input {
+  height: 150px;
+  width: 500px;
+  margin: 0 auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.icon-feed {
+	height:100px;
+	width:100%;
+	overflow-x:auto;
+	overflow-y: hidden;
+}
+.icon {
+	height: 100px;
+	width: 100px;
+  display: inline-block;
 }
 
 .response-input {
@@ -68,6 +114,10 @@
 	bottom: 0px;
 	width: 100%;
 	text-align:center;
+
+	.section {
+		display: inline-block;
+	}
 
 	a {
 		background-color:white;

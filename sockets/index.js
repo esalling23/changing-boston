@@ -3,7 +3,7 @@ module.exports = function(app, socket) {
   var io = require('socket.io')(app, {path: '/creating-boston/'});
 
   var CommonHandler = require('./handlers/Common');
-  var GameManager = require('../lib/PromptManager');
+  var PromptManager = require('../lib/PromptManager');
 
   io.on('connection', function (socket) {
 

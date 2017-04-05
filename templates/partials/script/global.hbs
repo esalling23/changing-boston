@@ -31,6 +31,7 @@
 
 		];
 
+
 		var registerEvents = function() {
 			$.each(eventIds, function(index, id) {
 	      
@@ -83,84 +84,116 @@
 
 				var index = 0;
 
+				// // Start the session immediately
+				// $.post( 
+			 //  	"/api/response/",
+				// 	{ promptId: 'TEST' },
+				// 	function( data ) {
+				// 		data.promptId = 'TEST';
+
+				// 		if(data.error_code !== undefined) {
+
+				// 			// if(data.error_code === 'need_content')
+				// 				// $('#session-create #categories').addClass('invalid');
+							
+				// 			$('#session-create .error').text(data.msg).fadeIn();
+							
+				// 			return;
+				// 		}
+				// 	  window.location = data;
+				// 	  // socket.emit("game:start", 'TEST');
+
+				// 	});
+
+				$('.icon-feed').width($('.icon:not(.item)').length * 110 + 'px');
+
+
 				$('#toggle').change(function() {
 					toggleInput();
 				});
 
 				// Switch input type
-				function toggleInput() {
-				    var x = document.getElementById("toggle");
-				    var i = x.selectedIndex;
+				// function toggleInput() {
+				//     var x = document.getElementById("toggle");
+				//     var i = x.selectedIndex;
 
-				    if (x.options[i].text == "Text") {
-				    	$('.draw-input').hide();
-				    	$('.text-input').show();
+				//     if (x.options[i].text == "Text") {
+				//     	$('.draw-input').hide();
+				//     	$('.text-input').show();
 
-				    } else if (x.options[i].text == "Draw") {
-				    	$('.text-input').hide();
-				    	$('.draw-input').show(function() {
-				    		// Make canvas editable
-					      $('#sketch').sketch();
-				    	});
+				//     } else if (x.options[i].text == "Draw") {
+				//     	$('.text-input').hide();
+				//     	$('.draw-input').show(function() {
+				//     		// Make canvas editable
+				//     		var canvas = $('#sketch');
+				// 	      // paper.js
+				// 				paper.install(window);
+				// 				paper.setup(canvas);
+				// 				// Create a simple drawing tool:
+				// 				function onMouseDown(event) {
+				// 					console.log('You pressed the mouse!');
+				// 				}
+
+				// 				function onMouseDrag(event) {
+				// 					console.log('You dragged the mouse!');
+				// 				}
+
+				// 				function onMouseUp(event) {
+				// 					console.log('You released the mouse!');
+				// 				}
+
+				//     	});
 				    	
-				    }
-				}
-
-	      // Submit drawing
-	      $('#draw-submit').click(function(){
-
-	      	var canvas = $('#sketch');
-
-		      //save canvas image as data url (png format by default)
-			    var dataURL = canvas.get(0).toDataURL();
-
-			    var id = "#image-" + index;
-
-			    var image = '<div class="item col-sm-3"><img id="' + id + '" src="' + dataURL + '"/></div>';
-
-			    $('#response-group').append(image);
-
-			    $('#eraser').click();
-
-			    // Make canvas editable
-		      $('#sketch').sketch();
-
-			    index++;
-
-	      });
+				//     }
+				// }
 
 	      // Take Text Area Input
 				$('#prompt-input').keypress(function(e) {
+
 	          // Enter pressed?
 	          if(e.which == 10 || e.which == 13) {
-	              sendResponse($(this).val());
+	              sendResponse($(this)[0].value, 'text');
 	          }
 
 	      });
 
+	      // Grab Icon
+	      $('.icon:not(.item)').click(function(){
+
+	      	console.log($(this).find('img').attr('src'));
+
+	      	sendResponse($(this).find('img').attr('src'), 'icon');
+
+	      });
+
 	      // Send Response Input 
-	      function sendResponse(text) {
+	      function sendResponse(item, type) {
 
-	      	console.log(text);
+	      	if (type == 'text'){
+	      		console.log(item, "is the text");
 
-	      	var html = '<div class="item col-sm-3"><p>' + text + '</p></div>';
+	      		var html = '<div class="item text col-sm-3"><p>' + item + '</p></div>';
 
-	      	$('#response-group').append(html);
+		      	$('#response-group').append(html);
 
-	      	// TO DO: Add to prompt in keystone
+	      	} else if (type == 'icon') {
+
+	      		var html = '<div class="item icon col-sm-3"><img src="' + item + '"/></div>';
+
+		      	$('#response-group').append(html);
+
+	      	}
+
+	      	
+
+	      	//TO DO: Add to prompt in keystone
 
 	      	// var data = { 
 	      	// 	promptId: promptId, 
 	      	// 	response: text
 	      	// }
 
-	     //  	$.post("/api/response/", data, function(data){
-						// // console.log(data);
-						// console.log("trying to add response");
-	            
-	     //    });
-
-	      	// socket.emit('response:send', { text:text } );
+	      	// socket.emit('response:send', { promptId: 'TEST', data:data } );
 
 	      }
 		
@@ -175,34 +208,34 @@
 		// SOCKET EVENTS 
 
 		// Open Socket connection
-		// socket = io('//{{host}}', {
-		//  	path: '/creating-boston', 
-		//  	reconnection: true,
-		//  	'reconnectionDelay': 500,
-		//  	'maxReconnectionAttempts':Infinity
-		//  });
+		socket = io('//{{host}}', {
+		 	path: '/creating-boston', 
+		 	reconnection: true,
+		 	'reconnectionDelay': 500,
+		 	'maxReconnectionAttempts':Infinity
+		 });
 
-  //   registerEvents();
+    registerEvents();
 
-  //   socketEvents = function(eventId, eventData) {
+    socketEvents = function(eventId, eventData) {
 	    
-	 //    switch (eventId) {
+	    switch (eventId) {
 
-	 //        case 'connect':
+	        case 'connect':
 
-		//         console.log('connected');
+		        console.log('connected');
 
-		//         break;
+		        break;
 
-	 //        case 'response:update':
+	        case 'response:update':
 
-		//         console.log('response going up', eventData);
+		        console.log('response going up', eventData);
 
-		//         break;
+		        break;
 
-  //     }
+      }
 
-  //   };
+    };
 
 	});
 	

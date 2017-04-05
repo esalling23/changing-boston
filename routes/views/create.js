@@ -13,6 +13,7 @@
  */
 var keystone = require('keystone'),
     Prompt = keystone.list('Prompt'),
+    Icon = keystone.list('Icon')
     _ = require('underscore');
 
 exports = module.exports = function(req, res) {
@@ -31,13 +32,25 @@ exports = module.exports = function(req, res) {
                 'createdAt': -1
             }
         });
+        var queryIcon = Icon.model.find({}, {}, {
+            sort: {
+                'createdAt': -1
+            }
+        });
         
         queryPrompt.exec(function(err, resultPrompt) {
             if (err) throw err;
 
             locals.prompt = resultPrompt;
 
-            next();
+            queryIcon.exec(function(err, resultIcon) {
+                if (err) throw err;
+
+                locals.icons = resultIcon;
+
+                next();
+
+            });
 
         });
 

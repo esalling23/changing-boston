@@ -30,29 +30,34 @@
 
 	<div class="response-input">
 
-		<select id="toggle">
-		  <option value="text">Text</option>
-		  <option value="draw">Draw</option>
-		</select>
+		<div class="icon-input section">
+		<p>Scroll through icons and tap to send!</p>
+			<div class="icon-feed">
 
-		<div class="text-input">
+				{{#each icons}}
 
-			<p>Leave your own response! Use enter to send!</p>
+				<div class="icon">
 
-			<input type="text" id="prompt-input" placeholder="...">
+					<img src="{{{cloudinaryUrl this.icon width=100 height=100 crop='scale' quality=100}}}" alt="{{this.name}}" class="event-photo" style="margin:0 auto;">
 
-		</div>
+				</div>
 
-		<div class="draw-input" style="display:none">
+				{{/each}}
 
-			<div class="tools">
-				<a id="draw-submit" style="width: 100px;">Send</a>
-				<a href="#sketch" data-tool="eraser" id="eraser" style="display:none">Eraser</a>
 			</div>
+			
+		</div>
 
-			<canvas style="background:white" id="sketch" width="200" height="200"></canvas>
+
+		<div class="text-input section">
+				<p>Type and hit 'enter' to send, but keep it short!<br> (Tweet length)</p>
+
+
+			<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="120" id="prompt-input" placeholder="..."></textarea>
 
 		</div>
+
+		
 
 	</div>
 

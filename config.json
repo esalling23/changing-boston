@@ -1,6 +1,6 @@
 {
 	"name": "Changing Boston",
-	"database": "creating-boston",
+	"database": "changing-boston",
 	"admin_nav": { 
 									"index": ["Index"]
 								}
