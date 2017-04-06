@@ -30,22 +30,25 @@
 
 	<div class="response-input">
 
-		<div class="icon-input section">
-		<p>Scroll through icons and tap to send!</p>
-			<div class="icon-feed">
+		<div class="icon-wrap">
+			<p>Scroll through icons and tap to send!</p>
 
-				{{#each icons}}
+			<div class="icon-input section">
+				<div class="icon-feed">
 
-				<div class="icon">
+					{{#each icons}}
 
-					<img src="{{{cloudinaryUrl this.icon width=100 height=100 crop='scale' quality=100}}}" alt="{{this.name}}" class="event-photo" style="margin:0 auto;">
+					<div class="icon">
+
+						<img src="{{{cloudinaryUrl this.icon width=100 height=100 crop='scale' quality=100}}}" alt="{{this.name}}" class="event-photo" style="margin:0 auto;">
+
+					</div>
+
+					{{/each}}
 
 				</div>
-
-				{{/each}}
-
+				
 			</div>
-			
 		</div>
 
 
