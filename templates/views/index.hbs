@@ -12,36 +12,25 @@
 
 
 <div class="container-fluid home">
+
 	<div class="row" style="color: white;">
 
-	{{index.title}}
+		{{index.title}}
 		
 	</div>
 
-	{{#each prompt}}
+	<div class="row">
 
-	<div class="prompt-wrapper" id="{{prompt_key}}">
-
-		<div class="location">Viewing responses from: <span>{{prompt.location}}</span></div>
-
-		<div class="row prompt">
-
-			{{prompt}}
-
-		</div>
-
-		<div class="row grid responses">
-
-			{{#each prompt.responses}}
-
-				{{this}}
-
-			{{/each}}
-
-		</div>
+		{{index.text}}
 
 	</div>
 
-	{{/each}}
+	<div class="row">
+
+		{{!-- buttons for planning(group) & viewing(archive)--}}
+		<a href="group">plan now</a>
+		<a href="archive">learn more</a>
+
+	</div>
 
 </div> <!-- .container-fluid -->

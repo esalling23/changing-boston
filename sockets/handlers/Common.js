@@ -15,7 +15,7 @@ var Common = function (nsp, socket) {
     var currentSpace = nsp,
         currentSocket = socket, 
         appRoot = require('app-root-path')
-        Session = require(appRoot + '/lib/SessionManager');
+        Session = require(appRoot + '/lib/Common');
 
     // Expose handler methods for events
     this.handler = {
@@ -24,8 +24,8 @@ var Common = function (nsp, socket) {
 
             console.log(package.promptId);
 
-            Session.Get(package.promptId).
-            SendResponse(currentSpace, package.data);
+            currentSpace.emit('test');
+            Session.SendResponse(currentSpace, package.data);
 
         }
     

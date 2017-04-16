@@ -6,7 +6,7 @@ var keystone = require('keystone'),
     appRoot = require('app-root-path');
     
 var Game = require(appRoot + '/lib/PromptManager'),
-		Response = keystone.list('Response'),
+	GameSession = keystone.list('GameSession'),
     Session = require(appRoot + '/lib/SessionManager');
 
 /**
@@ -26,4 +26,54 @@ exports.create = function(req, res) {
 
     res.send('/create');
         
+};
+
+/**
+ * Generate info for Game creation menu
+ */
+exports.generate = function(req, res) {
+
+    // var TemplateLoader = require(appRoot + '/lib/TemplateLoader');
+    const randomstring = require('randomstring'); 
+    let gameCode;
+
+    function generateCode() {
+
+        return randomstring.
+               generate({ length: 4, charset: 'alphabetic' }).toUpperCase();
+    
+    }
+
+    gameCode = generateCode();
+
+    // Check if there's already a game with the generated access code
+    GameSession.model.findOne({accessCode: gameCode}, function (err, session) {
+
+        // There is! A one in 15,000 probability! Make a new one
+        if (session)
+            gameCode = generateCode();
+
+        console.log(gameCode);
+
+        // // Create a prompt model with the submitted prompt
+        
+        // decksQuery.exec((err, decks) => {
+            
+        //     var Templates = new TemplateLoader();
+
+        //     // Shuffle deck roles and only get 6
+        //     _.each(decks, (deck, i) => {
+        //         deck.roles = _.sample(deck.roles, 6);
+        // //     });
+
+        //     Templates.Load('partials/decider/decks', decks, function(html) {
+
+        //         res.send({code: gameCode, html: html});
+
+        //     });
+
+        // });
+
+    });
+
 };

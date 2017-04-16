@@ -22,29 +22,16 @@ exports = module.exports = function(req, res) {
         locals = res.locals;
 
     // Init locals
-    locals.section = 'index';
+    locals.section = 'group';
 
     // Home page
     view.on('init', function(next) {
 
-        var queryIndex = Index.model.findOne({}, {}, {
-            sort: {
-                'createdAt': -1
-            }
-        });
-        
-        queryIndex.exec(function(err, resultIndex) {
-            if (err) throw err;
+        next();
 
-            locals.index = resultIndex;
-
-            next();
-
-        });
-        
     });
 
     // Render the view
-    view.render('index');
+    view.render('group');
 
 };

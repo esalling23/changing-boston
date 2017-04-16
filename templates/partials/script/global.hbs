@@ -25,11 +25,12 @@
 	
 		'connect',
 		'disconnect',
+		'plan:new',
 
 		'response:send', 
 		'response:update'
 
-		];
+	];
 
 
 		var registerEvents = function() {
@@ -47,34 +48,101 @@
 	    });
 		};
 
+		/* 
+		 Associate provided data object with current game ID
+		*/
+		var emitData = function(data) {
+
+			if(!data.code && data.new == true){
+
+			}
+
+			if(gameCode === undefined && typeof(data.code) !== 'undefined')
+				gameCode = data.code;
+
+			return { gameId: gameCode, msgData: data };
+		
+		};
+
+		/* 
+		 Obtains the embedded data ('data-key="something"') object from the provided submit button
+		*/
+		var getFormData = function(submitElement) {
+
+			var pkg;
+
+			if(submitElement[0].dataset === undefined)
+				return undefined;
+			
+			try {
+				pkg = JSON.parse(submitElement[0].dataset.package);
+			}
+			catch(e) {
+				pkg = submitElement[0].dataset.package;
+			}
+
+			if($.isPlainObject(pkg)) {
+				$.each(Object.keys(pkg), function( key, value ) {
+
+					if(pkg[value] !== undefined)
+					  pkg[value] = $(pkg[value].toString()).val();
+
+				});
+			}
+			else if(!submitElement.is('button'))
+				pkg = $(pkg).val();
+
+			return pkg;
+
+		};
+
+		/**
+		 * Listen for forms that dispatch socket events.
+		 *
+		 * ### Examples:
+		 *
+		 * @class global
+		 */
+		$(document).on('click', '.form .submit', function(evt) {
+		    
+		    var event = $(this).data().event;
+		    var pkg = getFormData($(this));
+
+		    // Emit event to socket
+		    socket.emit(event, emitData(pkg));
+
+		});
+
+		
+
 		// Menu toggling
-	  $("#menu-close").click(function(e) {
-	    e.preventDefault();
-	    $("#sidebar-wrapper").toggleClass("active");
-	  });
-	  $("#menu-toggle").click(function(e) {
-	    e.preventDefault();
-	    $("#sidebar-wrapper").toggleClass("active");
-	  });
+	   $("#menu-close").click(function(e) {
+		   e.preventDefault();
+		   $("#sidebar-wrapper").toggleClass("active");
+	   });
+	   $("#menu-toggle").click(function(e) {
+		   e.preventDefault();
+		   $("#sidebar-wrapper").toggleClass("active");
+	   });
 
 
 
-	  {{#ifeq section "index"}}
+	   {{#ifeq section "index"}}
 
-			  // set interval for 10 seconds
-			  var promptinterval = setInterval(promptChange, 10000);
+		  // set interval for 10 seconds
+		  var promptinterval = setInterval(promptChange, 10000);
 
-				function promptChange() {
+			function promptChange() {
 
-					var prompts = $('.prompt-wrapper');
-					_.each(prompts, function(prompt){
-						$(prompt).hide;
+				var prompts = $('.prompt-wrapper');
+				_.each(prompts, function(prompt){
+					$(prompt).hide;
 
-					});
-				}
-				function abortTimer() { // to be called when you want to stop the timer
-				  clearInterval(tid);
-				}
+				});
+			}
+			function abortTimer() { // to be called when you want to stop the timer
+			  clearInterval(tid);
+			}
 		
 		{{/ifeq}}
 
@@ -85,25 +153,7 @@
 				var index = 0;
 
 				// // Start the session immediately
-				// $.post( 
-			 //  	"/api/response/",
-				// 	{ promptId: 'TEST' },
-				// 	function( data ) {
-				// 		data.promptId = 'TEST';
-
-				// 		if(data.error_code !== undefined) {
-
-				// 			// if(data.error_code === 'need_content')
-				// 				// $('#session-create #categories').addClass('invalid');
-							
-				// 			$('#session-create .error').text(data.msg).fadeIn();
-							
-				// 			return;
-				// 		}
-				// 	  window.location = data;
-				// 	  // socket.emit("game:start", 'TEST');
-
-				// 	});
+				
 
 				$('.icon-feed').width($('.icon:not(.item)').length * 110 + 'px');
 
@@ -186,18 +236,35 @@
 
 	      	
 
-	      	//TO DO: Add to prompt in keystone
+	      	// TO DO: Add to prompt in keystone
 
-	      	// var data = { 
-	      	// 	promptId: promptId, 
-	      	// 	response: text
-	      	// }
+	      	var data = { 
+	      		promptId: promptId, 
+	      		response: text
+	      	}
 
-	      	// socket.emit('response:send', { promptId: 'TEST', data:data } );
+	      	socket.emit('response:send', { promptId: {{promptId}}, data:data } );
 
 	      }
 		
-		{{/ifeq}}
+	{{/ifeq}}
+
+	{{#ifeq section 'group'}}
+
+		$('#start-plan').click(function(){
+			$('.new-plan').fadeIn(function(){
+				$('.select').fadeOut();
+			});
+		});
+
+		$('#continue-plan').click(function(){
+			$('.continue-plan').fadeIn(function(){
+				$('.select').fadeOut();
+			});
+		});
+
+
+	{{/ifeq}}
 
 
 

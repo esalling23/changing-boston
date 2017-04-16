@@ -1,0 +1,55 @@
+{{!< default}}
+{{!--
+/**
+* Erica Salling
+* Developed 2017
+* ==============
+*
+* Group Home Page
+* ==========
+*/
+--}}
+
+
+<div class="container-fluid home">
+
+	<div class="row" style="color: white;">
+
+		{{group.title}}
+		
+	</div>
+
+	<div class="row">
+
+		{{group.text}}
+
+	</div>
+
+	<div class="row select">
+
+		{{!-- buttons for start new or continue --}}
+		<a id="start-plan" tabindex="1">start new plan</a>
+		<a id="continue-plan" tabindex="2">continue plan</a>
+
+	</div>
+
+	<div class="new-plan" style="display:none">
+
+		<h3>Let's get started! Enter a question the question you're asking in your plan!</h3>
+		<p>Don't worry, you can change this later!</p>
+
+		<input tabindex="1" type="text" id="prompt-input">
+		<a href="group/new" tabindex="2">start new plan</a>
+
+	</div>
+
+	<div class="continue-plan" style="display:none">
+
+		<h3>Please enter your plan's special, 4 digit code!</h3>
+
+		<input tabindex="1" type="text" maxlength="4" id="access-code">
+		<a href="group/plan" tabindex="2">continue plan</a>
+
+	</div>
+
+</div> <!-- .container-fluid -->

@@ -35,14 +35,28 @@ var Prompt = new keystone.List('Prompt',
 Prompt.add({
 	prompt: { type: String, label: "Prompt", initial: true, required: true }, 
 	location: { type: Types.Location, label: "Location" },
+	icons: {
+		type: Types.Relationship, 
+		ref: 'Icon', 
+		label: 'Icons',
+		many: true
+	},
 	responses: {
 		type: Types.Relationship, 
 		ref: 'Response', 
 		label: 'Responses',
-		many: true
+		many: true, 
+		hidden: true,
+		noedit: true
 	},
 	enabled: { type: Boolean, label: "Enabled" },	
-	promptId: { type: String, noedit: true, hidden: true, default: 'TEST'},
+	planner: {
+		type: Types.Relationship, 
+		ref: 'Planner', 
+		label: 'Planner',
+		noedit: true
+	}
+	promptId: { type: String, noedit: true, label: "This is the special code for this prompt" },
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 

@@ -30,3 +30,23 @@ imageLoaded = function(parentElem, callback) {
 
 };
 
+	// $.post( 
+	// 			  	"/api/response/",
+	// 					{promptId: 'TEST'},
+	// 					function( data ) {
+	// 						data.promptId = 'TEST';
+
+	// 						if(data.error_code !== undefined) {
+
+	// 							// if(data.error_code === 'need_content')
+	// 								// $('#session-create #categories').addClass('invalid');
+								
+	// 							$('#session-create .error').text(data.msg).fadeIn();
+								
+	// 							return;
+	// 						}
+	// 					  window.location = data;
+	// 					  // socket.emit("game:start", 'TEST');
+
+	// 					});
+
