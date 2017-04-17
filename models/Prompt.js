@@ -39,7 +39,7 @@ Prompt.add({
 		type: Types.Relationship, 
 		ref: 'Icon', 
 		label: 'Icons',
-		many: true
+		many: true, 
 	},
 	responses: {
 		type: Types.Relationship, 
@@ -49,14 +49,15 @@ Prompt.add({
 		hidden: true,
 		noedit: true
 	},
-	enabled: { type: Boolean, label: "Enabled" },	
+	enabled: { type: Boolean, label: "Live" },	
 	planner: {
 		type: Types.Relationship, 
 		ref: 'Planner', 
 		label: 'Planner',
+		many: false,
 		noedit: true
-	}
-	promptId: { type: String, noedit: true, label: "This is the special code for this prompt" },
+	},
+	promptId: { type: String, noedit: true, label: "This is the special room code for this prompt" },
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 

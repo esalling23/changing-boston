@@ -27,6 +27,8 @@ exports = module.exports = function(req, res) {
     // Home page
     view.on('init', function(next) {
 
+        // query diy guide and methodology information
+
         next();
 
     });

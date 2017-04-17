@@ -15,9 +15,13 @@ var Planner = new keystone.List('Planner',
 	});
 
 Planner.add({
-	name: { type: Types.Name, required: true, index: true, hidden: true },
-	email: { type: Types.Email, initial: true, required: true, index: true },
-	password: { type: Types.Password, initial: true, required: true }
+	name: { type: Types.Name, required: true, initial: true, },
+	email: { type: Types.Email, initial: true, required: true },
+	password: { type: Types.Password, initial: true, required: true }, 
+	bio: {
+		type: Types.Markdown, 
+		label: 'Planner Bio'
+	}
 });
 
 /**

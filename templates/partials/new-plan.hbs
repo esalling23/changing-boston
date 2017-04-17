@@ -1,0 +1,58 @@
+{{!< default}}
+{{!--
+/**
+* Erica Salling
+* Developed 2017
+* ==============
+*
+* Plan Creation Page
+* ==========
+*/
+--}}
+
+
+<div class="row">
+
+<h3>New Plan</h3>
+	
+</div>
+
+<div class="prompt-wrapper" id="{{prompt_key}}">
+
+	<div class="row prompt">
+
+		<h4>Think up a big question around which your plan will revolve!</h4>
+
+		<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="300" id="prompt-input" placeholder="big question"></textarea>
+				
+	</div>
+
+	<div class="icon-wrap">
+		<p>Scroll through icons and select which ones you would like in your plan!</p>
+
+		<div class="icon-input section">
+			<div class="icon-feed">
+
+				{{#each icons}}
+
+				<div class="icon">
+
+					<div class="send-icon"></div>
+
+					<img src="{{{cloudinaryUrl this.icon width=100 height=100 crop='scale' quality=100}}}" alt="{{this.name}}" class="event-photo" style="margin:0 auto;">
+
+				</div>
+
+				{{/each}}
+
+			</div>
+			
+		</div>
+
+		<input type="file" class="icon-upload">
+
+	</div>
+
+</div>
+
+

@@ -1,0 +1,31 @@
+{{!< default}}
+{{!--
+/**
+* Erica Salling
+* Developed 2017
+* ==============
+*
+* Group Home Page
+* ==========
+*/
+--}}
+
+
+<div class="container-fluid home">
+
+	<h3>Welcome, {{profile.name}}</h3>
+	<div class="profile" id="planner-profile">
+	{{{jsonPrint planner}}}
+	{{{jsonPrint prompts}}}
+
+	<a id="new-plan">new plan</a>
+	<a id="load-plan">continue plan</a>
+
+	</div> <!-- .profile -->
+
+	<div class="new" id="new-plan-wrapper" style="display:none">
+	{{> new-plan}}
+	</div> <!-- .new -->
+
+
+</div> <!-- .container-fluid -->

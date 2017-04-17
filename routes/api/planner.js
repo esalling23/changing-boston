@@ -14,32 +14,34 @@ var Game = require(appRoot + '/lib/PromptManager'),
 // Create a planner profile
 exports.create = function(req, res) {
 
-    var query = Planner.model.find({email:req.query.username});
-
-    query.select('email password');
-
-    query.exec(function (err, person) {
+    // Check if this user already has a profile
+    console.log(req.query.email)
+    var query = Planner.model.findOne({ email:req.query.email });
+    query.exec(function (err, profile) {
 
         // Does this email already exist?
-        if (person) {
+        if (profile) {
             console.log ("email in use - did you mean to sign in?");
             return;
         } else {
             
             new Planner.model({
-                userName: req.body.username,
-                email: req.body.email,
-                pass: req.body.password
-            }).save(function(err) {
+                name: req.query.name,
+                email: req.query.email,
+                password: req.query.password
+            }).save(function(err, newprofile) {
 
                 if (err)
-                console.log(err);
-              else 
-                console.log ("success");
+                    console.log(err);
+                else {
+
+                    res.send('planner/profile/' + newprofile.id);
+                    console.log('success')
+                }
 
             });
 
-        res.send('/planner/profile');
+            
 
         }
 
@@ -52,7 +54,7 @@ exports.create = function(req, res) {
 
 exports.get = function(req, res) {
 
-    var query = Planner.model.findOne({email:req.query.username});
+    var query = Planner.model.findOne({email:req.query.email});
 
     query.select('email password');
 
@@ -60,13 +62,12 @@ exports.get = function(req, res) {
 
         if (err) return handleError("we have not found your profile -- " + err);
       
-        var data = {password:person.password, email:person.email};
+        var data = profile.id;
 
         profile._.password.compare(req.query.password, function(err, result){
 
             if (result) {
-
-                res.send('/planner/profile');
+                res.send('/planner/profile/' + data);
 
             } else {
                 console.log("wrong password");

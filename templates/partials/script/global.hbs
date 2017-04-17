@@ -129,6 +129,8 @@
 
 	   {{#ifeq section "index"}}
 
+
+
 		  // set interval for 10 seconds
 		  var promptinterval = setInterval(promptChange, 10000);
 
@@ -251,6 +253,55 @@
 
 	{{#ifeq section 'group'}}
 
+		$('#btn_login').click(function(evt) {
+			var data = {};
+			data.email = $('#email_input').val();
+			data.password = $('#password_input').val();
+			console.log(data);
+
+			if (!data.password || !data.email) {
+				console.log ("empty fields");
+				  
+			} else {
+				console.log("checking login info");
+
+				$.get("/api/login/", data, function(data){
+					console.log(data, " login data");
+					window.location = data;
+				})
+				.fail(function() {
+				    alert( "error" );
+				})
+				.always(function() {
+				    alert( "finished" );
+				});
+			}
+
+		});
+		$('#btn_signup').click(function(evt) {
+			var data = {};
+			data.name= $('#name_input').val();
+			data.email = $('#email_input').val();
+			data.password = $('#password_input').val();
+			console.log(data);
+
+			if (!data.password || !data.email || !data.name) {
+				console.log ("empty fields");
+				  
+			} else {
+				console.log("checking signup info");
+
+				$.get("/api/signup/", data, function(data){
+					console.log(data, " signup data");
+					window.location = data;
+				})
+				.fail(function() {
+				    alert( "error" );
+				});
+			}
+
+		});
+
 		$('#start-plan').click(function(){
 			$('.new-plan').fadeIn(function(){
 				$('.select').fadeOut();
@@ -266,43 +317,71 @@
 
 	{{/ifeq}}
 
+	if($.fn.cloudinary_fileupload !== undefined) {
+    $("input.icon-upload[type=file]").cloudinary_fileupload();
+  }
+
+	  $('#load_plan').click(function(evt) {
+			var data = {};
+			data.name= $('#name_input').val();
+			data.email = $('#email_input').val();
+			data.password = $('#password_input').val();
+			console.log(data);
+
+			if (!data.password || !data.email || !data.name) {
+				console.log ("empty fields");
+				  
+			} else {
+				console.log("checking signup info");
+
+				$.get("/api/signup/", data, function(data){
+					console.log(data, " signup data");
+					window.location = data;
+				})
+				.fail(function() {
+				    alert( "error" );
+				});
+			}
+
+		});
 
 
 
 
-// TODO
 
-		// SOCKET EVENTS 
+// // TODO
 
-		// Open Socket connection
-		socket = io('//{{host}}', {
-		 	path: '/creating-boston', 
-		 	reconnection: true,
-		 	'reconnectionDelay': 500,
-		 	'maxReconnectionAttempts':Infinity
-		 });
+// 		// SOCKET EVENTS 
 
-    registerEvents();
+// 		// Open Socket connection
+// 		socket = io('//{{host}}', {
+// 		 	path: '/creating-boston', 
+// 		 	reconnection: true,
+// 		 	'reconnectionDelay': 500,
+// 		 	'maxReconnectionAttempts':Infinity
+// 		 });
 
-    socketEvents = function(eventId, eventData) {
+//     registerEvents();
+
+//     socketEvents = function(eventId, eventData) {
 	    
-	    switch (eventId) {
+// 	    switch (eventId) {
 
-	        case 'connect':
+// 	        case 'connect':
 
-		        console.log('connected');
+// 		        console.log('connected');
 
-		        break;
+// 		        break;
 
-	        case 'response:update':
+// 	        case 'response:update':
 
-		        console.log('response going up', eventData);
+// 		        console.log('response going up', eventData);
 
-		        break;
+// 		        break;
 
-      }
+//       }
 
-    };
+//     };
 
 	});
 	

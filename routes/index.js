@@ -50,13 +50,11 @@ exports = module.exports = function(app) {
     app.get('/', routes.views.index);
 
     app.get('/present', routes.views.present);
-
+    app.get('/archive', routes.views.archive);
     app.get('/create', routes.views.create);
 
-    app.get('/group', routes.views.group);
-    app.get('/group/new', routes.views.new);
-    app.get('/planner/profile', routes.views.plan);
-
+    app.get('/planner', routes.views.group);
+    app.get('/planner/profile/:id', routes.views.planner);
 
     app.get('/api/login', keystone.middleware.api, routes.api.planner.get);
     app.get('/api/signup', keystone.middleware.api, routes.api.planner.create);

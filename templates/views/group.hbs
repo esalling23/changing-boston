@@ -28,27 +28,12 @@
 	<div class="row select">
 
 		{{!-- buttons for start new or continue --}}
-		<a id="start-plan" tabindex="1">start new plan</a>
-		<a id="continue-plan" tabindex="2">continue plan</a>
-
-	</div>
-
-	<div class="new-plan" style="display:none">
-
-		<h3>Let's get started! Enter a question the question you're asking in your plan!</h3>
-		<p>Don't worry, you can change this later!</p>
-
-		<input tabindex="1" type="text" id="prompt-input">
-		<a href="group/new" tabindex="2">start new plan</a>
-
-	</div>
-
-	<div class="continue-plan" style="display:none">
-
-		<h3>Please enter your plan's special, 4 digit code!</h3>
-
-		<input tabindex="1" type="text" maxlength="4" id="access-code">
-		<a href="group/plan" tabindex="2">continue plan</a>
+		<input class="hidden-el" type="text" id="name_input" placeholder="name" tabindex="1"> <br />
+		<input class="hidden-el" type="text" id="email_input" placeholder="email" tabindex="2"> <br />
+	    <input class="hidden-el" type="text" id="password_input" placeholder="password" tabindex="3"> <br />
+	    <div class="error">Error!</div>
+	    <input id="btn_login" data-event="game:entry" data-package='{"email": "#email_input", "pass": "#password_input"}' class="btn btn-default desktop-only game_login hidden-el" type="submit" name="submit" value="login">
+	    <input id="btn_signup" data-event="game:entry" data-package='{"email": "#email_input", "pass": "#password_input"}' class="btn btn-default desktop-only game_login hidden-el" type="submit" name="submit" value="signup">
 
 	</div>
 
