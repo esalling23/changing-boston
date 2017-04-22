@@ -199,15 +199,15 @@
 				//     }
 				// }
 
-	      // Take Text Area Input
-				$('#prompt-input').keypress(function(e) {
+        // Take Text Area Input
+		$('#prompt-input').keypress(function(e) {
 
-	          // Enter pressed?
-	          if(e.which == 10 || e.which == 13) {
-	              sendResponse($(this)[0].value, 'text');
-	          }
+            // Enter pressed?
+            if(e.which == 10 || e.which == 13) {
+                sendResponse($(this)[0].value, 'text');
+            }
 
-	      });
+        });
 
 	      // Grab Icon
 	      $('.icon:not(.item)').click(function(){
@@ -302,30 +302,19 @@
 
 		});
 
-		$('#start-plan').click(function(){
-			$('.new-plan').fadeIn(function(){
-				$('.select').fadeOut();
-			});
-		});
-
-		$('#continue-plan').click(function(){
-			$('.continue-plan').fadeIn(function(){
-				$('.select').fadeOut();
-			});
-		});
+		
 
 
 	{{/ifeq}}
 
-	if($.fn.cloudinary_fileupload !== undefined) {
-    $("input.icon-upload[type=file]").cloudinary_fileupload();
-  }
 
-	  $('#load_plan').click(function(evt) {
+	{{#ifeq section 'profile'}}
+
+	  	// Load current plan based on selection
+		$('#load-plan').click(function(evt) {
 			var data = {};
-			data.name= $('#name_input').val();
-			data.email = $('#email_input').val();
-			data.password = $('#password_input').val();
+			data.planner = $('.profile').attr('id');
+			data.plan = $('.old-plan.selected').attr('id');
 			console.log(data);
 
 			if (!data.password || !data.email || !data.name) {
@@ -334,16 +323,61 @@
 			} else {
 				console.log("checking signup info");
 
-				$.get("/api/signup/", data, function(data){
+				$.get("/api/load/", data, function(data){
 					console.log(data, " signup data");
 					window.location = data;
 				})
 				.fail(function() {
 				    alert( "error" );
 				});
+
 			}
 
 		});
+		// Create new plan
+		$('#new-plan').click(function(evt) {
+			var data = {};
+			data.planner = $('.profile').attr('id');
+			data.text = $('input#new-plan-prompt').val();
+			console.log(data);
+
+			if (!data.planner || !data.text) {
+				if (!data.planner)
+					console.log("is this a ghost?");
+				else if (!data.text)
+					console.log("check yourself, you forgot to enter a question!")
+				  
+			} else {
+				console.log("checking signup info");
+
+				$.get("/api/start/", data, function(data){
+					console.log(data, " created yourself a damn plan");
+					
+					$('#new-plan-wrapper').html(data.eventData).find('#prompt-input').val(data.data.prompt);
+					$('#new-plan-wrapper').fadeIn();
+
+
+				})
+				.fail(function() {
+				    alert( "error" );
+				});
+
+			}
+
+		});
+
+	{{/ifeq}}
+
+	{{#ifeq section 'new-plan'}}
+
+	console.log({{section}});
+
+	if($.fn.cloudinary_fileupload !== undefined) {
+	    $("input.icon-upload[type=file]").cloudinary_fileupload();
+	}
+
+	{{/ifeq}}
+
 
 
 

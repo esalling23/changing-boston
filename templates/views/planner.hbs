@@ -13,19 +13,36 @@
 
 <div class="container-fluid home">
 
-	<h3>Welcome, {{profile.name}}</h3>
-	<div class="profile" id="planner-profile">
-	{{{jsonPrint planner}}}
-	{{{jsonPrint prompts}}}
+	<h3>Welcome, {{planner.name.first}}</h3>
+	<div class="profile" id="planner-profile-{{planner._id}}">
 
-	<a id="new-plan">new plan</a>
-	<a id="load-plan">continue plan</a>
+		<div class="home">
+
+			<div class="new-plan">
+				<input id="new-plan-prompt" placeholder="start with a question">
+				<a id="new-plan">new plan</a>
+			</div> <!-- .new-plan -->
+
+			<div class="old-plan-group">
+				{{#each plans}}
+				<div class="old-plan">
+				{{!-- {{{jsonPrint this}}} --}}
+					{{this.prompt}}
+				</div>
+				{{/each}}
+				<a id="load-plan">continue plan</a>
+			<div> <!-- .old-plan-group -->
+
+		</div> <!-- .home -->
+
+		<div class="new" id="new-plan-wrapper" style="display:none">
+		</div> <!-- .new -->
+
+		<div class="continue" id="continue-plan-wrapper" style="display:none">
+		</div> <!-- .continue -->
 
 	</div> <!-- .profile -->
 
-	<div class="new" id="new-plan-wrapper" style="display:none">
-	{{> new-plan}}
-	</div> <!-- .new -->
 
 
 </div> <!-- .container-fluid -->

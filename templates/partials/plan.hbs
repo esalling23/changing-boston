@@ -13,17 +13,17 @@
 
 <div class="row">
 
-<h3>New Plan</h3>
+<h3>{{section}}</h3>
 	
 </div>
 
-<div class="prompt-wrapper" id="{{prompt_key}}">
+<div class="prompt-wrapper" id="{{promptId}}">
 
 	<div class="row prompt">
 
 		<h4>Think up a big question around which your plan will revolve!</h4>
 
-		<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="300" id="prompt-input" placeholder="big question"></textarea>
+		<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="300" id="prompt-input" placeholder="big question">{{prompt}}</textarea>
 				
 	</div>
 
@@ -52,6 +52,9 @@
 		<input type="file" class="icon-upload">
 
 	</div>
+
+	<a id="save-plan">save plan</a>
+	<a id="launch-plan">launch plan</a>
 
 </div>
 

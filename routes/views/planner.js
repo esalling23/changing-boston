@@ -28,7 +28,7 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
 
-        var queryProfile = Planner.model.findOne({ 'id': req.params.id }, {}, {});
+        var queryProfile = Planner.model.findOne({ '_id': req.params.id }, {}, {});
 
         var queryPrompt = Prompt.model.find({}, {}, {
             sort: {
@@ -42,18 +42,17 @@ exports = module.exports = function(req, res) {
 
             _.each(resultPrompt, function(prompt){
                 if (!prompt.planner){
-                    console.log("no planner yet")
                     return;
                 }
-                else if (prompt.planner.id == req.body.id) {
+                else if (prompt.planner.id == req.params.id) {
                     console.log("this plan was made by this fucker")
-                    locals.prompts = resultPrompt;
+                    locals.plans = resultPrompt;
                 }
                 
             });
             queryProfile.exec(function(err, resultPlanner) {
 
-                locals.planner = resultPlanner
+                locals.planner = resultPlanner;
 
                 next();
 
