@@ -11,12 +11,12 @@
 --}}
 
 
-<div class="container-fluid home">
+<div class="container-fluid">
 
 	<h3>Welcome, {{planner.name.first}}</h3>
 	<div class="profile" id="planner-profile-{{planner._id}}">
 
-		<div class="home">
+		<div class="base">
 
 			<div class="new-plan">
 				<input id="new-plan-prompt" placeholder="start with a question">
@@ -25,21 +25,18 @@
 
 			<div class="old-plan-group">
 				{{#each plans}}
-				<div class="old-plan">
+				<div class="old-plan" id="{{this.promptId}}">
 				{{!-- {{{jsonPrint this}}} --}}
 					{{this.prompt}}
 				</div>
 				{{/each}}
 				<a id="load-plan">continue plan</a>
-			<div> <!-- .old-plan-group -->
+			</div> <!-- .old-plan-group -->
 
-		</div> <!-- .home -->
+		</div> <!-- .base -->
 
-		<div class="new" id="new-plan-wrapper" style="display:none">
+		<div class="plan" id="plan-wrapper" style="display:none">
 		</div> <!-- .new -->
-
-		<div class="continue" id="continue-plan-wrapper" style="display:none">
-		</div> <!-- .continue -->
 
 	</div> <!-- .profile -->
 

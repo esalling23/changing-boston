@@ -38,6 +38,17 @@ body, html {
 
 }
 
+.selected {
+	border: 1px black solid;
+}
+
+.old-plan {
+	height: 100px;
+	width: 100px;
+	display: inline-block;
+
+}
+
 // Response item
 .item {
 	height: 150px;

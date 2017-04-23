@@ -13,62 +13,36 @@
 
 <div class="container-fluid present">
 
-	<div class="row" style="color: white;">
+	<div class="name-input row" style="color: white;">
 
-	<h3>Welcome!</h3>
-	<h4>Before we start, what's your name?</h4>
-	<input id="player_name">
-		
-	</div>
+		<h3>Welcome to Creating Spaces!</h3>
+		<h4>Before we start, what's your name?</h4>
+		<input id="player_name" placeholder="name">
+		<a id="name-input">Go</a>
+			
+	</div> <!-- .name-input -->
 
-	<div class="prompt-wrapper" id="{{prompt_key}}">
+	<div class="prompt-group" id="prompt-group" style="display:none;">
 
-		<div class="row prompt">
+		<h3>Thanks for joining us, <span></span>!</h3>
 
-			{{prompt.prompt}}
-					
-		</div>
+		<p>Choose a live plan from the dropdown and hit go!</p>
 
-		<div class="row grid responses" id="response-group"></div>
+		<select>
+		{{#each prompt}}
+			<option id="{{promptId}}" value="{{prompt}}">
+			{{prompt}}
+			{{!-- location: {{location}} --}}
+			</option>
+		{{/each}}
+		</select>
 
-	</div>
+		<a id="prompt-choice">Go</a>
 
-	<div class="response-input">
+	</div> <!-- .prompt-group -->
 
-		<div class="icon-wrap">
-			<p>Scroll through icons and tap to send!</p>
-
-			<div class="icon-input section">
-				<div class="icon-feed">
-
-					{{#each icons}}
-
-					<div class="icon">
-
-						<div class="send-icon"></div>
-
-						<img src="{{{cloudinaryUrl this.icon width=100 height=100 crop='scale' quality=100}}}" alt="{{this.name}}" class="event-photo" style="margin:0 auto;">
-
-					</div>
-
-					{{/each}}
-
-				</div>
-				
-			</div>
-		</div>
-
-
-		<div class="text-input section">
-			<p>Type and hit 'enter' to send, but keep it short!<br> (Tweet length)</p>
-
-
-			<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="120" id="prompt-input" placeholder="..."></textarea>
-
-		</div>
-
-		
-
-	</div>
+	<div class="response-input" id="response-input" style="display:none;">
+	</div> <!-- .response-input -->
 
 </div> <!-- .container-fluid -->
+

@@ -32,7 +32,7 @@ var Icon = new keystone.List('Icon',
  * @main Icon
  */
 Icon.add({
-	name: { type: String, lable: 'Icon Name', initial: true, required: true },
+	name: { type: String, label: 'Icon Name', initial: true, required: true },
 	icon: { type: Types.CloudinaryImage, label: "Icon" }, 
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });

@@ -49,22 +49,23 @@ exports = module.exports = function(app) {
     // Views
     app.get('/', routes.views.index);
 
-    app.get('/present', routes.views.present);
     app.get('/archive', routes.views.archive);
     app.get('/create', routes.views.create);
 
+    app.get('/api/login', keystone.middleware.api, routes.api.planner.get);
+    app.post('/api/signup', keystone.middleware.api, routes.api.planner.create);
+
     app.get('/planner', routes.views.group);
     app.get('/planner/profile/:id', routes.views.planner);
-
-    app.get('/api/start', keystone.middleware.api, routes.api.plan.generate);
+    app.get('/plan/:promptId', routes.views.present);
+    
+    app.post('/api/start', keystone.middleware.api, routes.api.plan.generate);
     app.get('/api/continue', keystone.middleware.api, routes.api.plan.get);
+    app.post('/api/update', keystone.middleware.api, routes.api.plan.update);
     app.get('/api/launch', keystone.middleware.api, routes.api.plan.launch);
 
-    app.get('/api/login', keystone.middleware.api, routes.api.planner.get);
-    app.get('/api/signup', keystone.middleware.api, routes.api.planner.create);
-
     app.post('/api/response', keystone.middleware.api, routes.api.response.create);
-
+    app.get('/api/find', keystone.middleware.api, routes.api.response.get);
     // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
     // app.get('/protected', middleware.requireUser, routes.views.protected);
 

@@ -46,10 +46,10 @@ Prompt.add({
 		ref: 'Response', 
 		label: 'Responses',
 		many: true, 
-		hidden: true,
 		noedit: true
 	},
 	enabled: { type: Boolean, label: "Live" },	
+	archived: { type: Boolean, label: "Archived", dependsOn: {enabled: false}},	
 	planner: {
 		type: Types.Relationship, 
 		ref: 'Planner', 

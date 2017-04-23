@@ -15,17 +15,26 @@ var Common = function (nsp, socket) {
     var currentSpace = nsp,
         currentSocket = socket, 
         appRoot = require('app-root-path')
-        Session = require(appRoot + '/lib/Common');
+        Session = require(appRoot + '/lib/SessionManager');
 
     // Expose handler methods for events
     this.handler = {
 
-        'response:send': function(package) {
+        'room': function(package) {
 
-            console.log(package.promptId);
+            console.log(package);
 
-            currentSpace.emit('test');
-            Session.SendResponse(currentSpace, package.data);
+            currentSocket.join(package);
+            console.log('user joined room ' + package);
+
+        },
+
+        'response': function(package) {
+
+            console.log(package);
+
+            Session.Get(package.room).
+            Response(currentSpace, package);
 
         }
     

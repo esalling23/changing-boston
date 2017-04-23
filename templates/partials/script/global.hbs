@@ -27,7 +27,7 @@
 		'disconnect',
 		'plan:new',
 
-		'response:send', 
+		'response',
 		'response:update'
 
 	];
@@ -127,127 +127,135 @@
 
 
 
-	   {{#ifeq section "index"}}
+    {{#ifeq section "index"}}
 
 
 
-		  // set interval for 10 seconds
-		  var promptinterval = setInterval(promptChange, 10000);
+	    // set interval for 10 seconds
+	    var promptinterval = setInterval(promptChange, 10000);
 
-			function promptChange() {
+		function promptChange() {
 
-				var prompts = $('.prompt-wrapper');
-				_.each(prompts, function(prompt){
-					$(prompt).hide;
+			var prompts = $('.prompt-wrapper');
+			_.each(prompts, function(prompt){
+				$(prompt).hide;
 
+			});
+		}
+		function abortTimer() { // to be called when you want to stop the timer
+		    clearInterval(tid);
+		}
+	
+	{{/ifeq}}
+
+
+
+	{{#ifeq section "create"}}
+
+		var creator = '';
+
+		var index = 0;				
+
+		$('.icon-feed').width($('.icon:not(.item)').length * 110 + 'px');
+
+		$('#name-input').click(function(){
+			var player = $('#player_name').val();
+			if(!player)
+				console.log("uh no")
+			else {
+				creator = player;
+				$('#prompt-group').find('h3 span').text(player);
+				$('#prompt-group').fadeIn(function(){
+					
+					$('#prompt-choice').click(function(){
+						findLive(player);
+						// $('#prompt-group').fadeOut();
+
+					});
 				});
 			}
-			function abortTimer() { // to be called when you want to stop the timer
-			  clearInterval(tid);
-			}
-		
-		{{/ifeq}}
+		});
 
+		var findLive = function(player){
+			var data = {};
+			data.plan = $('#prompt-group select option:selected').attr('id');
+			console.log(data);
 
+			if (!data.plan)
+				console.log("uh oh did you select anything?!")
+			else {
+				console.log("let's get that sucker for you");
 
-		{{#ifeq section "create"}}
-
-				var index = 0;
-
-				// // Start the session immediately
-				
-
-				$('.icon-feed').width($('.icon:not(.item)').length * 110 + 'px');
-
-
-				$('#toggle').change(function() {
-					toggleInput();
+				$.get("/api/find/", data, function(data){
+					console.log(data, " loaded yourself a damn plan");
+					$('#response-input').html(data.eventData).fadeIn(function(){
+						loadLive(data.data.promptId, player);
+					});
+				})
+				.fail(function() {
+				    alert( "error" );
 				});
+			}
+		};
 
-				// Switch input type
-				// function toggleInput() {
-				//     var x = document.getElementById("toggle");
-				//     var i = x.selectedIndex;
+		var loadLive = function(id, player) {
 
-				//     if (x.options[i].text == "Text") {
-				//     	$('.draw-input').hide();
-				//     	$('.text-input').show();
+			console.log(id)
+			// Open Socket connection
+			socket = io('//{{host}}', {
+			 	path: '/creating-boston', 
+			 	reconnection: true,
+			 	'reconnectionDelay': 500,
+			 	'maxReconnectionAttempts':Infinity
+			});
 
-				//     } else if (x.options[i].text == "Draw") {
-				//     	$('.text-input').hide();
-				//     	$('.draw-input').show(function() {
-				//     		// Make canvas editable
-				//     		var canvas = $('#sketch');
-				// 	      // paper.js
-				// 				paper.install(window);
-				// 				paper.setup(canvas);
-				// 				// Create a simple drawing tool:
-				// 				function onMouseDown(event) {
-				// 					console.log('You pressed the mouse!');
-				// 				}
+		    registerEvents();
 
-				// 				function onMouseDrag(event) {
-				// 					console.log('You dragged the mouse!');
-				// 				}
+		    socketEvents = function(eventId, eventData) {
+			    
+			    switch (eventId) {
 
-				// 				function onMouseUp(event) {
-				// 					console.log('You released the mouse!');
-				// 				}
+			        case 'connect':
 
-				//     	});
-				    	
-				//     }
-				// }
+				        console.log('connected');
 
-        // Take Text Area Input
-		$('#prompt-input').keypress(function(e) {
+				        socket.emit('room', id);
 
-            // Enter pressed?
-            if(e.which == 10 || e.which == 13) {
-                sendResponse($(this)[0].value, 'text');
-            }
+				        // Take Text Area Input
+						$('#prompt-input').keypress(function(e) {
+				            // Enter pressed?
+				            if(e.which == 10 || e.which == 13) {
 
-        });
+				                socket.emit('response', { 
+				                	response: $(this)[0].value,
+				                	room: id, 
+				                	creator: player, 
+				                	type: 'Text'
+				                });
 
-	      // Grab Icon
-	      $('.icon:not(.item)').click(function(){
+				            }
 
-	      	console.log($(this).find('img').attr('src'));
+				        });
 
-	      	sendResponse($(this).find('img').attr('src'), 'icon');
+					    // Grab Icon
+					    $('.icon:not(.item)').click(function(){
 
-	      });
+					      	console.log($(this).attr('id'));
 
-	      // Send Response Input 
-	      function sendResponse(item, type) {
+					      	socket.emit('response', {
+					      		response: $(this).attr('id'), 
+					      		room: id, 
+				                creator: player, 
+				                type:'Image'
+					      	});
 
-	      	if (type == 'text'){
-	      		console.log(item, "is the text");
+					    });
 
-	      		var html = '<div class="item text col-sm-3"><p>' + item + '</p></div>';
+				        break;
+			    }
 
-		      	$('#response-group').append(html);
-
-	      	} else if (type == 'icon') {
-
-	      		var html = '<div class="item icon col-sm-3"><img src="' + item + '"/></div>';
-
-		      	$('#response-group').append(html);
-
-	      	}
-
-	      	
-
-	      	// TO DO: Add to prompt in keystone
-
-	      	var data = { 
-	      		promptId: promptId, 
-	      		response: text
-	      	}
-
-	      	socket.emit('response:send', { promptId: {{promptId}}, data:data } );
-
-	      }
+		    };
+		}
 		
 	{{/ifeq}}
 
@@ -291,7 +299,7 @@
 			} else {
 				console.log("checking signup info");
 
-				$.get("/api/signup/", data, function(data){
+				$.post("/api/signup/", data, function(data){
 					console.log(data, " signup data");
 					window.location = data;
 				})
@@ -302,13 +310,16 @@
 
 		});
 
-		
-
 
 	{{/ifeq}}
 
 
 	{{#ifeq section 'profile'}}
+
+		// Click on old plans to select them
+		$('.old-plan').click(function(evt){
+			$(this).toggleClass('selected');
+		});
 
 	  	// Load current plan based on selection
 		$('#load-plan').click(function(evt) {
@@ -317,20 +328,36 @@
 			data.plan = $('.old-plan.selected').attr('id');
 			console.log(data);
 
-			if (!data.password || !data.email || !data.name) {
-				console.log ("empty fields");
-				  
-			} else {
-				console.log("checking signup info");
-
-				$.get("/api/load/", data, function(data){
+			if (!data.planner) 
+				console.log ("are you a ghost?");
+			else if (!data.plan)
+				console.log("..you gotta select something buddy")
+			else {
+				console.log("loading that one");
+				$.get("/api/continue/", data, function(data){
 					console.log(data, " signup data");
-					window.location = data;
+					$('#plan-wrapper').html(data.eventData).find('#prompt-input').val(data.data.prompt);
+					$('.base').fadeOut(function(){
+						$('#plan-wrapper').fadeIn(function(){
+
+							// Click on icons
+							$('.icon').click(function(evt){
+								console.log("clicked")
+								$(this).toggleClass('selected');
+							});
+
+							$('#save-plan').on('click', function(){
+								savePlan();
+							});
+							$('#launch-plan').click(function(){
+								launchPlan();
+							});
+						});
+					});
 				})
 				.fail(function() {
 				    alert( "error" );
 				});
-
 			}
 
 		});
@@ -348,14 +375,30 @@
 					console.log("check yourself, you forgot to enter a question!")
 				  
 			} else {
-				console.log("checking signup info");
+				console.log("let's create that for you");
 
-				$.get("/api/start/", data, function(data){
+				$.post("/api/start/", data, function(data){
 					console.log(data, " created yourself a damn plan");
-					
-					$('#new-plan-wrapper').html(data.eventData).find('#prompt-input').val(data.data.prompt);
-					$('#new-plan-wrapper').fadeIn();
 
+					$('#plan-wrapper').html(data.eventData).find('#prompt-input').val(data.data.prompt);
+					$('.base').fadeOut(function(){
+						$('#plan-wrapper').fadeIn(function(){
+
+							// Click on icons
+							$('.icon').click(function(evt){
+								console.log("clicked")
+								$(this).toggleClass('selected');
+							});
+
+							$('#save-plan').click(function(){
+								savePlan();
+							});
+							$('#launch-plan').click(function(){
+								launchPlan();
+							});
+						});
+					});
+					
 
 				})
 				.fail(function() {
@@ -366,57 +409,121 @@
 
 		});
 
-	{{/ifeq}}
+		// Update plan
+		var savePlan = function() {
+			var data = {};
+			data.planner = $('.profile').attr('id');
+			data.plan = $('#plan-wrapper .prompt-wrapper').attr('id');
+			data.text = $('#prompt-input').val();
+			data.icons = $('.icon.selected').attr('id');
+			console.log(data);
 
-	{{#ifeq section 'new-plan'}}
+			if (!data.planner)
+				console.log("is this a ghost?");
+			else if (!data.text)
+				console.log("check yourself, you forgot to enter a question!")
+			else if (!data.plan)
+				console.log("uh oh what happened to your code!")
+			else {
+				console.log("let's update that for you");
 
-	console.log({{section}});
+				$.post("/api/update/", data, function(data){
+					console.log(data, " saved yourself a damn plan");
+					$('.saved').fadeIn();
 
-	if($.fn.cloudinary_fileupload !== undefined) {
+				})
+				.fail(function() {
+				    alert( "error" );
+				});
+			}
+		};
+
+		// Load current plan based on selection
+		var launchPlan = function() {
+			var data = {};
+			data.planner = $('.profile').attr('id');
+			data.plan = $('#plan-wrapper .prompt-wrapper').attr('id');
+			console.log(data);
+
+			if (!data.planner) 
+				console.log ("are you a ghost?");
+			else if (!data.plan)
+				console.log("..you gotta select something buddy")
+			else {
+				console.log("launching this one");
+				$.get("/api/launch/", data, function(data){
+					console.log(data, " LAUNCH data");
+					window.location = data;
+				})
+				.fail(function(err) {
+				    alert( "error" + err );
+				});
+			}
+
+		};
+
+		if($.fn.cloudinary_fileupload !== undefined) {
 	    $("input.icon-upload[type=file]").cloudinary_fileupload();
 	}
 
 	{{/ifeq}}
 
+	{{#ifeq section 'present'}}
+
+		console.log('{{section}}');
+		// Open Socket connection
+		socket = io('//{{host}}', {
+		 	path: '/creating-boston', 
+		 	reconnection: true,
+		 	'reconnectionDelay': 500,
+		 	'maxReconnectionAttempts':Infinity
+		 });
+	    registerEvents();
+
+	    socketEvents = function(eventId, eventData) {
+		    
+		    switch (eventId) {
+
+		        case 'connect':
+
+			        console.log('connected');
+
+			        socket.emit('room', '{{prompt.promptId}}');
+
+			        break;
+
+		        case 'response:update':
+
+			        console.log('response going up', eventData);
+
+			      	if (eventData.type == 'text'){
+			      		console.log(item, "is the text");
+
+				        var html = '<div class="item text col-sm-3"><p>' + eventData.item + '</p></div>';
+
+				      	$('#response-group').append(html);
+
+			      	} else if (eventData.type == 'icon') {
+
+			      		var html = '<div class="item icon col-sm-3"><img src="' + item + '"/></div>';
+
+				      	$('#response-group').append(html);
+
+			      	}
+
+
+			        break;
+
+		    }
+
+	    };
+
+	{{/ifeq}}
+
+		
 
 
 
-
-
-// // TODO
-
-// 		// SOCKET EVENTS 
-
-// 		// Open Socket connection
-// 		socket = io('//{{host}}', {
-// 		 	path: '/creating-boston', 
-// 		 	reconnection: true,
-// 		 	'reconnectionDelay': 500,
-// 		 	'maxReconnectionAttempts':Infinity
-// 		 });
-
-//     registerEvents();
-
-//     socketEvents = function(eventId, eventData) {
-	    
-// 	    switch (eventId) {
-
-// 	        case 'connect':
-
-// 		        console.log('connected');
-
-// 		        break;
-
-// 	        case 'response:update':
-
-// 		        console.log('response going up', eventData);
-
-// 		        break;
-
-//       }
-
-//     };
-
-	});
+});
 	
 </script>

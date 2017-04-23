@@ -1,9 +1,9 @@
 /**
  * Emerging Citizens
  * 
- * GameSession Model
+ * PlanSession Model
  * @module models
- * @class GameSession
+ * @class PlanSession
  * @author Johnny Richardson
  * 
  * ==========
@@ -14,10 +14,10 @@ var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
 /**
- * GameSession Model
+ * PlanSession Model
  * ==========
  */
-var GameSession = new keystone.List('GameSession', {
+var PlanSession = new keystone.List('PlanSession', {
 		editable: false,
 		cancreate: false,
 		// hidden: true,
@@ -25,9 +25,9 @@ var GameSession = new keystone.List('GameSession', {
 });
 /**
  * Model Fields
- * @main GameSession
+ * @main PlanSession
  */
-GameSession.add({
+PlanSession.add({
 
   accessCode: { type: String, required: true, initial: true, hidden: true }
   // dateCreated: { type: Date, noedit: true }
@@ -35,10 +35,10 @@ GameSession.add({
 });
 
 // Store all hashtag submissions/votes (not visible in admin UI)
-// GameSession.schema.add({ game: Object });
+// PlanSession.schema.add({ Plan: Object });
 
 
-// GameSession.schema.pre('save', function(next) {
+// PlanSession.schema.pre('save', function(next) {
   
 //   this.dateCreated = new Date();
 
@@ -49,5 +49,5 @@ GameSession.add({
 /**
  * Registration
  */
-GameSession.register();
-exports = module.exports = GameSession;
+PlanSession.register();
+exports = module.exports = PlanSession;

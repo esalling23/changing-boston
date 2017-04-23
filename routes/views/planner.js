@@ -14,7 +14,7 @@
 var keystone = require('keystone'),
     Prompt = keystone.list('Prompt'),
     Planner = keystone.list('Planner'),
-    GameSession = keystone.list('GameSession'),
+    GameSession = keystone.list('PlanSession'),
     appRoot = require('app-root-path'),
     // Session = require('learning-games-core').SessionManager,
     _ = require('underscore');

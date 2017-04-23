@@ -11,19 +11,13 @@
 --}}
 
 
-<div class="row">
-
-<h3>{{section}}</h3>
-	
-</div>
-
 <div class="prompt-wrapper" id="{{promptId}}">
 
 	<div class="row prompt">
 
 		<h4>Think up a big question around which your plan will revolve!</h4>
 
-		<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="300" id="prompt-input" placeholder="big question">{{prompt}}</textarea>
+		<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="300" id="prompt-input" placeholder="big question"></textarea>
 				
 	</div>
 
@@ -35,7 +29,7 @@
 
 				{{#each icons}}
 
-				<div class="icon">
+				<div class="icon" id="{{this._id}}">
 
 					<div class="send-icon"></div>
 
@@ -57,5 +51,7 @@
 	<a id="launch-plan">launch plan</a>
 
 </div>
+
+<div class="saved" style="display:none;">Plan Saved</div>
 
 

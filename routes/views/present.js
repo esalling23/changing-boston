@@ -12,24 +12,28 @@
  * ==========
  */
 var keystone = require('keystone'),
+    appRoot = require('app-root-path'),
     Prompt = keystone.list('Prompt'),
+    PlanSession = keystone.list('PlanSession'),
+    Plan = require(appRoot + '/lib/PromptManager'),
+    Session = require(appRoot + '/lib/SessionManager')
     _ = require('underscore');
 
 exports = module.exports = function(req, res) {
 
     var view = new keystone.View(req, res),
-        locals = res.locals;
+        locals = res.locals,
+        session = new PlanSession.model();
 
     // Init locals
     locals.section = 'present';
 
+    // Save this session to memory for faster retrieval (deleted when game ends)
+    Session.Create(req.params.promptId, new Plan(session));
+
     view.on('init', function(next) {
 
-        var queryPrompt = Prompt.model.findOne({}, {}, {
-            sort: {
-                'createdAt': -1
-            }
-        })
+        var queryPrompt = Prompt.model.findOne({ promptId: req.params.promptId }, {}, {})
         .populate('responses');
         
         queryPrompt.exec(function(err, resultPrompt) {
@@ -44,6 +48,6 @@ exports = module.exports = function(req, res) {
     });
 
     // Render the view
-    view.render('present');
+    view.render('group/live');
 
 };

@@ -20,6 +20,14 @@ body, html {
 .buffer {
   margin-top: 5%; }
 
+.selected {
+  border: 1px black solid; }
+
+.old-plan {
+  height: 100px;
+  width: 100px;
+  display: inline-block; }
+
 .item {
   height: 150px;
   width: 150px;

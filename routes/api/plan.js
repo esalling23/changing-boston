@@ -8,7 +8,7 @@ var keystone = require('keystone'),
 var Game = require(appRoot + '/lib/PromptManager'),
     TemplateLoader = require(appRoot + '/lib/TemplateLoader'),
     Templates = new TemplateLoader(),
-	GameSession = keystone.list('GameSession'),
+	GameSession = keystone.list('PlanSession'),
     Prompt = keystone.list('Prompt'),
     Icon= keystone.list('Icon'),
     Session = require(appRoot + '/lib/SessionManager');
@@ -43,9 +43,9 @@ exports.generate = function(req, res) {
 
         // Create a prompt model with the submitted prompt and user id
         new Prompt.model({
-            prompt: req.query.text,
+            prompt: req.body.text,
             promptId: gameCode,
-            planner: req.query.planner.replace('planner-profile-','')
+            planner: req.body.planner.replace('planner-profile-','')
         }).save(function(err, newprofile) {
 
             if (err)
@@ -55,7 +55,7 @@ exports.generate = function(req, res) {
                 Icon.model.find({}, function (err, icon) {
 
                     let data = {
-                        prompt: req.query.text,
+                        prompt: req.body.text,
                         promptId: gameCode, 
                         icons: icon
                     }
@@ -85,36 +85,28 @@ exports.get = function(req, res) {
 
     var locals = res.locals;
 
-    console.log("getting");    
-
     // Find their selected prompt/plan
-    Prompt.model.findOne({promptId: req.query.promptId}, function (err, session) {
+    Prompt.model.findOne({promptId: req.query.plan}, function (err, session) {
 
         console.log(session);
 
-        session.prompt = req.query.prompt;
+        Icon.model.find({}, function (err, icon) {
 
-        session.save(function(err, updated){
+            let data = {
+                prompt: session.prompt,
+                promptId: session.promptId, 
+                selectedIcons: session.icons,
+                icons: icon
+            }
 
-            Icon.model.find({}, function (err, icon) {
+            Templates.Load('partials/plan', data, function(html) {
 
-                let data = {
-                    prompt: session.prompt,
-                    promptId: session.promptId, 
-                    selectedIcons: session.icons,
-                    icons: icon
-                }
+                locals.section = 'respond';
 
-                Templates.Load('partials/plan', data, function(html) {
+                res.send({data: data, eventData: html});
 
-                    locals.section = 'plan';
-
-                    res.send({data: data, eventData: html});
-
-                }); 
-            });
-
-        })
+            }); 
+        });
 
     });
 
@@ -124,36 +116,23 @@ exports.get = function(req, res) {
 /**
  * Update a prompt ( save )
  */
-exports.get = function(req, res) {
+exports.update = function(req, res) {
 
     var locals = res.locals;
 
-    console.log("getting");    
+    console.log("updating ", req);    
 
     // Find their selected prompt/plan
-    Prompt.model.findOne({promptId: req.query.promptId}, function (err, session) {
+    Prompt.model.findOne({promptId: req.body.plan}, function (err, session) {
 
-        console.log(session);
+        console.log(session, " updating this EXACT PROMPT");
 
-        Icon.model.find({}, function (err, icon) {
+        session.prompt = req.body.text;
+        session.icons = req.body.icons;
 
-            let data = {
-                prompt: req.query.text,
-                promptId: gameCode, 
-                icons: req.query.icons
-            }
+        session.save();
 
-            Templates.Load('partials/plan', data, function(html) {
-
-                locals.section = 'plan';
-
-                res.send({data: data, eventData: html});
-
-            }); 
-            console.log('success')
-
-        });
-        
+        res.send({data: session});
 
     });
 
@@ -166,48 +145,22 @@ exports.launch = function(req, res) {
 
     var locals = res.locals;
 
-    console.log('launching')
+    console.log('launching');
 
-    // // var TemplateLoader = require(appRoot + '/lib/TemplateLoader');
-    // const randomstring = require('randomstring'); 
-    // let gameCode;
+    // Locate the prompt
+    Prompt.model.findOne({promptId: req.query.plan}, function (err, session) {
 
-    // function generateCode() {
+        if (!session) {
+            console.log("uhmmmmm there's no prompt to launch");
+            return;
+        }
 
-    //     return randomstring.
-    //         generate({ length: 4, charset: 'alphabetic' }).toUpperCase();
-    
-    // }
+        session.enabled = true;
+        session.save();
 
-    // gameCode = generateCode();
-
-    // // Check if there's already a game with the generated access code
-    // GameSession.model.findOne({accessCode: gameCode}, function (err, session) {
-
-    //     // There is! A one in 15,000 probability! Make a new one
-    //     if (session)
-    //         gameCode = generateCode();
-
-    //     console.log(gameCode);
-
-    //     // Create a prompt model with the submitted prompt and user id
-    //     new Prompt.model({
-    //         prompt: req.query.text,
-    //         promptId: gameCode,
-    //         planner: req.query.id
-    //     }).save(function(err, newprofile) {
-
-    //         if (err)
-    //             console.log(err);
-    //         else {
-
-    //             res.send('planner/profile/' + newprofile.id);
-    //             console.log('success')
-    //         }
-
-    //     });
+        res.send('/plan/' + session.promptId);
         
 
-    // });
+    });
 
 };

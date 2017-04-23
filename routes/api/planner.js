@@ -6,7 +6,7 @@ var keystone = require('keystone'),
     appRoot = require('app-root-path');
     
 var Game = require(appRoot + '/lib/PromptManager'),
-	GameSession = keystone.list('GameSession'),
+	GameSession = keystone.list('PlanSession'),
     Planner = keystone.list('Planner'),
     Session = require(appRoot + '/lib/SessionManager');
 
