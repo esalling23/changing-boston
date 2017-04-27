@@ -34,9 +34,10 @@ var Response = new keystone.List('Response',
 Response.add({
 	name: { type: String, label: 'Response Name', default: "response-", initial: true, required: true },
 	response: { type: String, label: 'Response'},
+	iconKey: { type: String, label: 'Icon Key'},
+	iconUrl: { type: String, label: 'Icon Url'},
 	type: { type: Types.Select, label: 'Type', options: 'Text, Image'},
 	creator: { type: String, noedit: true, label: 'Creator\'s Name'},
-	// index: { type: Number, noedit:true, label: 'Response Index' },
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 

@@ -34,7 +34,7 @@ var Resource = new keystone.List('Resource',
 Resource.add({
 	name: { type: String, lable: 'Resource Name', initial: true, required: true },
 	type: { type: Types.Select, label: "Resource Type", options: '', initial: true, required: true }, 
-	Resource_two: { type: String, label: "Second Resource (Engagement)"}, 
+	resource_two: { type: String, label: "Second Resource (Engagement)"}, 
 	enabled: { type: Boolean, label: "Enabled" },	
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });

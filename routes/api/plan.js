@@ -5,10 +5,10 @@ var keystone = require('keystone'),
     async = require('async'),
     appRoot = require('app-root-path');
     
-var Game = require(appRoot + '/lib/PromptManager'),
+var Plan = require(appRoot + '/lib/PromptManager'),
     TemplateLoader = require(appRoot + '/lib/TemplateLoader'),
     Templates = new TemplateLoader(),
-	GameSession = keystone.list('PlanSession'),
+	PlanSession = keystone.list('PlanSession'),
     Prompt = keystone.list('Prompt'),
     Icon= keystone.list('Icon'),
     Session = require(appRoot + '/lib/SessionManager');
@@ -146,6 +146,11 @@ exports.launch = function(req, res) {
     var locals = res.locals;
 
     console.log('launching');
+
+    var session = new PlanSession.model();
+
+    // Save this session to memory for faster retrieval (deleted when game ends)
+    Session.Create(req.query.plan, new Plan(session));
 
     // Locate the prompt
     Prompt.model.findOne({promptId: req.query.plan}, function (err, session) {

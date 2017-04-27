@@ -2,7 +2,8 @@
   visibility: hidden; }
 
 body, html {
-  overflow: hidden; }
+  overflow: hidden;
+  height: 100%; }
 
 .body {
   background-color: white;
@@ -20,27 +21,67 @@ body, html {
 .buffer {
   margin-top: 5%; }
 
+.choice a {
+  height: 200px;
+  width: 200px; }
+
+.home {
+  text-align: center; }
+
+.create {
+  text-align: center;
+  width: 320px; }
+
 .selected {
   border: 1px black solid; }
+
+.page-wrapper {
+  height: 100%; }
+
+.profile {
+  text-align: center; }
+  .profile .base {
+    margin: 5%; }
+  .profile .old-plan-group {
+    margin-top: 5%; }
+
+#load-plan {
+  display: block; }
 
 .old-plan {
   height: 100px;
   width: 100px;
-  display: inline-block; }
+  display: inline-block;
+  background-color: #ADD8E6;
+  margin: 10px; }
+  .old-plan .content {
+    display: table;
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center; }
+  .old-plan p {
+    display: table-cell;
+    vertical-align: middle; }
 
 .item {
-  height: 150px;
+  height: 200px;
   width: 150px;
+  padding: 0px;
   color: black;
   text-align: center;
   display: table;
   margin: 30px;
   font-size: 24px; }
   .item.text {
+    height: 150px;
     border: 2px solid black;
     background-color: #ADD8E6; }
-  .item.icon {
+  .item .response {
     height: 150px;
+    width: 150px; }
+  .item.icon {
+    height: 200px;
     width: 150px;
     background-color: transparent; }
     .item.icon img {
@@ -59,43 +100,68 @@ body, html {
 #prompt-input {
   color: black;
   height: 80px;
-  width: 400px;
+  width: 300px;
   font-size: 18px; }
 
 #toggle {
   color: black; }
 
+#back-btn {
+  position: absolute;
+  bottom: 5px;
+  width: 40px;
+  height: 30px;
+  left: 140px;
+  background-color: white;
+  border: 2px black solid;
+  border-radius: 4px; }
+
+select option {
+  word-wrap: wrap; }
+
 .icon-wrap {
   border: 1px solid black;
-  width: 520px;
-  height: 150px;
-  display: inline-block; }
+  width: 320px;
+  height: 450px; }
+  .icon-wrap.planner {
+    width: 100%; }
 
 .icon-input {
-  height: 120px;
-  width: 500px;
+  height: 100%;
+  width: 300px;
   margin: 0 auto;
   overflow-x: auto;
   overflow-y: hidden; }
 
 .icon-feed {
   height: 100px;
-  width: 100%;
   overflow-x: auto;
   overflow-y: hidden; }
 
 .icon {
   height: 100px;
   width: 100px;
-  display: inline-block; }
+  padding: 0px;
+  display: inline-block;
+  border: 1px solid black; }
+  .icon img {
+    display: block; }
+  .icon.selected {
+    border: 4px solid black; }
+  .icon .tag {
+    display: block; }
+
+#player_name {
+  color: black; }
 
 .response-input {
   position: absolute;
   bottom: 0px;
-  width: 100%;
+  width: 320px;
   text-align: center; }
   .response-input .section {
-    display: inline-block; }
+    display: inline-block;
+    margin-bottom: 60px; }
   .response-input a {
     background-color: white;
     height: 60px;

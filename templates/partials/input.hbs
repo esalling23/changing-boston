@@ -11,32 +11,30 @@
 --}}
 
 <div class="prompt-info">
-	{{prompt}}
+	<h3>{{prompt}}</h3>
 
 </div>
 
 
 <div class="icon-wrap">
-	<p>Scroll through icons and tap to send!</p>
+	<p>Scroll through icons and tap to select. Then, tap again to send!</p>
 
 
 	<div class="icon-input section">
-		<div class="icon-feed">
+		<div class="icon-feed" style="height:{{scrollHeight icons}}">
 
 			{{#each icons}}
 
-			<div class="icon">
+			<div class="icon col-sm-6" id="{{this._id}}">
 
-				<div class="send-icon"></div>
-
-				<img src="{{{cloudinaryUrl this.icon width=100 height=100 crop='scale' quality=100}}}" alt="{{this.name}}" class="event-photo" style="margin:0 auto;">
+				<img src="{{{cloudinaryUrl this.icon width=90 height=90 crop='scale' quality=100}}}" alt="{{this.name}}" class="event-photo" style="margin:5px auto;">
 
 			</div>
 
 			{{/each}}
 
 		</div>
-		
+		<a id="icon-send">send</a>
 	</div>
 </div>
 
@@ -44,9 +42,8 @@
 <div class="text-input section">
 	<p>Type and hit 'enter' to send, but keep it short!<br> (Tweet length)</p>
 
-
 	<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="120" id="prompt-input" placeholder="..."></textarea>
 
 </div>
 
-
+{{!-- <a id="back-btn">back</a> --}}

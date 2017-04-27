@@ -11,13 +11,13 @@
 --}}
 
 
-<div class="container-fluid present">
+<div class="container-fluid create">
 
-	<div class="name-input row" style="color: white;">
+	<div class="name-input row">
 
 		<h3>Welcome to Creating Spaces!</h3>
 		<h4>Before we start, what's your name?</h4>
-		<input id="player_name" placeholder="name">
+		<input id="player_name" placeholder="name" limit="20">
 		<a id="name-input">Go</a>
 			
 	</div> <!-- .name-input -->
@@ -26,23 +26,31 @@
 
 		<h3>Thanks for joining us, <span></span>!</h3>
 
-		<p>Choose a live plan from the dropdown and hit go!</p>
-
-		<select>
+		<h4>Choose a plan from the dropdown and hit go!</h4>
+		<p>Some plans are live and others are archived.</p>
+		<select style="width:320px;">
 		{{#each prompt}}
-			<option id="{{promptId}}" value="{{prompt}}">
-			{{prompt}}
-			{{!-- location: {{location}} --}}
-			</option>
+			{{#ifeq enabled true}}
+				<option class="live" id="{{promptId}}" value="{{prompt}}">
+					* Now Live: {{prompt}}
+				</option>
+				{{else}}
+				<option class="archive" id="{{promptId}}" value="{{prompt}}">
+					Archived: {{prompt}}
+				</option>
+				{{/ifeq}}
 		{{/each}}
 		</select>
 
 		<a id="prompt-choice">Go</a>
+		{{!-- <a id="back-btn">back</a> --}}
 
 	</div> <!-- .prompt-group -->
 
 	<div class="response-input" id="response-input" style="display:none;">
+
 	</div> <!-- .response-input -->
+
 
 </div> <!-- .container-fluid -->
 

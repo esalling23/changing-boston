@@ -152,33 +152,21 @@
 
 	{{#ifeq section "create"}}
 
-		var creator = '';
+		var findPlan = function(player, plan){
 
-		var index = 0;				
+			$('.prompt-group').fadeOut();
 
-		$('.icon-feed').width($('.icon:not(.item)').length * 110 + 'px');
-
-		$('#name-input').click(function(){
-			var player = $('#player_name').val();
-			if(!player)
-				console.log("uh no")
-			else {
-				creator = player;
-				$('#prompt-group').find('h3 span').text(player);
-				$('#prompt-group').fadeIn(function(){
-					
-					$('#prompt-choice').click(function(){
-						findLive(player);
-						// $('#prompt-group').fadeOut();
-
-					});
-				});
-			}
-		});
-
-		var findLive = function(player){
 			var data = {};
-			data.plan = $('#prompt-group select option:selected').attr('id');
+
+			if (!plan) {
+				data.plan = $('#prompt-group select option:selected').attr('id');
+			} else {
+				data.plan = plan;
+			}
+
+			if (!sessionStorage.getItem('plan'))
+				sessionStorage.setItem('plan', data.plan )
+
 			console.log(data);
 
 			if (!data.plan)
@@ -186,15 +174,22 @@
 			else {
 				console.log("let's get that sucker for you");
 
-				$.get("/api/find/", data, function(data){
-					console.log(data, " loaded yourself a damn plan");
-					$('#response-input').html(data.eventData).fadeIn(function(){
-						loadLive(data.data.promptId, player);
+				if ($('#prompt-group select').find('#' + data.plan).hasClass('live')) {
+					$.get("/api/find/", data, function(data){
+						console.log(data, " loaded yourself a damn plan");
+						$('#response-input').html(data.eventData).fadeIn(function(){
+							loadLive(data.data.promptId, player);
+						});
+					})
+					.fail(function() {
+					    alert( "error" );
 					});
-				})
-				.fail(function() {
-				    alert( "error" );
-				});
+
+				} else {
+					window.location = 'archive/' + data.plan;
+				}
+
+				
 			}
 		};
 
@@ -226,6 +221,8 @@
 				            // Enter pressed?
 				            if(e.which == 10 || e.which == 13) {
 
+				            	$('#prompt-input').text = ''
+
 				                socket.emit('response', { 
 				                	response: $(this)[0].value,
 				                	room: id, 
@@ -237,25 +234,102 @@
 
 				        });
 
-					    // Grab Icon
-					    $('.icon:not(.item)').click(function(){
+				        // Icon send
+					    $('.icon:not(.item)').on('click', function(){
 
 					      	console.log($(this).attr('id'));
-
-					      	socket.emit('response', {
-					      		response: $(this).attr('id'), 
-					      		room: id, 
-				                creator: player, 
-				                type:'Image'
-					      	});
+					      	$('.selected').toggleClass('selected');
+					      	$(this).toggleClass('selected');
 
 					    });
+
+					    $('#icon-send').on('click', function(){
+				      		var icon = $('.icon.selected:not(.item)').attr('id');
+				      		if (!icon)
+				      			return;
+				      		else {
+				      			console.log('emitting')
+				      			socket.emit('response', {
+						      		response: icon, 
+						      		room: id, 
+					                creator: player, 
+					                type:'Image'
+						      	});
+				      		}
+				      		
+				      	});
+					    
 
 				        break;
 			    }
 
 		    };
 		}
+
+		if (sessionStorage.getItem('creator')){
+			$('.name-input').fadeOut();
+			$('#prompt-group').find('h3 span').text(sessionStorage.getItem('creator'));
+			$('#prompt-group').fadeIn(function(){
+					
+				$('#prompt-choice').on('click', function(){
+					findPlan(sessionStorage.getItem('creator'));
+				});
+			});
+
+		} else {
+			var creator = '';
+		}
+
+		$('.icon-feed').width($('.icon:not(.item)').length * 110 + 'px');
+
+		$('#player_name').keydown(function(e) {
+			if(e.keyCode == 13 || e.keyCode == 10)
+				$('#name-input').click();
+		});
+
+		$('#name-input').on('click', function(){
+			var player = $('#player_name').val();
+			if(!player)
+				console.log("uh no")
+			else {
+				creator = player;
+
+				sessionStorage.setItem('creator', creator)
+				$('#prompt-group').find('h3 span').text(player);
+				$('.name-input').fadeOut();
+				$('#prompt-group').fadeIn(function(){
+					
+					$('#prompt-choice').on('click', function(){
+						findPlan(player);
+
+					});
+				});
+			}
+		});
+
+		// $('#back-btn').on('click', function(){
+		// 	if(sessionStorage.getItem('plan')) {
+		// 		$('#response-input').fadeOut();
+		// 		sessionStorage.clearItem('plan');
+		// 		$('#prompt-group').find('h3 span').text(sessionStorage.getItem('creator'));
+		// 		$('#prompt-group').fadeIn(function(){
+					
+		// 			$('#prompt-choice').on('click', function(){
+		// 				findPlan(player);
+
+		// 			});
+
+		// 		});
+		// 	} else if (sessionStorage.getItem('creator')) {
+		// 		$('#prompt-group').fadeOut(function(){
+		// 			$('.name-input').fadeIn();
+
+		// 		});
+
+		// 	}
+		// });
+
+		
 		
 	{{/ifeq}}
 
@@ -278,10 +352,7 @@
 					window.location = data;
 				})
 				.fail(function() {
-				    alert( "error" );
-				})
-				.always(function() {
-				    alert( "finished" );
+				    // alert( "error" );
 				});
 			}
 
@@ -415,7 +486,12 @@
 			data.planner = $('.profile').attr('id');
 			data.plan = $('#plan-wrapper .prompt-wrapper').attr('id');
 			data.text = $('#prompt-input').val();
-			data.icons = $('.icon.selected').attr('id');
+			data.icons = [];
+
+			_.each($('.icon.selected'), function(icon) {
+				data.icons.push($(icon).attr('id'));
+			});
+
 			console.log(data);
 
 			if (!data.planner)
@@ -496,20 +572,22 @@
 
 			        console.log('response going up', eventData);
 
-			      	if (eventData.type == 'text'){
-			      		console.log(item, "is the text");
+			        $('#response-group').append(eventData.html);
 
-				        var html = '<div class="item text col-sm-3"><p>' + eventData.item + '</p></div>';
+			      	// if (eventData.type == 'Text'){
+			      	// 	// console.log(item, "is the text");
 
-				      	$('#response-group').append(html);
+				      //   var html = '<div class="item text col-sm-3"><p>' + eventData.response + '</p></div>';
 
-			      	} else if (eventData.type == 'icon') {
+				      // 	$('#response-group').append(html);
 
-			      		var html = '<div class="item icon col-sm-3"><img src="' + item + '"/></div>';
+			      	// } else if (eventData.type == 'Image') {
 
-				      	$('#response-group').append(html);
+			      	// 	var html = '<div class="item icon col-sm-3"><img src="' + eventData.item + '"/></div>';
 
-			      	}
+				      	
+
+			      	// }
 
 
 			        break;

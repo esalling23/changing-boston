@@ -26,7 +26,7 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
 
-        var queryPrompt = Prompt.model.find({'enabled': true}, {}, {
+        var queryPrompt = Prompt.model.find({}, {}, {
             sort: {
                 'createdAt': -1
             }

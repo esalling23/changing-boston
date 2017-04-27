@@ -11,58 +11,38 @@
 --}}
 
 
-<div class="container-fluid present">
-	<div class="row" style="color: white;">
-		
-	</div>
+<div class="container-fluid archive col-sm-12 col-lg-12">
 
 	<div class="prompt-wrapper" id="{{prompt_key}}">
 
+		<div class="prompt-wrapper" id="{{prompt.promptId}}">
+
 		<div class="row prompt">
 
-				{{prompt.prompt}}
+			{{prompt.prompt}}
+
+			{{!-- {{prompt.location}} --}}
 					
 		</div>
 
-		<div class="row grid responses" id="response-group"></div>
+		<div class="row grid responses" id="response-group">
 
-	</div>
+		{{#each prompt.responses}}
 
-	<div class="response-input">
-
-		<div class="icon-wrap">
-			<p>Scroll through icons and tap to send!</p>
-
-			<div class="icon-input section">
-				<div class="icon-feed">
-
-					{{#each icons}}
-
-					<div class="icon">
-
-						<div class="send-icon"></div>
-
-						<img src="{{{cloudinaryUrl this.icon width=100 height=100 crop='scale' quality=100}}}" alt="{{this.name}}" class="event-photo" style="margin:0 auto;">
-
-					</div>
-
-					{{/each}}
-
+			<div class="item {{#ifeq type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-3">
+				<div class="response">
+				{{#ifeq type 'Text'}}
+					<p> {{response}} </p>
+				{{else}}
+					{{{cloudinaryUrl iconUrl width=80 height=80 crop='scale' quality=100}}}
+				{{/ifeq}}
 				</div>
-				
+				<div class="tag">{{creator}}</div>
 			</div>
-		</div>
 
-
-		<div class="text-input section">
-				<p>Type and hit 'enter' to send, but keep it short!<br> (Tweet length)</p>
-
-
-			<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="120" id="prompt-input" placeholder="..."></textarea>
+		{{/each}}
 
 		</div>
-
-		
 
 	</div>
 

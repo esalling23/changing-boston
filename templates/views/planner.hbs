@@ -13,21 +13,23 @@
 
 <div class="container-fluid">
 
-	<h3>Welcome, {{planner.name.first}}</h3>
 	<div class="profile" id="planner-profile-{{planner._id}}">
+		<h3>Welcome, {{planner.name.first}}</h3>
 
 		<div class="base">
 
 			<div class="new-plan">
+				<h4>Begin a new plan..</h4>
 				<input id="new-plan-prompt" placeholder="start with a question">
 				<a id="new-plan">new plan</a>
 			</div> <!-- .new-plan -->
 
 			<div class="old-plan-group">
+				<h4>Or continue an old one!</h4>
 				{{#each plans}}
 				<div class="old-plan" id="{{this.promptId}}">
 				{{!-- {{{jsonPrint this}}} --}}
-					{{this.prompt}}
+					<div class="content"><p>{{this.prompt}}</p></div>
 				</div>
 				{{/each}}
 				<a id="load-plan">continue plan</a>

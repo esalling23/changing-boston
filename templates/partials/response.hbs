@@ -1,0 +1,22 @@
+{{!< default}}
+{{!--
+/**
+* Erica Salling
+* Developed 2017
+* ==============
+*
+* Plan Creation Page
+* ==========
+*/
+--}}
+
+<div class="item {{#ifeq response.type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-3">
+	<div class="response">
+	{{#ifeq response.type 'Text'}}
+		<p> {{response.response}} </p>
+	{{else}}
+		{{{cloudinaryUrl response.iconUrl width=80 height=80 crop='scale' quality=100}}}
+	{{/ifeq}}
+	</div>
+	<div class="tag">{{response.creator}}</div>
+</div>

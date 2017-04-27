@@ -49,7 +49,7 @@ exports = module.exports = function(app) {
     // Views
     app.get('/', routes.views.index);
 
-    app.get('/archive', routes.views.archive);
+    app.get('/archive/:plan', routes.views.archive);
     app.get('/create', routes.views.create);
 
     app.get('/api/login', keystone.middleware.api, routes.api.planner.get);
