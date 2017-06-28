@@ -23,7 +23,7 @@ var Response = new keystone.List('Response',
 	{
 		label: 'Responses',
 		singular: 'Response',
-		track: true, 
+		// track: true, 
 		autokey: { path: 'response_key', from: 'name', unique: true }
 	});
 
@@ -37,8 +37,8 @@ Response.add({
 	iconKey: { type: String, label: 'Icon Key'},
 	iconUrl: { type: String, label: 'Icon Url'},
 	type: { type: Types.Select, label: 'Type', options: 'Text, Image'},
-	creator: { type: String, noedit: true, label: 'Creator\'s Name'},
-	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
+	creator: { type: String, noedit: true, label: 'Creator\'s Name'}
+	// createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 
 // Response.schema.pre('save', function(next) {

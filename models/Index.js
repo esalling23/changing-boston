@@ -23,7 +23,7 @@ var Index = new keystone.List('Index',
 	{
 		label: 'Index Page',
 		singular: 'Index Page',
-		track: true,
+		// track: true,
 		nodelete: true
 	});
 
@@ -32,9 +32,9 @@ var Index = new keystone.List('Index',
  * @main Index
  */
 Index.add({
-	name: { type: String, default: "Index Page", hidden: true, required: true, initial: true },
+	name: { type: String, default: "Index Page", hidden: true, required: true, initial: true }
 	
-	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
+	// createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 
 /**

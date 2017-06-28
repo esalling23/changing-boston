@@ -23,7 +23,7 @@ var Icon = new keystone.List('Icon',
 	{
 		label: 'Icons',
 		singular: 'Icon',
-		track: true, 
+		// track: true, 
 		autokey: { path: 'icon_key', from: 'name', unique: true }
 	});
 
@@ -33,8 +33,8 @@ var Icon = new keystone.List('Icon',
  */
 Icon.add({
 	name: { type: String, label: 'Icon Name', initial: true, required: true },
-	icon: { type: Types.CloudinaryImage, label: "Icon" }, 
-	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
+	icon: { type: Types.CloudinaryImage, label: "Icon" }
+	// createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 
 /**

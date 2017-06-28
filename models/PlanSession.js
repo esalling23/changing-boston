@@ -19,8 +19,8 @@ var Types = keystone.Field.Types;
  */
 var PlanSession = new keystone.List('PlanSession', {
 	editable: false,
-	cancreate: false,
-    track: true
+	cancreate: false
+    // track: true
 });
 /**
  * Model Fields

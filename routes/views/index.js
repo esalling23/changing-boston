@@ -27,20 +27,20 @@ exports = module.exports = function(req, res) {
     // Home page
     view.on('init', function(next) {
 
-        var queryIndex = Index.model.findOne({}, {}, {
-            sort: {
-                'createdAt': -1
-            }
-        });
+        // var queryIndex = Index.model.findOne({}, {}, {
+        //     sort: {
+        //         'createdAt': -1
+        //     }
+        // });
         
-        queryIndex.exec(function(err, resultIndex) {
-            if (err) throw err;
+        // queryIndex.exec(function(err, resultIndex) {
+        //     if (err) throw err;
 
-            locals.index = resultIndex;
+        //     locals.index = resultIndex;
 
             next();
 
-        });
+        // });
         
     });
 

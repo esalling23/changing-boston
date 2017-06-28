@@ -10,7 +10,7 @@ var Planner = new keystone.List('Planner',
 	{
 		label: 'Planner Profile',
 		singular: 'Planner Profiles',
-		track: true, 
+		// track: true, 
 		map: { name: 'email' }
 	});
 

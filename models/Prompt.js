@@ -23,7 +23,7 @@ var Prompt = new keystone.List('Prompt',
 	{
 		label: 'Prompts',
 		singular: 'Prompt',
-		track: true, 
+		// track: true, 
 		map: { name: 'prompt' },
 		autokey: { path: 'prompt_key', from: 'prompt', unique: true }
 	});
@@ -57,8 +57,8 @@ Prompt.add({
 		many: false,
 		noedit: true
 	},
-	promptId: { type: String, noedit: true, label: "This is the special room code for this prompt" },
-	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
+	promptId: { type: String, noedit: true, label: "This is the special room code for this prompt" }
+	// createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 
 // TO DO: Add after that adds ID of 4 random letters for session sockets

@@ -13,7 +13,7 @@
     "connect-mongostore": "^0.1.4",
     "express": "^4.13.3",
     "json-fs-store": "^1.0.0",
-    "keystone": "0.3.15",
+    "keystone": "git://github.com/engagementgamelab/keystone.git",
     "node-sass-middleware": "^0.9.7",
     "underscore": "^1.8.3"
   }

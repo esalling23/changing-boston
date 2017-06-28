@@ -1,6 +1,7 @@
 {
 	"name": "Changing Boston",
 	"database": "changing-boston",
+	"subdomain": "prompting-change",
 	"admin_nav": { 
 					"index": ["Index"]
 				}

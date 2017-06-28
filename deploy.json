@@ -13,20 +13,20 @@
 
     "staging" : {
       "user": "node",
-      "host": "xxx.xxx.xxx.xx",
-      "repo": "git@github.com:esalling23/changing-boston.git",
+      "host": "174.138.71.140",
+      "repo": "https://github.com/esalling23/changing-boston.git",
       "ref": "origin/master",
-      "path": "/srv/repo-name",
+      "path": "/srv/staging",
       "pre-deploy-local" : "echo 'NPM linking repo-name and restarting app.'; git pull git@github.com:engagementgamelab/repo-name.git master;",
       "post-deploy" : "npm i ; cd /srv/framework/current/ ; npm i ; grunt compile --sites=repo-name --env staging ; pm2 restart 0 -- repo-name --env staging"
     },
 
     "production" : {
       "user": "node",
-      "host": "xxx.xxx.xxx.xx",
-      "repo": "git@github.com:esalling23/changing-boston.git",
-      "ref": "origin/production",
-      "path": "/srv/repo-name",
+      "host": "174.138.71.140",
+      "repo": "https://github.com/esalling23/changing-boston.git",
+      "ref": "origin/master",
+      "path": "/srv/prompting-change",
       "pre-deploy-local" : "echo 'NPM linking repo-name and restarting app.';",
       "post-deploy" : "npm i ; cd /srv/framework/current/ ; grunt compile --sites=repo-name --env production ; NODE_ENV=production pm2 restart server.js -- repo-name --env production"
     }
