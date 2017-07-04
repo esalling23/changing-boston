@@ -13,12 +13,15 @@
 
     "sdk-production" : {
       "user": "node",
-      "host": "104.131.89.60",
+      "host": "104.236.79.252",
       "repo": "https://github.com/esalling23/el-web-sdk.git",
       "ref": "origin/master",
       "path": "/srv/framework",
-      "pre-deploy-local" : "echo 'NPM linking repo-name and restarting app.'; git pull git@github.com:engagementgamelab/repo-name.git master;",
-      "post-deploy" : "npm i ; cd /srv/framework/current/ ; npm i ; grunt compile --sites=repo-name --env staging ; pm2 restart 0 -- repo-name --env staging"
+      "pre-deploy-local" : "echo 'Cloning and running npm install. Be patient.'",
+      "post-deploy" : "npm install ; npm update ; grunt compile --sites=prompting-change --env production ; pm2 restart 'server' -- prompting-change --env production",
+      "env": {
+        "NODE_ENV": "production"
+      }
     },
 
     "production" : {
