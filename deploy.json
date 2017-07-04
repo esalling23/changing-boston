@@ -13,7 +13,7 @@
 
     "sdk-production" : {
       "user": "node",
-      "host": "104.236.79.252",
+      "host": "104.131.89.60",
       "repo": "https://github.com/esalling23/el-web-sdk.git",
       "ref": "origin/master",
       "path": "/srv/framework",
