@@ -370,7 +370,7 @@
 			} else {
 				console.log("checking signup info");
 
-				$.post("/api/signup/", data, function(data){
+				$.get("/api/signup/", data, function(data){
 					console.log(data, " signup data");
 					window.location = data;
 				})
@@ -448,7 +448,7 @@
 			} else {
 				console.log("let's create that for you");
 
-				$.post("/api/start/", data, function(data){
+				$.get("/api/start/", data, function(data){
 					console.log(data, " created yourself a damn plan");
 
 					$('#plan-wrapper').html(data.eventData).find('#prompt-input').val(data.data.prompt);
@@ -503,7 +503,7 @@
 			else {
 				console.log("let's update that for you");
 
-				$.post("/api/update/", data, function(data){
+				$.get("/api/update/", data, function(data){
 					console.log(data, " saved yourself a damn plan");
 					$('.saved').fadeIn();
 

@@ -92,10 +92,14 @@ exports.get = function(req, res) {
 
         Icon.model.find({}, function (err, icon) {
 
+            _.each(session.icons, function(i){
+                if (i.key == icon.key)
+                    icon.selected = true;
+            });
+
             let data = {
                 prompt: session.prompt,
                 promptId: session.promptId, 
-                selectedIcons: session.icons,
                 icons: icon
             }
 
@@ -123,12 +127,12 @@ exports.update = function(req, res) {
     console.log("updating ", req);    
 
     // Find their selected prompt/plan
-    Prompt.model.findOne({promptId: req.body.plan}, function (err, session) {
+    Prompt.model.findOne({promptId: req.query.plan}, function (err, session) {
 
         console.log(session, " updating this EXACT PROMPT");
 
-        session.prompt = req.body.text;
-        session.icons = req.body.icons;
+        session.prompt = req.query.text;
+        session.icons = req.query.icons;
 
         session.save();
 

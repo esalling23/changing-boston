@@ -32,7 +32,10 @@ exports.create = function(req, res) {
             }).save(function(err, newprofile) {
 
                 if (err)
-                    console.log(err);
+                    res.send({
+                        error_code: "cannot_create",
+                        msg: 'Sorry, we cannot create your profile at this time.'
+                    });
                 else {
 
                     res.send('planner/profile/' + newprofile.id);
@@ -60,7 +63,7 @@ exports.get = function(req, res) {
 
     query.exec(function (err, profile) {
 
-        if (err) return handleError("we have not found your profile -- " + err);
+        if (err) res.send({ error_code: "no_profile", msg: 'Sorry, we cannot find that profile.' });;
       
         var data = profile.id;
 
@@ -70,7 +73,10 @@ exports.get = function(req, res) {
                 res.send('/planner/profile/' + data);
 
             } else {
-                console.log("wrong password");
+                res.send({
+                    error_code: "wrong_password",
+                    msg: 'Sorry, wrong password.'
+                });
             }
 
       });
