@@ -31,7 +31,7 @@
       "ref": "origin/master",
       "path": "/srv/platform",
       "pre-deploy-local" : "echo 'NPM linking repo-name and restarting app.';",
-      "post-deploy" : "npm i ; cd /srv/framework/current/ ; grunt compile --sites=prompting-change --env production ; NODE_ENV=production pm2 restart server.js -- prompting-change --env production"
+      "post-deploy" : "npm i ; cd /srv/framework/source/ ; grunt compile --sites=prompting-change --env production ; NODE_ENV=production pm2 restart server.js -- prompting-change --env production"
     }
 
   }
