@@ -50,8 +50,7 @@ body, html {
   position: absolute;
   margin-top: 20px;
   width: 100%;
-  max-width: 450px;
-  }
+  max-width: 450px; }
   .section.ACTIVE, .subsection.ACTIVE {
     display: block; }
 
@@ -74,10 +73,10 @@ button.nav-bar {
   box-shadow: none;
   position: absolute;
   top: -55px; }
-  button.nav-bar.left {
+  button.nav-bar[data-direction="left"] {
     left: 20px;
     text-align: left; }
-  button.nav-bar.right {
+  button.nav-bar[data-direction="right"] {
     text-align: right;
     right: 20px; }
   button.nav-bar.left-mid {
@@ -110,12 +109,10 @@ button:not(:disabled):focus, button:not(:disabled):active, .btn:not(:disabled):f
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   outline: 0px !important; }
-
 button:not(:disabled).minimal:hover, button:not(:disabled).minimal:focus, .btn:not(:disabled).minimal:hover, .btn:not(:disabled).minimal:focus, input:not(:disabled).minimal:hover, input:not(:disabled).minimal:focus {
   background-color: white;
   color: #d00000;
   border: 2px solid #d00000; }
-
 button:disabled, .btn:disabled, input:disabled {
   color: #ffd0d0;
   border: 2px solid #ffd0d0; }
@@ -177,7 +174,8 @@ button:disabled, .btn:disabled, input:disabled {
     margin-bottom: 10px; }
     #login input.btn:hover, #login input.btn:focus {
       color: #fff;
-      background-color: #ff6a6a; }
+      background-color: #ff6a6a;
+      transition: all .2s ease-in-out; }
 
 .modal-wrap {
   position: fixed;
@@ -194,7 +192,7 @@ button:disabled, .btn:disabled, input:disabled {
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.8); }
   .special .option {
-    background-color: #4d4c4c;
+    background-color: #4d4d4d;
     height: 180px;
     width: 140px;
     margin: 10px auto;
@@ -206,7 +204,8 @@ button:disabled, .btn:disabled, input:disabled {
   height: 80%;
   border: 2px solid #343434; }
   #rules-glide .rule-image {
-    width: 100%; }
+    width: 70%;
+    margin: 0 auto; }
   #rules-glide p {
     margin: 20px auto;
     width: 70%;
@@ -214,7 +213,7 @@ button:disabled, .btn:disabled, input:disabled {
   #rules-glide .glide__bullets {
     bottom: 20px; }
   #rules-glide .glide__bullet {
-    background-color: #818080; }
+    background-color: #818181; }
     #rules-glide .glide__bullet.active {
       background-color: #343434; }
       #rules-glide .glide__bullet.active:hover, #rules-glide .glide__bullet.active:focus {
@@ -222,15 +221,20 @@ button:disabled, .btn:disabled, input:disabled {
   #rules-glide .glide__track {
     margin-bottom: 40px;
     padding: 0px; }
-  #rules-glide .glide__arrows {
-    width: 100%; }
-    #rules-glide .glide__arrows .glide__arrow {
-      background-color: transparent;
-      color: #343434;
-      border: 2px solid #343434; }
-      #rules-glide .glide__arrows .glide__arrow:hover, #rules-glide .glide__arrows .glide__arrow:focus {
-        color: #676767;
-        border: 2px solid #676767; }
+  #rules-glide .glide__arrows .glide__arrow {
+    background-color: #ff6a6a;
+    color: #fff;
+    border: 0px;
+    transition: all .1s ease-in-out; }
+    #rules-glide .glide__arrows .glide__arrow:hover, #rules-glide .glide__arrows .glide__arrow:focus {
+      background-color: #ff6a6a;
+      color: #fff;
+      border: 0px;
+      transform-origin: 0 0;
+      transition: all .1s ease-in-out;
+      -webkit-transform: scale(1.2) translateY(-50%);
+      -ms-transform: scale(1.2) translateY(-50%);
+      transform: scale(1.2) translateY(-50%); }
 
 section.tinderslide {
   width: 100%;
@@ -358,7 +362,6 @@ section.tinderslide {
   height: 40px;
   width: 100px;
   font-size: 16px; }
-
 .end #back-btn {
   bottom: 20px;
   position: absolute;
@@ -500,22 +503,22 @@ section.tinderslide {
 .section.profile h3 {
   text-align: center;
   margin: 40px auto; }
-
 .section.profile .edit {
   margin-top: 40px;
   padding-bottom: 80px;
-  border-top: 2px solid #818080; }
+  border-top: 2px solid #818181; }
   .section.profile .edit img {
     height: 100px;
-    width: 100px; }
+    width: 100px;
+    left: 0px;
+    position: relative;
+    }
   .section.profile .edit #btn-save-profile {
     width: 80px;
     position: relative;
     bottom: -40px; }
-
 .section.profile .col-sm-4 {
   margin: 20px auto; }
-
 .section.profile .grade {
   border: 3px solid #fff;
   border-radius: 50%;
@@ -526,7 +529,7 @@ section.tinderslide {
   display: inline-block; }
   .section.profile .grade div {
     font-size: 36px;
-    padding-top: 16px;
+    padding-top: 12px;
     display: block;
     line-height: 1; }
   .section.profile .grade button {
@@ -540,6 +543,8 @@ section.tinderslide {
     word-break: break-word;
     word-wrap: break-word;
     white-space: pre-wrap; }
+    .section.profile .grade button.replay {
+      font-size: 14px; }
     .section.profile .grade button.grade-empty {
       padding-top: 20px;
       font-size: 14px; }
@@ -560,20 +565,17 @@ section.tinderslide {
   box-shadow: none; }
   .section.leaderboard .leader-nav .btn.active {
     color: #343434; }
-
 .section.leaderboard .board ul {
   padding: 0px;
   text-align: left;
   width: 250px;
   margin: 0 auto; }
-
 .section.leaderboard .board li {
   list-style-type: none; }
   .section.leaderboard .board li * {
     display: inline-block; }
   .section.leaderboard .board li div {
     text-align: center; }
-
 .section.leaderboard .points {
   border: 2px solid #fff;
   border-radius: 50%;
