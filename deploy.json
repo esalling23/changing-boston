@@ -13,7 +13,7 @@
 
     "sdk-production" : {
       "user": "node",
-      "host": "174.138.47.8",
+      "host": "104.131.89.60",
       "repo": "https://github.com/esalling23/el-web-sdk.git",
       "ref": "origin/master",
       "path": "/srv/framework",
@@ -26,7 +26,7 @@
 
     "production" : {
       "user": "node",
-      "host": "174.138.47.8",
+      "host": "104.131.89.60",
       "repo": "https://github.com/esalling23/changing-boston.git",
       "ref": "origin/master",
       "path": "/srv/platform",
