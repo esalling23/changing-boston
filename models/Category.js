@@ -44,7 +44,6 @@ Category.add({
 	intro: { type: Types.Markdown, label: 'Intro Conent', required: true, initial: true, toolbarOptions: { hiddenButtons: 'H1,H2,H3,H4,Code,Image,Quote' } },
 	content: { type: Types.Markdown, label: 'Page Conent', required: true, initial: true, height: 250, toolbarOptions: { hiddenButtons: 'H3,H4,Code' }},
 
-	image: { type: Types.CloudinaryImage, label: 'Category Image', folder: 'uncertainty-dictionary', autoCleanup: true },
 	color: { type: Types.Color, label: 'Theme Color', note: 'Color of text in category listing & header color.' }
 	
 	// createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
