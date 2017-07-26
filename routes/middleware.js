@@ -80,6 +80,8 @@ exports.requireUser = function(req, res, next) {
 */
 
 exports.initErrorHandlers = function(req, res, next) {
+
+    console.lo
     
     res.err = function(err, title, message) {
         res.status(500).render('errors/500', {

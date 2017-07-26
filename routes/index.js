@@ -39,8 +39,12 @@ router.all('/admin', function(req, res, next) {
     res.redirect('/keystone');
 });
 
+console.log('first here');
+
 // Views
 router.get('/', routes.views.index);
+
+console.log('here');
 
 router.get('/archive', routes.views.archives);
 router.get('/archive/:plan', routes.views.planArchive);

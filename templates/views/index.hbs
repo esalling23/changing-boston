@@ -20,7 +20,7 @@
 		<div class="row">
 			<input id="user_location">
 		</div> --}}
-		<select id="prompt-select" style="width:320px;">
+		<select id="prompt-select">
 		{{#each prompt}}
 			{{#ifeq enabled true}}
 				<option class="live" id="{{promptId}}" value="{{prompt}}">
@@ -32,7 +32,7 @@
 
 		{{!-- <div id="map"></div> --}}
 
-		<a id="prompt-choice">Go</a>		
+		<a id="prompt-choice" class="btn btn-big">Go</a>		
 			
 	</div> <!-- .prompt-input -->
 

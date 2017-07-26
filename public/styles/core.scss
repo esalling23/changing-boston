@@ -183,6 +183,8 @@ input[type=text] {
 	border-radius: 0px;
 	border: 2px $color-black solid;
 	background-color: $color-grey-lite;
+	display: block;
+    margin: 10px auto;
 
 	option {
 		width: 600px;
