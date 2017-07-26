@@ -1,5 +1,5 @@
 {
-  "name": "changing-boston",
+  "name": "placebase",
   "description": "",
   "main": "app.js",
   "version": "0.0.1",
@@ -7,7 +7,7 @@
     "erica salling <erica@elab.emerson.edu>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/engagementgamelab/uncertainty-dictionary",
+  "homepage": "https://github.com/esalling23/changing-boston",
   "moduleType": [],
   "ignore": [
     "**/.*",

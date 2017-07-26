@@ -9,7 +9,7 @@ input:focus, a:focus, .btn:focus {
   outline: none; }
 
 .body {
-  background-color: #7792AA;
+  background-color: #6C91A3;
   color: #DCDCDC;
   font-family: "Roboto", sans-serif;
   font-weight: 500; }
@@ -49,12 +49,12 @@ input:focus, a:focus, .btn:focus {
 .btn.big_btn {
   height: auto;
   width: 120px;
-  border: 8px #7792AA solid;
+  border: 8px #6C91A3 solid;
   border-radius: 4px;
   font-size: 28px;
   display: block; }
   .btn.big_btn:hover, .btn.big_btn:focus {
-    border: 8px #b6c4d1 solid; }
+    border: 8px #abc0ca solid; }
 
 input[type=text] {
   width: 300px;
@@ -225,7 +225,7 @@ input[type=text] {
 .prompt {
   font-size: 36px;
   text-align: center;
-  color: blue;
+  color: #FCFCFC;
   padding: 10px 0px; }
 
 #prompt-input {
