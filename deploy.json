@@ -15,7 +15,7 @@
       "user": "node",
       "host": "104.131.89.60",
       "repo": "https://github.com/esalling23/el-web-sdk.git",
-      "ref": "production",
+      "ref": "origin/master",
       "path": "/srv/framework",
       "pre-deploy-local" : "echo 'Cloning and running npm install. Be patient.'",
       "post-deploy" : "npm install ; npm update ; grunt compile --sites=prompting-change --env production ; pm2 restart 'server' -- prompting-change --env production",

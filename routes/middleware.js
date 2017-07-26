@@ -24,6 +24,7 @@ var _ = require('underscore');
 exports.initLocals = function(req, res, next) {
 
     var locals = res.locals;
+    console.log(locals, 'locals');
 
     locals.navLinks = [{
         label: 'Home',
@@ -79,11 +80,12 @@ exports.requireUser = function(req, res, next) {
     Inits the error handler functions into `req`
 */
 
-exports.initErrorHandlers = function(req, res, next) {
+exports.initErrorHandlers = function(req, res, next){ 
 
-    console.lo
+    console.log(req, res);
     
     res.err = function(err, title, message) {
+        console.log('err, 500');
         res.status(500).render('errors/500', {
             err: err,
             errorTitle: title,
@@ -92,6 +94,7 @@ exports.initErrorHandlers = function(req, res, next) {
     };
     
     res.notfound = function(title, message) {
+        console.log("not found 404");
         res.status(404).render('errors/404', {
             errorTitle: title,
             errorMsg: message
