@@ -18,7 +18,7 @@
       "ref": "origin/master",
       "path": "/srv/framework",
       "pre-deploy-local" : "echo 'Cloning and running npm install. Be patient.'",
-      "post-deploy" : "npm install ; npm update ; grunt compile --sites=prompting-change --env production ; pm2 restart 'server' -- prompting-change --env production",
+      "post-deploy" : "npm install ; npm update ; grunt compile --sites=placebase --env production ; pm2 restart 'server' -- placebase --env production",
       "env": {
         "NODE_ENV": "production"
       }
@@ -31,7 +31,7 @@
       "ref": "origin/master",
       "path": "/srv/platform",
       "pre-deploy-local" : "echo 'NPM linking repo-name and restarting app.';",
-      "post-deploy" : "npm i ; cd /srv/framework/source/ ; grunt compile --sites=prompting-change --env production ; NODE_ENV=production pm2 restart server.js -- prompting-change --env production"
+      "post-deploy" : "npm i ; cd /srv/framework/source/ ; grunt compile --sites=placebase --env production ; NODE_ENV=production pm2 restart server.js -- placebase --env production"
     }
 
   }
