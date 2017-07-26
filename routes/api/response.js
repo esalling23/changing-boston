@@ -7,6 +7,8 @@ var keystone = require('keystone'),
     
 var GameSession = keystone.list('PlanSession'),
     Prompt = keystone.list('Prompt'),
+    Icon = keystone.list('Icon'),
+    Response = keystone.list('Response'),
     TemplateLoader = require(appRoot + '/lib/TemplateLoader'),
     Templates = new TemplateLoader(),
     Session = require(appRoot + '/lib/SessionManager');
@@ -20,8 +22,6 @@ exports.create = function(req, res) {
     var session;
 
     data = req.body;
-
-    
 
     res.send('/create');
         
@@ -54,6 +54,64 @@ exports.get = function(req, res) {
 
 };
 
+// Api responses
+exports.respond = function(req, res) {
+
+    Prompt.model.findOne({ promptId: req.query.plan }).populate('icons').exec((err, prompt) => {
+
+        // var Icon = this.keystone.list('Icon').model;
+        Icon.model.findOne({ '_id': req.query.response }).exec((err, icon) => {
+
+          if (icon) {
+
+            var response = {
+              name: req.query.creator,
+              type: req.query.type,
+              iconKey: req.query.response, 
+              iconUrl: icon.icon.url, 
+              creator: req.query.creator,
+            }
+
+          } else {
+
+            var response = {
+              name: req.query.creator,
+              type: req.query.type,
+              response: req.query.response, 
+              creator: req.query.creator,
+            }
+
+          }
+
+          // Create response item
+          new Response.model(response).save((err, response) => {
+
+            console.log(response, "RESPONSE")
+
+            prompt.responses.push(response);
+            prompt.save((err, newprompt) => {
+
+                var responseData = {
+                  response: response
+                }
+                
+                Templates.Load('partials/response', responseData, (html) => {
+                  // Send the new response 
+                  res.send({ html: html, data: responseData });
+
+                });
+                
+
+            });
+            
+          });
+
+        });
+
+    });
+
+};
+
 // Comments and Likes
 exports.update = function(req, res) {
 
@@ -72,3 +130,5 @@ exports.update = function(req, res) {
 
 
 };
+
+

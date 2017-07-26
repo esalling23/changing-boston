@@ -16,7 +16,7 @@
 </div>
 
 <div class="icon-wrap col-xs-12">
-	<p>Scroll through icons and tap to select. Then, tap again to send!</p>
+	<p>Scroll through icons and tap to select.</p>
 
 	<div class="icon-input section">
 		<div class="icon-feed" style="height:{{scrollHeight icons}}">
@@ -32,17 +32,19 @@
 			{{/each}}
 
 		</div>
-		<a id="icon-send">send</a>
 	</div>
 </div>
 
 <div class="text-input section col-xs-12">
-	<p>Type and hit 'enter' to send, but keep it short!<br> (Tweet length)</p>
+	<p>Type your response below!</p>
 
 	<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="120" id="prompt-input" placeholder="..."></textarea>
 
 </div>
 
-<p>Name: <input id="user_name" limit="20" class="col-xs-8"></p>
+<p class="name-input">Name: <input id="name-input" limit="20" class="col-xs-8"></p>
+
+<a id="response-send">send</a>
+
 
 

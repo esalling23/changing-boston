@@ -33,7 +33,7 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
 
-        var queryPrompt = Prompt.model.findOne({ promptId: req.params.promptId }, {}, {})
+        var queryPrompt = Prompt.model.findOne({ promptId: req.params.promptId }, {}, {}).sort('-createdAt')
         .populate('responses');
         
         queryPrompt.exec(function(err, resultPrompt) {

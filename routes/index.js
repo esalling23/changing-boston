@@ -58,6 +58,10 @@ router.get('/api/update', keystone.middleware.api, routes.api.plan.update);
 router.get('/api/launch', keystone.middleware.api, routes.api.plan.launch);
 
 router.get('/api/response', keystone.middleware.api, routes.api.response.create);
+
+router.get('/api/reload', keystone.middleware.api, routes.api.plan.reload);
+router.get('/api/responding', keystone.middleware.api, routes.api.response.respond);
+
 router.get('/api/find', keystone.middleware.api, routes.api.response.get);
 // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 // router.get('/protected', middleware.requireUser, routes.views.protected);

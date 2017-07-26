@@ -161,3 +161,33 @@ exports.launch = function(req, res) {
     });
 
 };
+
+// Updating API's for responses
+
+exports.reload = function(req, res) {
+
+    console.log('reloading', req);
+
+    // Locate the prompt
+    Prompt.model.findOne({ promptId: req.query.plan }, function (err, session) {
+
+        if (!session) {
+            console.log("uhmmmmm there's no prompt here");
+            return;
+        }
+
+        let data = {
+            prompt: session.prompt,
+            promptId: session.promptId, 
+            responses: session.responses
+        };
+
+        Templates.Load('partials/responseGroup', data, function(html) {
+
+            res.send({data: data, eventData: html});
+
+        });
+
+    });
+
+};

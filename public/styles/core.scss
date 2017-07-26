@@ -255,33 +255,43 @@ input[type=text] {
 
 }
 
+.prompt-wrapper {
+	padding: 20px;
+}
+
 // Response item
 .item {
 	height: 200px;
 	width: 150px;
     padding: 0px;
-	color: black;
+	color: $color-black;
 	text-align:center;
 	display: table;
-	margin: 30px;
+	margin: 10px;
 	font-size:24px;
+
+	.tag {
+    	display: block;
+    	border-top: 4px solid $color-black;
+    }
 
 
 	&.text {
 		height: 150px;
-		border: 2px solid black;
-		background-color: #ADD8E6;
+		border: 2px solid $color-black;
+		background-color: $color-grey-lite;
 	}
 
     .response {
     	height: 150px;
     	width: 150px;
+	    display: table;
     }
 
 	&.icon {
 		height: 200px;
 	    width: 150px;
-		background-color: transparent;
+		background-color: $color-grey-lite;
 		img {
 			height: 150px;
 			width: 150px;
@@ -300,13 +310,43 @@ input[type=text] {
 	text-align: center;
 	color: $color-white;
     padding: 10px 0px;
+    position: absolute;
+    top: -10px;
+    width: 100%;
+
+}
+
+#response-group {
+	margin-top: 80px;
 }
 
 #prompt-input {
-	color: black;
+	color: $color-black;
 	height: 80px;
 	width: 300px;
 	font-size:18px;
+
+}
+
+.prompt-input {
+	position: absolute;
+    width: 100%;
+    top: 120px;
+
+	@include transition(all, 1s);
+
+	.text {
+		@include transition(all, 1s);
+	}
+
+	&.chosen {
+		position: absolute;
+		top: 0px;
+
+		.text {
+			display:none;
+		}
+	}
 }
 
 #toggle {
@@ -339,12 +379,14 @@ select {
 	}
 }
 .icon-input {
-  height: 90%;
+  height: 300px;
   width: 300px;
   margin: 0 auto;
   overflow-x: auto;
   overflow-y: scroll;
   position: relative;
+  margin-bottom: 0px !important;
+
 }
 
 .icon-feed {
@@ -358,17 +400,18 @@ select {
 	width: 100px;
 	padding:0px;
 	display: inline-block;
-    border: 1px solid black;
+    border: 1px solid $color-black;
     img {
     	display: block;
     }
 
 
     &.selected {
-    	border: 4px solid black;
+    	border: 4px solid $color-black;
     }
     .tag {
     	display: block;
+    	border-top: 4px solid $color-black;
     }
 }
 
@@ -384,30 +427,42 @@ select {
 }
 
 .name-input {
+	display: inline-block;
+	margin-bottom: 40px;
 
+	input {
+		float: right;
+	}
+	
 }
 
 #player_name {
 	color: $color-black;
 }
 
+
+
 .response-input {
 	position: absolute;
 	bottom: 0px;
-	width: 90%;
-	left: 5%;
+	width: 400px;
+    left: calc(50% - 200px);
 	text-align:center;
 
 	.section {
 		display: inline-block;
-		margin-bottom: 60px;
+		margin-bottom: 10px;
 	}
 
 	a {
-		background-color:white;
-		height: 60px;
-		width:80px;
-		color: $color-black;
+		background-color: $color-white;
+	    height: 20px;
+	    width: 80px;
+	    color: #212121;
+	    position: absolute;
+	    bottom: 0px;
+	    left: 50%;
+	    line-height: 20px;
 	}
 }
 
