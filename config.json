@@ -1,7 +1,7 @@
 {
 	"name": "PlaceBase",
 	"database": "changing-boston",
-	"subdomain": "placebase",
+	"subdomain": "prompting-change",
 	"admin_nav": { 
 					"index": ["Index"]
 				}
