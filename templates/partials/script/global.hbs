@@ -271,6 +271,8 @@
 					    
 
 				        break;
+
+
 			    }
 
 		    };
@@ -668,6 +670,16 @@
 
 
 			        break;
+
+			    case 'response:response': 
+
+			    	if (eventData.comment)
+				    	$('.item').find('.comment').append('<div class="comment">' + eventData.comment + '</div>');
+
+				    if (eventData.like)
+
+
+			    	break;
 
 		    }
 

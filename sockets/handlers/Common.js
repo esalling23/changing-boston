@@ -36,6 +36,24 @@ var Common = function (nsp, socket) {
             Session.Get(package.room).
             Response(currentSpace, package);
 
+        },
+
+        'response:comment': function(package) {
+
+            console.log(package);
+
+            Session.Get(package.room).
+            ResponseComment(currentSpace, package);
+
+        },
+
+        'response:like': function(package) {
+
+            console.log(package);
+
+            Session.Get(package.room).
+            ResponseLike(currentSpace, package);
+
         }
     
     };
