@@ -22,25 +22,26 @@ exports = module.exports = function(req, res) {
         locals = res.locals;
 
     // Init locals
-    locals.section = 'index';
+    locals.section = 'home';
 
     // Home page
     view.on('init', function(next) {
 
-        // var queryIndex = Index.model.findOne({}, {}, {
-        //     sort: {
-        //         'createdAt': -1
-        //     }
-        // });
+        var queryPrompt = Prompt.model.find({}, {}, {
+            sort: {
+                'createdAt': -1
+            }
+        }).populate('icons comments');
         
-        // queryIndex.exec(function(err, resultIndex) {
-        //     if (err) throw err;
+        queryPrompt.exec(function(err, resultPrompt) {
+            if (err) throw err;
 
-        //     locals.index = resultIndex;
+            locals.prompt = resultPrompt;
 
             next();
 
-        // });
+        });
+
         
     });
 

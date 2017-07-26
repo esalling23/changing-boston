@@ -1,6 +1,6 @@
 {
   "apps" : [{
-    "name": "Changing Boston",
+    "name": "PlaceBase",
     "script": "app.js",
     "env_production": {
       "NODE_ENV": "production"

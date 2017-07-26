@@ -33,7 +33,7 @@ exports.create = function(req, res) {
 exports.get = function(req, res) {
 
     // Find their selected prompt/plan
-    var query = Prompt.model.findOne({promptId: req.query.plan},{},{})
+    var query = Prompt.model.findOne({ promptId: req.query.plan },{},{})
     .populate('icons');
     query.exec(function (err, session) {
 
@@ -51,5 +51,24 @@ exports.get = function(req, res) {
 
         }); 
     });
+
+};
+
+// Comments and Likes
+exports.update = function(req, res) {
+
+    Prompt.model.findOne({ promptId: req.query.plan })
+    .populate('comments')
+    .exec(function(err, session){
+
+        if (req.query.comment)
+            session.comments.push(req.query.comment);
+
+        if (req.query.like)
+            session.likes += req.query.like;
+
+        res.send('success');
+    })
+
 
 };

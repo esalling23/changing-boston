@@ -1,6 +1,6 @@
 {
-  "name": "prompting-change",
-  "description": "Changing Boston CMAP Thesis Project",
+  "name": "placebase",
+  "description": "PlaceBase CMAP Thesis Project",
   "version": "0.0.3",
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
     "json-fs-store": "^1.0.0",
     "keystone": "https://github.com/engagementgamelab/keystone.git",
     "node-sass-middleware": "^0.9.7",
+    "socket.io": "^2.0.3",
     "underscore": "^1.8.3"
   }
 }

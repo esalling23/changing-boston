@@ -10,15 +10,13 @@
 */
 --}}
 
-<div class="prompt-info">
+<div class="prompt-info col-xs-12">
 	<h3>{{prompt}}</h3>
 
 </div>
 
-
-<div class="icon-wrap">
+<div class="icon-wrap col-xs-12">
 	<p>Scroll through icons and tap to select. Then, tap again to send!</p>
-
 
 	<div class="icon-input section">
 		<div class="icon-feed" style="height:{{scrollHeight icons}}">
@@ -38,12 +36,13 @@
 	</div>
 </div>
 
-
-<div class="text-input section">
+<div class="text-input section col-xs-12">
 	<p>Type and hit 'enter' to send, but keep it short!<br> (Tweet length)</p>
 
 	<textarea name="text" rows="4" cols="14" wrap="soft" maxlength="120" id="prompt-input" placeholder="..."></textarea>
 
 </div>
 
-{{!-- <a id="back-btn">back</a> --}}
+<p>Name: <input id="user_name" limit="20" class="col-xs-8"></p>
+
+

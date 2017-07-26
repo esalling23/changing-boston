@@ -22,21 +22,16 @@ exports = module.exports = function(req, res) {
         locals = res.locals;
 
     // Init locals
-    locals.section = 'create';
+    locals.section = 'archive';
 
     view.on('init', function(next) {
 
-        var queryPrompt = Prompt.model.find({}, {}, {
-            sort: {
-                'createdAt': -1
-            }
-        }).populate('icons');
-        
+        var queryPrompt = Prompt.model.findOne({'promptId': req.params.plan}, {}, {});
+
         queryPrompt.exec(function(err, resultPrompt) {
             if (err) throw err;
 
             locals.prompt = resultPrompt;
-
             next();
 
         });
@@ -44,6 +39,6 @@ exports = module.exports = function(req, res) {
     });
 
     // Render the view
-    view.render('create');
+    view.render('planArchive');
 
 };

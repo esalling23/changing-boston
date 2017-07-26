@@ -39,13 +39,11 @@ exports.generate = function(req, res) {
         if (session)
             gameCode = generateCode();
 
-        console.log(gameCode);
-
         // Create a prompt model with the submitted prompt and user id
         new Prompt.model({
-            prompt: req.body.text,
+            prompt: req.query.text,
             promptId: gameCode,
-            planner: req.body.planner.replace('planner-profile-','')
+            planner: req.query.planner.replace('planner-profile-','')
         }).save(function(err, newprofile) {
 
             if (err)
@@ -55,10 +53,10 @@ exports.generate = function(req, res) {
                 Icon.model.find({}, function (err, icon) {
 
                     let data = {
-                        prompt: req.body.text,
+                        prompt: req.query.text,
                         promptId: gameCode, 
                         icons: icon
-                    }
+                    };
 
                     Templates.Load('partials/plan', data, function(html) {
 
@@ -67,7 +65,6 @@ exports.generate = function(req, res) {
                         res.send({data: data, eventData: html});
 
                     }); 
-                    console.log('success')
 
                 });
 
@@ -87,8 +84,6 @@ exports.get = function(req, res) {
 
     // Find their selected prompt/plan
     Prompt.model.findOne({promptId: req.query.plan}, function (err, session) {
-
-        console.log(session);
 
         Icon.model.find({}, function (err, icon) {
 
@@ -124,12 +119,8 @@ exports.update = function(req, res) {
 
     var locals = res.locals;
 
-    console.log("updating ", req);    
-
     // Find their selected prompt/plan
     Prompt.model.findOne({promptId: req.query.plan}, function (err, session) {
-
-        console.log(session, " updating this EXACT PROMPT");
 
         session.prompt = req.query.text;
         session.icons = req.query.icons;
@@ -148,16 +139,13 @@ exports.update = function(req, res) {
 exports.launch = function(req, res) {
 
     var locals = res.locals;
-
-    console.log('launching');
-
     var session = new PlanSession.model();
 
     // Save this session to memory for faster retrieval (deleted when game ends)
     Session.Create(req.query.plan, new Plan(session));
 
     // Locate the prompt
-    Prompt.model.findOne({promptId: req.query.plan}, function (err, session) {
+    Prompt.model.findOne({ promptId: req.query.plan }, function (err, session) {
 
         if (!session) {
             console.log("uhmmmmm there's no prompt to launch");

@@ -2,17 +2,18 @@
  * (Site name here)
  * Developed by Engagement Lab, 2016
  * ==============
- * Category page view controller.
+ * Index page view controller.
  *
  * Help: http://keystonejs.com/docs/getting-started/#routesviews-firstview
  *
- * @class Category
+ * @class Index
  * @author 
  *
  * ==========
  */
 var keystone = require('keystone'),
-    Category = keystone.list('Category'),
+    Prompt = keystone.list('Prompt'),
+    Icon = keystone.list('Icon')
     _ = require('underscore');
 
 exports = module.exports = function(req, res) {
@@ -21,25 +22,23 @@ exports = module.exports = function(req, res) {
         locals = res.locals;
 
     // Init locals
-    locals.section = 'category';
+    locals.section = 'archive';
 
     view.on('init', function(next) {
+        
+        var queryPrompt = Prompt.model.find({});
 
-        var queryIndex = Category.model.findOne({ key: req.params.category_id }, {}, {});
-        queryIndex.exec(function(err, resultCat) {
+        queryPrompt.exec(function(err, resultPrompt) {
             if (err) throw err;
 
-            if(resultCat === null)
-                return res.notfound('Cannot find category', 'Sorry, but it looks like the category you were looking for does not exist!');
-
-            locals.category = resultCat;
-
+            locals.prompt = resultPrompt;
             next();
 
         });
+
     });
 
     // Render the view
-    view.render('category');
+    view.render('archives');
 
 };

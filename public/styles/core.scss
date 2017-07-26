@@ -12,11 +12,19 @@ body, html {
 	height:100%;
 }
 
+input, a, .btn {
+	&:focus {
+		outline: none;
+	}
+}
+
+
+
 // Body
 .body {
   background-color: white;
   color: black;
-  font-family: "HalisLight";
+  font-family: "Roboto", sans-serif;
 }
 
 .desktop-only {
@@ -38,26 +46,136 @@ body, html {
     width: 100%;
 }
 .btn {
-	height: 30px;
-	width: 60px;
-	border: 1px blue solid;
+	height: auto;
+	width: 120px;
+	border: 5px $color-blue solid;
 	border-radius: 1px;
-	background-color: white;
-	font-size: 12px;
+	background-color: $color-grey-lite;
+	color: $color-blue;
+	font-size: 18px;
 	line-height: 30px;
-	padding: 4px;
+	padding: 0px 4px;
+	white-space: pre-wrap;
+
+	@include transition(all, 0.5s);
+
+	&:hover, &:focus {
+		color: lighten($color-blue, 20%);
+		border: 5px lighten($color-blue, 20%) solid;
+	}
 } 
 
 .btn.big_btn {
-	height: 60px;
+	height: auto;
 	width: 120px;
-	border: 2px blue solid;
+	border: 8px $color-blue solid;
 	border-radius: 4px;
-	font-size: 18px;
-    line-height: 48px;
+	font-size: 28px;
+    display: block;
+
+    &:hover, &:focus {
+    	border: 8px lighten($color-blue, 20%) solid;
+    }
+
+}
+
+input[type=text] {
+	width: 300px;
+	max-width: 100%;
+	margin:  16px auto;
+	padding: 8px;
+	background-color: $color-white;
+	color: $color-black;
 }
 .buffer {
 	margin-top: 5%;	
+	
+}
+
+// NAVIGATION
+
+#menu-toggle {
+	border: 0px;
+	color: $color-black;
+	font-size: 24px;
+	@include transition(all, 0.5s);
+
+	&:hover, &:focus {
+		color: lighten($color-black, 20%);
+
+	}
+}
+
+#sidebar-wrapper {
+	width: 350px;
+	height: 100%;
+	background-color: $color-blue;
+	color: $color-white;
+	position: absolute;
+	left: -350px;
+	top: 0px;
+
+	-webkit-transition: left 1s; /* Safari */
+    transition: left 1s;
+
+	&.open {
+		left: 0px;
+	}
+
+	ul {
+		list-style: none;
+		padding: 0px;
+		width:100%;
+	}
+
+	li {
+		width: 100%;
+		margin-top: 50%;
+
+	}
+
+	a {
+		border: 5px solid $color-white;
+		border-radius: 10px;
+		height: auto;
+		width: 250px;
+		margin: 5% auto;
+		background-color: transparent;
+		font-size: 32px;
+		padding: 5%;
+		color: $color-white;
+		@include transition(all 0.5s);
+
+		&:hover, &:focus {
+			color: $color-grey;
+			border: 5px solid $color-grey;
+		}
+
+		&#menu-close {
+			position: absolute;
+			top: 10px;
+			left: 0px;
+			width: 50px;
+			height: 50px;
+			padding: 0px;
+			margin: 0px;
+			border: 0px;
+			color: $color-white;
+
+			@include transition(all, 0.5s);
+
+			&:hover, &:focus {
+				color: $color-grey;
+			}
+		}
+	}
+}
+
+#map {
+	height: 300px;
+	width: 400px;
+	max-width: 100%;
+	margin: 5% auto;
 }
 
 
@@ -189,7 +307,7 @@ select {
 }
 .icon-wrap {
 	border: 1px solid black;
-	width: 320px;
+	width: 100%;
 	height: 100%;
 	max-height: 450px;
 
@@ -226,12 +344,21 @@ select {
 
     &.selected {
     	border: 4px solid black;
-    	// filter: 
-
     }
     .tag {
     	display: block;
     }
+}
+
+#user_location {
+	border: 2px solid $color-black;
+	color: $color-black;
+	margin: 20px auto;
+
+	&:hover, &:focus {
+		box-shadow: none;
+
+	}
 }
 
 .name-input {
@@ -239,13 +366,14 @@ select {
 }
 
 #player_name {
-	color: black;
+	color: $color-black;
 }
 
 .response-input {
 	position: absolute;
 	bottom: 0px;
-	width: 320px;
+	width: 90%;
+	left: 5%;
 	text-align:center;
 
 	.section {
@@ -257,7 +385,7 @@ select {
 		background-color:white;
 		height: 60px;
 		width:80px;
-		color: black;
+		color: $color-black;
 	}
 }
 

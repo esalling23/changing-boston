@@ -42,8 +42,8 @@ router.all('/admin', function(req, res, next) {
 // Views
 router.get('/', routes.views.index);
 
-router.get('/archive/:plan', routes.views.archive);
-router.get('/create', routes.views.create);
+router.get('/archive', routes.views.archives);
+router.get('/archive/:plan', routes.views.planArchive);
 
 router.get('/api/login', keystone.middleware.api, routes.api.planner.get);
 router.get('/api/signup', keystone.middleware.api, routes.api.planner.create);

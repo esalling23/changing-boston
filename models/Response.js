@@ -37,7 +37,13 @@ Response.add({
 	iconKey: { type: String, label: 'Icon Key'},
 	iconUrl: { type: String, label: 'Icon Url'},
 	type: { type: Types.Select, label: 'Type', options: 'Text, Image'},
-	creator: { type: String, noedit: true, label: 'Creator\'s Name'}
+	creator: { type: String, noedit: true, label: 'Creator\'s Name'}, 
+	comments: { 
+		type: Types.Relationship, 
+		ref: 'Comment', 
+		label: 'Response Comments'
+	}, 
+	likes: { type: Number, label: 'Like Count' }
 	// createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 

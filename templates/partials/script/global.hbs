@@ -10,6 +10,26 @@
  */
 --}}
 
+<script>
+  // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  // m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  // })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  // ga('create', 'UA-103172865-1', 'auto');
+  // ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript">
+    // window.smartlook||(function(d) {
+    // var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    // var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    // c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    // })(document);
+    // smartlook('init', '5814a763f5c42be6436c4f1a369357cb6392d32e');
+</script>
+
 <script type="text/javascript">
 
 	var currentprompt;
@@ -118,48 +138,46 @@
 		// Menu toggling
 	   $("#menu-close").click(function(e) {
 		   e.preventDefault();
-		   $("#sidebar-wrapper").toggleClass("active");
+		   $("#sidebar-wrapper").toggleClass("open");
 	   });
 	   $("#menu-toggle").click(function(e) {
 		   e.preventDefault();
-		   $("#sidebar-wrapper").toggleClass("active");
+		   $("#sidebar-wrapper").toggleClass("open");
 	   });
 
 
 
-    {{#ifeq section "index"}}
+ //    {{#ifeq section "home"}}
 
+	//     // set interval for 10 seconds
+	//     var promptinterval = setInterval(promptChange, 10000);
 
+	// 	function promptChange() {
 
-	    // set interval for 10 seconds
-	    var promptinterval = setInterval(promptChange, 10000);
+	// 		var prompts = $('.prompt-wrapper');
+	// 		_.each(prompts, function(prompt){
+	// 			$(prompt).hide;
 
-		function promptChange() {
-
-			var prompts = $('.prompt-wrapper');
-			_.each(prompts, function(prompt){
-				$(prompt).hide;
-
-			});
-		}
-		function abortTimer() { // to be called when you want to stop the timer
-		    clearInterval(tid);
-		}
+	// 		});
+	// 	}
+	// 	function abortTimer() { // to be called when you want to stop the timer
+	// 	    clearInterval(tid);
+	// 	}
 	
-	{{/ifeq}}
+	// {{/ifeq}}
 
 
 
-	{{#ifeq section "create"}}
+	{{#ifeq section "home"}}
 
-		var findPlan = function(player, plan){
+		var findPlan = function(plan){
 
 			$('.prompt-group').fadeOut();
 
 			var data = {};
 
 			if (!plan) {
-				data.plan = $('#prompt-group select option:selected').attr('id');
+				data.plan = $('#prompt-select option:selected').attr('id');
 			} else {
 				data.plan = plan;
 			}
@@ -167,38 +185,30 @@
 			if (!sessionStorage.getItem('plan'))
 				sessionStorage.setItem('plan', data.plan )
 
-			console.log(data);
-
 			if (!data.plan)
 				console.log("uh oh did you select anything?!")
 			else {
 				console.log("let's get that sucker for you");
 
-				if ($('#prompt-group select').find('#' + data.plan).hasClass('live')) {
-					$.get("/api/find/", data, function(data){
-						console.log(data, " loaded yourself a damn plan");
-						$('#response-input').html(data.eventData).fadeIn(function(){
-							loadLive(data.data.promptId, player);
-						});
-					})
-					.fail(function() {
-					    alert( "error" );
+				$.get("/api/find/", data, function(data){
+					console.log(data, " loaded yourself a damn plan");
+					$('#response-input').html(data.eventData).fadeIn(function(){
+						loadLive(data.data.promptId);
 					});
-
-				} else {
-					window.location = 'archive/' + data.plan;
-				}
-
-				
+				})
+				.fail(function() {
+				    alert( "error" );
+				});
 			}
 		};
+		// findPlan();
 
 		var loadLive = function(id, player) {
 
 			console.log(id)
 			// Open Socket connection
 			socket = io('//{{host}}', {
-			 	path: '/creating-boston', 
+			 	path: '/placebase', 
 			 	reconnection: true,
 			 	'reconnectionDelay': 500,
 			 	'maxReconnectionAttempts':Infinity
@@ -265,6 +275,7 @@
 
 		    };
 		}
+		// loadLive()
 
 		if (sessionStorage.getItem('creator')){
 			$('.name-input').fadeOut();
@@ -287,25 +298,86 @@
 				$('#name-input').click();
 		});
 
-		$('#name-input').on('click', function(){
-			var player = $('#player_name').val();
-			if(!player)
-				console.log("uh no")
-			else {
-				creator = player;
 
-				sessionStorage.setItem('creator', creator)
-				$('#prompt-group').find('h3 span').text(player);
-				$('.name-input').fadeOut();
-				$('#prompt-group').fadeIn(function(){
-					
-					$('#prompt-choice').on('click', function(){
-						findPlan(player);
+		var map, infoWindow;
+	    function initMap() {
+	        map = new google.maps.Map(document.getElementById('map'), {
+	          center: {lat: -34.397, lng: 150.644},
+	          zoom: 6
+	        });
+	        infoWindow = new google.maps.InfoWindow;
 
-					});
-				});
-			}
+	        var geocoder = new google.maps.Geocoder();
+
+	        
+	        // Try HTML5 geolocation.
+	        if (navigator.geolocation) {
+	          navigator.geolocation.getCurrentPosition(function(position) {
+	            var pos = {
+	              lat: position.coords.latitude,
+	              lng: position.coords.longitude
+	            };
+
+	            geocodeAddress(geocoder, map, pos);
+
+
+	            
+	          }, function() {
+	            handleLocationError(true, infoWindow, map.getCenter());
+	          });
+	        } else {
+	          // Browser doesn't support Geolocation
+	          handleLocationError(false, infoWindow, map.getCenter());
+	        }
+	    }
+
+	    function geocodeAddress(geocoder, resultsMap, pos) {
+	        geocoder.geocode({'location': pos}, function(results, status) {
+	          if (status === 'OK') {
+	            resultsMap.setCenter(results[0].geometry.location);
+	            var marker = new google.maps.Marker({
+	              map: resultsMap,
+	              position: results[0].geometry.location
+	            });
+	            infoWindow.setContent(results[0].geometry.location.toString());
+	            infoWindow.setPosition(pos);
+	            map.setCenter(pos);
+	          } else {
+	            alert('Geocode was not successful for the following reason: ' + status);
+	          }
+	        });
+	    }
+
+	    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+	        infoWindow.setPosition(pos);
+	        infoWindow.setContent(browserHasGeolocation ?
+	                              'Error: The Geolocation service failed.' :
+	                              'Error: Your browser doesn\'t support geolocation.');
+	        infoWindow.open(map);
+	    }
+
+	    // initMap();
+
+		$('#prompt-choice').on('click', function(){
+			findPlan($('#prompt-select option:selected').attr('id'));
 		});
+
+		// $('#name-input').on('click', function(){
+		// 	var player = $('#player_name').val();
+		// 	if(!player)
+		// 		console.log("uh no")
+		// 	else {
+		// 		creator = player;
+
+		// 		sessionStorage.setItem('creator', creator)
+		// 		$('#prompt-group').find('h3 span').text(player);
+		// 		$('.name-input').fadeOut();
+		// 		$('#prompt-group').fadeIn(function(){
+					
+					
+		// 		});
+		// 	}
+		// });
 
 		// $('#back-btn').on('click', function(){
 		// 	if(sessionStorage.getItem('plan')) {
@@ -342,14 +414,24 @@
 			console.log(data);
 
 			if (!data.password || !data.email) {
-				console.log ("empty fields");
+				$('.error').text('Please fill in all fields').fadeIn(function(){
+					setTimeout(function(){
+						$('.error').fadeOut();
+					});
+				});
 				  
 			} else {
 				console.log("checking login info");
 
 				$.get("/api/login/", data, function(data){
-					console.log(data, " login data");
-					window.location = data;
+					if (data.error_code)
+						$('.error').text(data.msg).fadeIn(function(){
+							setTimeout(function(){
+								$('.error').fadeOut();
+							});
+						});
+					else 
+						window.location = data;
 				})
 				.fail(function() {
 				    // alert( "error" );
@@ -365,14 +447,24 @@
 			console.log(data);
 
 			if (!data.password || !data.email || !data.name) {
-				console.log ("empty fields");
+				$('.error').text('Please fill in all fields').fadeIn(function(){
+					setTimeout(function(){
+						$('.error').fadeOut();
+					});
+				});
 				  
 			} else {
 				console.log("checking signup info");
 
 				$.get("/api/signup/", data, function(data){
-					console.log(data, " signup data");
-					window.location = data;
+					if (data.error_code)
+						$('.error').text(data.msg).fadeIn(function(){
+							setTimeout(function(){
+								$('.error').fadeOut();
+							});
+						});
+					else 
+						window.location = data;
 				})
 				.fail(function() {
 				    alert( "error" );
@@ -549,7 +641,7 @@
 		console.log('{{section}}');
 		// Open Socket connection
 		socket = io('//{{host}}', {
-		 	path: '/creating-boston', 
+		 	path: '/placebase', 
 		 	reconnection: true,
 		 	'reconnectionDelay': 500,
 		 	'maxReconnectionAttempts':Infinity
@@ -573,21 +665,6 @@
 			        console.log('response going up', eventData);
 
 			        $('#response-group').append(eventData.html);
-
-			      	// if (eventData.type == 'Text'){
-			      	// 	// console.log(item, "is the text");
-
-				      //   var html = '<div class="item text col-sm-3"><p>' + eventData.response + '</p></div>';
-
-				      // 	$('#response-group').append(html);
-
-			      	// } else if (eventData.type == 'Image') {
-
-			      	// 	var html = '<div class="item icon col-sm-3"><img src="' + eventData.item + '"/></div>';
-
-				      	
-
-			      	// }
 
 
 			        break;

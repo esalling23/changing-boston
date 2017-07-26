@@ -10,29 +10,35 @@
 */
 --}}
 
-
 <div class="container-fluid home">
 
-	<div class="row" style="color: white;">
+	<div class="prompt-input row">
 
-		{{index.title}}
-		
-	</div>
+		<h3>Welcome to PlaceBase!</h3>
+		<h4>To start, choose a plan from the dropdown and hit go!</h4>
+		{{!-- <p>Allow geolocation or enter your location below:</p>
+		<div class="row">
+			<input id="user_location">
+		</div> --}}
+		<select id="prompt-select" style="width:320px;">
+		{{#each prompt}}
+			{{#ifeq enabled true}}
+				<option class="live" id="{{promptId}}" value="{{prompt}}">
+					* Now Live: {{prompt}}
+				</option>
+			{{/ifeq}}
+		{{/each}}
+		</select>
 
-	<div class="row">
+		{{!-- <div id="map"></div> --}}
 
-		<h2>Welcome! Are you a planner, or a creator?</h2>
+		<a id="prompt-choice">Go</a>		
+			
+	</div> <!-- .prompt-input -->
 
-	</div>
 
-	<div class="row choice">
+	<div class="response-input row" id="response-input" style="display:none;">
+	</div> <!-- .response-input -->
 
-		{{!-- buttons for planning(group) & viewing(archive)--}}
-		<a class="btn big_btn" href="planner">planners</a>
-		<a class="btn big_btn" href="create">create</a>
-
-		{{!-- <a href="archive">archive</a> --}}
-
-	</div>
 
 </div> <!-- .container-fluid -->

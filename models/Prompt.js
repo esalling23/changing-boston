@@ -33,8 +33,10 @@ var Prompt = new keystone.List('Prompt',
  * @main Prompt
  */
 Prompt.add({
-	prompt: { type: String, label: "Prompt", initial: true, required: true }, 
+	prompt: { type: String, label: "Prompt", note: 'This is the primary prompt', initial: true, required: true }, 
 	location: { type: Types.Location, label: "Location" },
+	promptAlt: { type: Types.TextArray, label: "Alternate Prompts", note: 'Generally for different languages' },
+	description: { type: Types.Markdown, label: 'Background Context' },
 	icons: {
 		type: Types.Relationship, 
 		ref: 'Icon', 
@@ -57,7 +59,8 @@ Prompt.add({
 		many: false,
 		noedit: true
 	},
-	promptId: { type: String, noedit: true, label: "This is the special room code for this prompt" }
+	demoSurvey: { type: Types.Textarea, label: 'Demographics Survey Embed Link' },
+	promptId: { type: String, label: "This is the special room code for this prompt" }
 	// createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 
@@ -67,5 +70,5 @@ Prompt.add({
  * Model Registration
  */
 Prompt.defaultSort = '-createdAt';
-Prompt.defaultColumns = 'name, updatedAt';
+Prompt.defaultColumns = 'prompt, enabled, archived, updatedAt';
 Prompt.register();

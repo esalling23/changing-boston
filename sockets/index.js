@@ -1,6 +1,6 @@
 module.exports = function(app, socket) {
 
-  var io = require('socket.io')(app, {path: '/creating-boston/'});
+  var io = require('socket.io')(app, {path: '/placebase/'});
 
   var CommonHandler = require('./handlers/Common');
   var PromptManager = require('../lib/PromptManager');
@@ -26,6 +26,6 @@ module.exports = function(app, socket) {
 
   });
 
-  console.log('creating-boston: socket.io inititalized');
+  console.log('placebase: socket.io inititalized');
 
 };
