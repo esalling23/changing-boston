@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-  var io = require('socket.io')(app, {path: '/placebase/'});
+  var io = require('socket.io')(app);
 
   var CommonHandler = require('./handlers/Common');
   var PromptManager = require('../lib/PromptManager');
