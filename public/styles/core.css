@@ -9,9 +9,10 @@ input:focus, a:focus, .btn:focus {
   outline: none; }
 
 .body {
-  background-color: white;
-  color: black;
-  font-family: "Roboto", sans-serif; }
+  background-color: #7792AA;
+  color: #DCDCDC;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500; }
 
 @media (max-width: 480px) {
   .desktop-only {

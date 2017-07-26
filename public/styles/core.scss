@@ -22,9 +22,10 @@ input, a, .btn {
 
 // Body
 .body {
-  background-color: white;
-  color: black;
+  background-color: $color-blue;
+  color: $color-grey-lite;
   font-family: "Roboto", sans-serif;
+  font-weight: 500;
 }
 
 .desktop-only {
