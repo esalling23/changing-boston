@@ -1,4 +1,4 @@
-module.exports = function(app, socket) {
+module.exports = function(app) {
 
   var io = require('socket.io')(app, {path: '/placebase/'});
 

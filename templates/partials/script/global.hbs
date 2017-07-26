@@ -207,7 +207,7 @@
 
 			console.log(id)
 			// Open Socket connection
-			socket = io('//{{host}}', {
+			socket = io('//', {
 			 	path: '/placebase', 
 			 	reconnection: true,
 			 	'reconnectionDelay': 500,
@@ -642,8 +642,8 @@
 
 		console.log('{{section}}');
 		// Open Socket connection
-		socket = io('//{{host}}', {
-		 	path: '/placebase', 
+		socket = io('//', {
+		 	path: '/placebase/', 
 		 	reconnection: true,
 		 	'reconnectionDelay': 500,
 		 	'maxReconnectionAttempts':Infinity
