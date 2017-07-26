@@ -16,7 +16,8 @@ input:focus, a:focus, .btn:focus {
 
 @media (max-width: 480px) {
   .desktop-only {
-    display: none; } }
+    /* display: none; */
+    } }
 
 @media only screen and (min-width: 1025px) {
   .mobile-only {
@@ -30,10 +31,10 @@ input:focus, a:focus, .btn:focus {
 .btn {
   height: auto;
   width: 120px;
-  border: 5px #7792AA solid;
+  border: 5px #212121 solid;
   border-radius: 1px;
   background-color: #DCDCDC;
-  color: #7792AA;
+  color: #212121;
   font-size: 18px;
   line-height: 30px;
   padding: 0px 4px;
@@ -43,8 +44,8 @@ input:focus, a:focus, .btn:focus {
   -webkit-transition: all, 0.5s;
   transition: all, 0.5s; }
   .btn:hover, .btn:focus {
-    color: #b6c4d1;
-    border: 5px #b6c4d1 solid; }
+    color: #606060;
+    border: 5px #606060 solid; }
 
 .btn.big_btn {
   height: auto;
@@ -62,27 +63,30 @@ input[type=text] {
   margin: 16px auto;
   padding: 8px;
   background-color: #FCFCFC;
-  color: #212121; }
+  color: #212121;
+  border: 2px #212121 solid; }
 
 .buffer {
   margin-top: 5%; }
 
 #menu-toggle {
-  border: 0px;
+  border: 6px #212121 solid;
   color: #212121;
+  margin: 8px;
   font-size: 24px;
   -moz-transition: all, 0.5s;
   -o-transition: all, 0.5s;
   -webkit-transition: all, 0.5s;
   transition: all, 0.5s; }
   #menu-toggle:hover, #menu-toggle:focus {
-    color: #545454; }
+    color: #606060;
+    border-color: #606060; }
 
 #sidebar-wrapper {
   width: 350px;
   height: 100%;
-  background-color: #7792AA;
-  color: #FCFCFC;
+  background-color: #212121;
+  color: #DCDCDC;
   position: absolute;
   left: -350px;
   top: 0px;
@@ -99,15 +103,14 @@ input[type=text] {
     width: 100%;
     margin-top: 50%; }
   #sidebar-wrapper a {
-    border: 5px solid #FCFCFC;
-    border-radius: 10px;
+    border: 5px solid #DCDCDC;
     height: auto;
     width: 250px;
     margin: 5% auto;
     background-color: transparent;
     font-size: 32px;
     padding: 5%;
-    color: #FCFCFC;
+    color: #DCDCDC;
     -moz-transition: all 0.5s;
     -o-transition: all 0.5s;
     -webkit-transition: all 0.5s;
@@ -131,6 +134,21 @@ input[type=text] {
       transition: all, 0.5s; }
       #sidebar-wrapper a#menu-close:hover, #sidebar-wrapper a#menu-close:focus {
         color: #606060; }
+
+#prompt-select {
+  height: 60px;
+  width: 600px;
+  max-width: 100%;
+  font-size: 18px;
+  color: #212121;
+  border-radius: 0px;
+  border: 2px #212121 solid;
+  background-color: #DCDCDC;
+  }
+  #prompt-select option {
+    width: 600px;
+    max-width: 100%;
+    font-size: 18px; }
 
 #map {
   height: 300px;

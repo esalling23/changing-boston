@@ -21,6 +21,8 @@ exports = module.exports = function(req, res) {
     var view = new keystone.View(req, res),
         locals = res.locals;
 
+        console.log('here we are')
+
     // Init locals
     locals.section = 'home';
 

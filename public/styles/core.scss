@@ -49,10 +49,10 @@ input, a, .btn {
 .btn {
 	height: auto;
 	width: 120px;
-	border: 5px $color-blue solid;
+	border: 5px $color-black solid;
 	border-radius: 1px;
 	background-color: $color-grey-lite;
-	color: $color-blue;
+	color: $color-black;
 	font-size: 18px;
 	line-height: 30px;
 	padding: 0px 4px;
@@ -61,8 +61,8 @@ input, a, .btn {
 	@include transition(all, 0.5s);
 
 	&:hover, &:focus {
-		color: lighten($color-blue, 20%);
-		border: 5px lighten($color-blue, 20%) solid;
+		color: $color-grey;
+		border: 5px $color-grey solid;
 	}
 } 
 
@@ -87,6 +87,8 @@ input[type=text] {
 	padding: 8px;
 	background-color: $color-white;
 	color: $color-black;
+    border: 2px $color-black solid;
+
 }
 .buffer {
 	margin-top: 5%;	
@@ -96,22 +98,23 @@ input[type=text] {
 // NAVIGATION
 
 #menu-toggle {
-	border: 0px;
-	color: $color-black;
+	border: 6px $color-black solid;
+    color: $color-black;
+    margin: 8px;
 	font-size: 24px;
 	@include transition(all, 0.5s);
 
 	&:hover, &:focus {
-		color: lighten($color-black, 20%);
-
+		color: $color-grey;
+		border-color: $color-grey;
 	}
 }
 
 #sidebar-wrapper {
 	width: 350px;
 	height: 100%;
-	background-color: $color-blue;
-	color: $color-white;
+	background-color: $color-black;
+	color: $color-grey-lite;
 	position: absolute;
 	left: -350px;
 	top: 0px;
@@ -136,15 +139,14 @@ input[type=text] {
 	}
 
 	a {
-		border: 5px solid $color-white;
-		border-radius: 10px;
+		border: 5px solid $color-grey-lite;
 		height: auto;
 		width: 250px;
 		margin: 5% auto;
 		background-color: transparent;
 		font-size: 32px;
 		padding: 5%;
-		color: $color-white;
+		color: $color-grey-lite;
 		@include transition(all 0.5s);
 
 		&:hover, &:focus {
@@ -169,6 +171,23 @@ input[type=text] {
 				color: $color-grey;
 			}
 		}
+	}
+}
+
+#prompt-select {
+	height: 60px;
+	width: 600px;
+	max-width: 100%;
+	font-size: 18px;
+	color: $color-black;
+	border-radius: 0px;
+	border: 2px $color-black solid;
+	background-color: $color-grey-lite;
+
+	option {
+		width: 600px;
+		max-width: 100%;
+		font-size: 18px;
 	}
 }
 
