@@ -8,6 +8,13 @@ body, html {
 input:focus, a:focus, .btn:focus {
   outline: none; }
 
+#go-to {
+  position: absolute;
+  bottom: 10px;
+  height: 40px;
+  margin-top: 60px;
+  width: 100%; }
+
 .body {
   background-color: #6C91A3;
   color: #DCDCDC;
