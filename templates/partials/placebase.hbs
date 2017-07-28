@@ -11,9 +11,7 @@
 --}}
 
 
-<div class="prompt-wrapper" id="{{prompt_key}}">
-
-	<div class="prompt-wrapper" id="{{prompt.promptId}}">
+<div class="prompt-wrapper" id="{{prompt.prompt_key}}">
 
 	<div class="row prompt">
 
@@ -27,7 +25,7 @@
 
 	{{#each prompt.responses}}
 
-		<div class="item {{#ifeq type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-3">
+		<div class="item {{#ifeq type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-1">
 			<div class="comment-tag"></div>
 			<div class="like-tag"></div>
 			<div class="response">

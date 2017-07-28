@@ -169,7 +169,7 @@ exports.reload = function(req, res) {
     console.log('reloading', req);
 
     // Locate the prompt
-    Prompt.model.findOne({ promptId: req.query.plan }, function (err, session) {
+    Prompt.model.findOne({ promptId: req.query.plan }).populate('responses').exec(function (err, session) {
 
         if (!session) {
             console.log("uhmmmmm there's no prompt here");

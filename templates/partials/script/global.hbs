@@ -245,6 +245,7 @@
 							});
 						else {
 							$('#prompt-input').val('');
+							$('.popup').fadeIn();
 							console.log('did it');
 							// Now update player window
 						}
@@ -252,6 +253,7 @@
 					.fail(function() {
 					    // alert( "error" );
 					});
+
 
 	                // socket.emit('response', { 
 	                // 	response: $(this)[0].value,
@@ -307,6 +309,15 @@
 						else {
 							console.log('did it');
 							$('.icon.selected:not(.item)').removeClass('selected');
+							$('.popup').fadeIn(function(){
+								$('.confirm').on('click', function() {
+
+								});
+
+								$('.abort').on('click', function() {
+									
+								})
+							});
 							// Now update player window
 						}
 					})
@@ -764,44 +775,44 @@
 
 		var reloading = false;
 
-		// function timeout() {
+		function timeout() {
 		    setTimeout(function () {
 
-		  //   	if (reloading == true)
-		  //   		return;
+		    	if (reloading == true)
+		    		return;
 
-		  //   	reloading = true;
+		    	reloading = true;
 
-		  //   	var data = {
-		  //   		plan: '{{prompt.promptId}}'
-		  //   	};
+		    	var data = {
+		    		plan: '{{prompt.promptId}}'
+		    	};
 
-		  //       $.get("/api/reload/", data, function(data){
-		  //       	console.log(eventData);
-		  //       	if (eventData) {
-				// 		$('#response-group').html(eventData).isotope({
-				// 			itemSelector: '.response-item'
-				// 		});
-				// 	}
+		        $.get("/api/reload/", data, function(data){
+		        	console.log(eventData);
+		        	if (eventData) {
+						$('#response-group').html(eventData).isotope({
+							itemSelector: '.response-item'
+						});
+					}
 
-				// 	reloading = false;
+					reloading = false;
 
-				// })
-				// .fail(function(err) {
-				//     alert( "error" + err );
-				//     reloading = false;
-				// });
+				})
+				.fail(function(err) {
+				    alert( "error" + err );
+				    reloading = false;
+				});
 
 				window.location.reload(true);
 
 
 
-		        // timeout();
+		        timeout();
 
 		    }, 5000);
-		// }
+		}
 
-		// timeout();
+		timeout();
 
 		console.log('{{section}}');
 		// Open Socket connection
