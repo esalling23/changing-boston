@@ -36,6 +36,7 @@ Prompt.add({
 	prompt: { type: String, label: "Prompt", note: 'This is the primary prompt', initial: true, required: true }, 
 	location: { type: Types.Location, label: "Location" },
 	promptAlt: { type: Types.TextArray, label: "Alternate Prompts", note: 'Generally for different languages' },
+	altLang: { type: Types.TextArray, label: "Alternate Prompt Languages", note: 'There should be one language per prompt' },
 	description: { type: Types.Markdown, label: 'Background Context' },
 	icons: {
 		type: Types.Relationship, 
@@ -66,6 +67,17 @@ Prompt.add({
 
 // TO DO: Add after that adds ID of 4 random letters for session sockets
 
+Prompt.schema.pre('save', function(next) {
+
+    // Save state for post hook
+	if (this.promptAlt.length > 0 && (this.altLang.length < this.promptAlt.length)) {
+        var err = new Error('You cannot have more prompts than languages.');
+        next(err);
+    }
+
+    next();
+
+});
 /**
  * Model Registration
  */

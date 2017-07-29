@@ -22,15 +22,18 @@
 		<div class="row">
 			<input id="user_location">
 		</div> --}}
-		<select id="prompt-select">
-		{{#each prompt}}
-			{{#ifeq enabled true}}
-				<option class="live" id="{{promptId}}" value="{{prompt}}">
-					* Now Live: {{prompt}}
-				</option>
-			{{/ifeq}}
-		{{/each}}
-		</select>
+		<div class="btn-group clearfix">
+			<button id="prompt-select" class="plan-options btn btn-default dropdown-toggle" type="button" data-filter-group="" data-toggle="dropdown">
+				<div class="button-text">Select an open PlaceBase <span class="plan-number filter-counter"> </span><span class="bigCaret"></span></div>
+			</button>
+			<ul class="dropdown-menu scrollable" role="menu">
+				{{#each prompt}}
+					{{#ifeq enabled true}}
+					<li><a id="{{promptId}}" class="option-plan">{{prompt}}</a></li>
+					{{/ifeq}}
+				{{/each}}
+			</ul>
+		</div>
 
 		{{!-- <div id="map"></div> --}}
 

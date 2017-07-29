@@ -13,27 +13,17 @@
 
 <div class="container-fluid archive col-sm-12 col-lg-12">
 
-	<div class="btn-group clearfix">
-		<button class="live-prompts btn btn-default dropdown-toggle" type="button" data-filter-group="live" data-toggle="dropdown">
-		<div class="button-text">Live <span class="live-number filter-counter"> </span><span class="bigCaret"></span></div>
-		</button>
-		<ul class="dropdown-menu scrollable" role="menu">
-			<li><a id="all-live" data-filter=""  href="#" data-filter-value="" data-filter-group="live" class="all-options option-live">All Live Prompts</a></li>
-			{{#each prompts}}
-			<li><a id="{{../key}}" value="#" href="#" data-filter-value=".{{key}}" data-filter-group="{{../key}}" class="option-{{../key}}">{{name}}</a></li>
-			{{/each}}
-		</ul>
-	</div>
 
+<div class="prompt-group" id="prompt-grid">
 {{#each prompt}}
 
-	<div class="prompt-wrapper" id="{{prompt_key}}">
+	<div class="prompt-wrapper" id="{{prompt_key}}" href="/archive/{{prompt_key}}">
 
-		<div class="prompt-wrapper" id="{{prompt.promptId}}">
+		<div class="prompt-wrapper" id="{{promptId}}">
 
 		<div class="row prompt">
 
-			{{prompt.prompt}}
+			{{prompt}}
 
 			{{!-- {{prompt.location}} --}}
 					
@@ -41,7 +31,7 @@
 
 		<div class="row grid responses" id="response-group">
 
-		{{#each prompt.responses}}
+		{{#each responses}}
 
 			<div class="item {{#ifeq type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-3">
 				<div class="response">
@@ -61,5 +51,6 @@
 	</div>
 
 {{/each}}
+</div>
 
 </div> <!-- .container-fluid -->

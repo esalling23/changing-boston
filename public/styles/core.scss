@@ -119,17 +119,18 @@ input[type=text] {
 }
 
 #sidebar-wrapper {
-	width: 350px;
+	width: 100%;
+	max-width: 500px;
 	height: 100%;
 	background-color: $color-black;
 	color: $color-grey-lite;
 	position: absolute;
-	left: -350px;
+	left: -500px;
 	top: 0px;
 	z-index:1000;
 
-	-webkit-transition: left 1s; /* Safari */
-    transition: left 1s;
+	-webkit-transition: left 0.5s; /* Safari */
+    transition: left 0.5s;
 
 	&.open {
 		left: 0px;
@@ -140,12 +141,18 @@ input[type=text] {
 		list-style: none;
 		padding: 0px;
 		width:100%;
+		position: relative;
+		display: table;
+		height: 100%;
+
 	}
 
 	li {
 		width: 100%;
-		margin-top: 50%;
-
+		display:table-cell;
+		vertical-align: middle;
+		position: relative;
+		height: auto;
 	}
 
 	a {
@@ -167,13 +174,14 @@ input[type=text] {
 		&#menu-close {
 			position: absolute;
 			top: 10px;
-			left: 0px;
+			left: 10px;
 			width: 50px;
 			height: 50px;
 			padding: 0px;
 			margin: 0px;
 			border: 0px;
 			color: $color-white;
+			z-index: 2000;
 
 			@include transition(all, 0.5s);
 
@@ -185,9 +193,6 @@ input[type=text] {
 }
 
 #prompt-select {
-	height: 60px;
-	width: 600px;
-	max-width: 100%;
 	font-size: 18px;
 	color: $color-black;
 	border-radius: 0px;
@@ -195,12 +200,16 @@ input[type=text] {
 	background-color: $color-grey-lite;
 	display: block;
     margin: 10px auto;
-    white-space: pre-wrap;
+    max-width:100%;
 
-	option {
-		width: 600px;
-		max-width: 100%;
-		font-size: 18px;
+}
+
+.prompt-info {
+	padding-top:8px;
+	border-bottom: 2px solid $color-black;
+	h3 {
+		margin: 0px;
+		margin-bottom: 8px;
 	}
 }
 
@@ -214,6 +223,9 @@ input[type=text] {
 
 .home { 
 	text-align: center;
+	height: calc(100% - 60px);
+    text-align: center;
+    display: table;
 }
 
 .create {
@@ -227,6 +239,7 @@ input[type=text] {
 
 .page-wrapper {
 	height:100%;
+	position: relative;
 }
 
 .profile {
@@ -283,6 +296,8 @@ input[type=text] {
 
 	.tag {
     	display: block;
+    	font-size: 16px;
+    	height: 40px;
     	border-top: 4px solid $color-black;
     }
 
@@ -340,7 +355,10 @@ input[type=text] {
 }
 
 .prompt-input {
-	position: absolute;
+	padding: 8px;
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
     width: 100%;
     top: 120px;
     left: 0px;
@@ -353,7 +371,7 @@ input[type=text] {
 
 	&.chosen {
 		position: absolute;
-		top: -120px;
+		top: -200px;
 
 		.text {
 			display:none;
@@ -380,10 +398,15 @@ select {
 	}
 }
 .icon-wrap {
-	border: 1px solid black;
 	width: 100%;
-	height: 60%;
+	// height: 60%;
 	max-height: 450px;
+	padding: 0px;
+	position: relative;
+
+	p {
+		margin-bottom: 4px;
+	}
 
 	&.planner {
 		width: 100%;
@@ -392,14 +415,18 @@ select {
 }
 .icon-input {
   height: 300px;
-  width: 300px;
+  max-width: 100%;
   max-height: 85%;
   margin: 0 auto;
   overflow-x: auto;
   overflow-y: scroll;
   position: relative;
   margin-bottom: 0px !important;
+  border-bottom: 2px solid $color-black;
 
+  @media(max-height: 500px) {
+  	height:200px;
+  }
 }
 
 .icon-feed {
@@ -439,12 +466,63 @@ select {
 	}
 }
 
+.dropdown-menu {
+
+	width: 350px;
+	max-width: 100%;
+	margin-top:-10px;
+	background-color: $color-white;
+	border-radius: 0px;
+	border: 2px solid $color-black;
+
+	* {
+		white-space: pre-wrap;
+	}
+
+	ul {
+		margin-top: -10px;
+	}
+
+	li {
+
+		a {
+			white-space: pre-wrap;
+		}
+	}
+}
+
+.plan-options {
+	width: 350px;
+	max-width: 100%;
+    height: 80px;
+    /* line-height: 80px; */
+    padding: 16px;
+    position: relative;
+    float: left;
+    margin: 0px;
+    white-space: initial;
+
+    .button-text {
+    	white-space: pre-wrap;
+    }
+}
+
 .name-input {
 	display: inline-block;
 	margin-bottom: 40px;
 
+	*  {
+		float: left;
+		margin: 4px;
+	}
+
 	input {
-		float: right;
+		float: left;
+		height: 20px;
+	}
+
+	a {
+
 	}
 	
 }
@@ -453,16 +531,32 @@ select {
 	color: $color-black;
 }
 
+.text-input {
+	border-bottom: 2px solid $color-black;
 
+	p {
+		margin-bottom: 4px;
+	}
+
+	input {
+		width:100%;
+	}
+}
 
 .response-input {
 	position: absolute;
-	bottom: 0px;
-	width: 100%;
-	height: 100%;
+	top: 0px;
+    width: 95%;
+    height: 90%;
     left: 0px;
+    right: 0px;
+    margin: 0 auto;
     max-width: 600px;
 	text-align:center;
+	background-color: $color-grey-lite;
+	color: $color-black;
+    border: 4px solid $color-black;
+
 
 	.section {
 		display: inline-block;
@@ -473,11 +567,9 @@ select {
 		background-color: $color-white;
 	    height: 20px;
 	    width: 80px;
-	    color: #212121;
-	    position: absolute;
-	    bottom: 0px;
-	    left: calc(50% - 40px);
+	    color: $color-black;
 	    line-height: 20px;
+
 	}
 }
 

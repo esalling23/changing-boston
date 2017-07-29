@@ -23,7 +23,7 @@
 
 			{{#each icons}}
 
-			<div class="icon col-sm-6" id="{{this._id}}">
+			<div class="icon col-sm-4" id="{{this._id}}">
 
 				<img src="{{{cloudinaryUrl this.icon width=90 height=90 crop='scale' quality=100}}}" alt="{{this.name}}" class="event-photo" style="margin:5px auto;">
 
@@ -42,7 +42,7 @@
 
 </div>
 
-<div class="name-input"><p class="col-xs-2">Name: </p><input id="name-input" limit="20" class="col-xs-8"></p><a id="response-send" class="col-xs-2">send</a></div>
+<div class="name-input"><p>Name: </p><input id="name-input" limit="20"><a id="response-send">send</a></div>
 
 
 

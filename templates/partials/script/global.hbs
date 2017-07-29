@@ -170,6 +170,19 @@
 
 	{{#ifeq section "home"}}
 
+		var plans = $('.dropdown-menu li .option-plan').size();
+		$('span.plan-number').text("(" + plans + ")");
+
+
+		$('.dropdown-menu li').delegate('a','click', function() {
+					
+			$('.is-checked').removeClass('is-checked');
+			$(this).addClass('is-checked');
+
+			$('#prompt-select .button-text').text($(this).text());
+
+		});
+
 		var findPlan = function(plan){
 
 			$('.prompt-group').fadeOut();
@@ -177,7 +190,7 @@
 			var data = {};
 
 			if (!plan) {
-				data.plan = $('#prompt-select option:selected').attr('id');
+				data.plan = $('#prompt-select a.is-checked').attr('id');
 			} else {
 				data.plan = plan;
 			}
@@ -191,11 +204,13 @@
 				console.log("let's get that sucker for you");
 
 				$.get("/api/find/", data, function(data){
-					console.log(data, " loaded yourself a damn plan");
-					$('#response-input').html(data.eventData).fadeIn(function(){
-						$('.prompt-input').addClass('chosen')
-						loadLive(data.data.promptId);
-					});
+					$('.prompt-input').addClass('chosen');
+					setTimeout(function(){
+						$('#response-input').html(data.eventData).fadeIn(function(){
+							loadLive(data.data.promptId);
+						});
+					}, 1200)
+					
 				})
 				.fail(function() {
 				    alert( "error" );
@@ -245,7 +260,7 @@
 							});
 						else {
 							$('#prompt-input').val('');
-							$('.popup').fadeIn();
+							// $('.popup').fadeIn();
 							console.log('did it');
 							// Now update player window
 						}
@@ -309,15 +324,15 @@
 						else {
 							console.log('did it');
 							$('.icon.selected:not(.item)').removeClass('selected');
-							$('.popup').fadeIn(function(){
-								$('.confirm').on('click', function() {
+							// $('.popup').fadeIn(function(){
+							// 	$('.confirm').on('click', function() {
 
-								});
+							// 	});
 
-								$('.abort').on('click', function() {
+							// 	$('.abort').on('click', function() {
 									
-								})
-							});
+							// 	})
+							// });
 							// Now update player window
 						}
 					})
@@ -422,7 +437,7 @@
 			var creator = '';
 		}
 
-		$('.icon-feed').width($('.icon:not(.item)').length * 110 + 'px');
+		$('.icon-feed').width(($('.icon:not(.item)').length/3) * 110 + 'px');
 
 		$('#player_name').keydown(function(e) {
 			if(e.keyCode == 13 || e.keyCode == 10)
@@ -490,7 +505,7 @@
 	    // initMap();
 
 		$('#prompt-choice').on('click', function(){
-			findPlan($('#prompt-select option:selected').attr('id'));
+			findPlan($('.btn-group ul li a.is-checked').attr('id'));
 		});
 
 		// $('#name-input').on('click', function(){
@@ -788,11 +803,14 @@
 		    	};
 
 		        $.get("/api/reload/", data, function(data){
-		        	console.log(eventData);
-		        	if (eventData) {
-						$('#response-group').html(eventData).isotope({
-							itemSelector: '.response-item'
-						});
+		        	console.log(data);
+		        	if (data) {
+		        		_.each(data.response, function(item){
+		        			$('#response-group').prepend(item).isotope({
+								itemSelector: '.response-item'
+							});
+		        		})
+						
 					}
 
 					reloading = false;
@@ -803,7 +821,7 @@
 				    reloading = false;
 				});
 
-				window.location.reload(true);
+				// window.location.reload(true);
 
 
 
@@ -857,6 +875,43 @@
 		//     }
 
 	 //    };
+
+	{{/ifeq}}
+
+	{{#ifeq section 'archive'}}
+
+	$('#prompt-choice').on('click', function(){
+
+		var data = {};
+
+		if (!plan) {
+			data.plan = $('#prompt-select option:selected').attr('id');
+		} else {
+			data.plan = plan;
+		}
+
+		if (!sessionStorage.getItem('plan'))
+			sessionStorage.setItem('plan', data.plan )
+
+		if (!data.plan)
+			console.log("uh oh did you select anything?!")
+		else {
+			console.log("let's get that sucker for you");
+
+			$.get("/api/archive/", data, function(data){
+				console.log(data, " loaded yourself a plan");
+				$('#response-input').html(data.eventData).fadeIn(function(){
+					$('.prompt-input').addClass('chosen')
+					loadLive(data.data.promptId);
+				});
+			})
+			.fail(function() {
+			    alert( "error" );
+			});
+		}
+
+	});
+
 
 	{{/ifeq}}
 

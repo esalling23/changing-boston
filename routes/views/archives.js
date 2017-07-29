@@ -26,7 +26,7 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
         
-        var queryPrompt = Prompt.model.find({});
+        var queryPrompt = Prompt.model.find({}).populate('responses planner');
 
         queryPrompt.exec(function(err, resultPrompt) {
             if (err) throw err;

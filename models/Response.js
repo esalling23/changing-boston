@@ -43,21 +43,21 @@ Response.add({
 		ref: 'Comment', 
 		label: 'Response Comments'
 	}, 
+	commentCnt: { type: Number, label: 'Comment Count'},
 	likes: { type: Number, label: 'Like Count' }
 	// createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 
-// Response.schema.pre('save', function(next) {
+Response.schema.post('save', function(next) {
 
-//     // Save state for post hook
-//     this.wasNew = this.isNew;
-//     this.wasModified = this.isModified();
+    // Save state for post hook
+    this.commentCnt = this.comments.length();
 
-//     this.name = this.title;
+    this.save();
 
-//     next();
+    next();
 
-// });
+});
 
 /**
  * Model Registration

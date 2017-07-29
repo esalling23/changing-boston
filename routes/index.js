@@ -43,7 +43,6 @@ router.all('/admin', function(req, res, next) {
 router.get('/', routes.views.index);
 
 router.get('/archive', routes.views.archives);
-router.get('/archive/:plan', routes.views.planArchive);
 
 router.get('/api/login', keystone.middleware.api, routes.api.planner.get);
 router.get('/api/signup', keystone.middleware.api, routes.api.planner.create);
@@ -63,6 +62,8 @@ router.get('/api/reload', keystone.middleware.api, routes.api.plan.reload);
 router.get('/api/responding', keystone.middleware.api, routes.api.response.respond);
 
 router.get('/api/find', keystone.middleware.api, routes.api.response.get);
+router.get('/api/archive', keystone.middleware.api, routes.api.plan.archive);
+
 // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 // router.get('/protected', middleware.requireUser, routes.views.protected);
 

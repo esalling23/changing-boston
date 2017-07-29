@@ -1,0 +1,51 @@
+{{!< default}}
+{{!--
+/**
+* Erica Salling
+* Developed 2017
+* ==============
+*
+* Plan Creation Page
+* ==========
+*/
+--}}
+<div class="prompt-wrapper" id="{{prompt.promptId}}">
+
+	<div class="row prompt">
+
+		<h1>{{prompt.prompt}}</h1>
+
+		{{#if prompt.promptAlt}}
+
+			{{#each prompt.promptAlt}}
+
+				<h2>{{this}}</h2>
+
+			{{/each}}
+
+		{{/if}}
+				
+	</div>
+
+	<div class="row grid responses" id="response-group">
+
+	{{#each prompt.responses}}
+
+		<div class="item {{#ifeq type 'Text'}}text{{else}}icon{{/ifeq}} col-xs-1 col-lg-1">
+			<div class="response">
+			{{#ifeq type 'Text'}}
+				<p> {{response}} </p>
+			{{else}}
+				{{{cloudinaryUrl iconUrl width=80 height=80 crop='scale' quality=100}}}
+			{{/ifeq}}
+			</div>
+			<div class="tag">{{creator}}</div>
+		</div>
+
+	{{/each}}
+
+	</div>
+
+</div>
+
+
