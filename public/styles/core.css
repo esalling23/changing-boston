@@ -160,7 +160,11 @@ input[type=text] {
   background-color: #DCDCDC;
   display: block;
   margin: 10px auto;
-  max-width: 100%; }
+  max-width: 100%;
+  width: 100%;
+  min-width: 250px;
+  padding: 0px 8px;
+  display: table; }
 
 .prompt-info {
   padding-top: 8px;
@@ -168,6 +172,9 @@ input[type=text] {
   .prompt-info h3 {
     margin: 0px;
     margin-bottom: 8px; }
+    @media (max-height: 600px) {
+      .prompt-info h3 {
+        font-size: 18px; } }
 
 #map {
   height: 300px;
@@ -269,7 +276,7 @@ input[type=text] {
 #prompt-input {
   color: #212121;
   height: 80px;
-  width: 300px;
+  width: 100%;
   font-size: 18px; }
 
 .prompt-input {
@@ -278,7 +285,6 @@ input[type=text] {
   display: table-cell;
   vertical-align: middle;
   width: 100%;
-  top: 120px;
   left: 0px;
   -moz-transition: all, 1s;
   -o-transition: all, 1s;
@@ -332,7 +338,7 @@ select option {
   position: relative;
   margin-bottom: 0px !important;
   border-bottom: 2px solid #212121; }
-  @media (max-height: 500px) {
+  @media (max-height: 600px) {
     .icon-input {
       height: 200px; } }
 
@@ -387,7 +393,9 @@ select option {
   margin: 0px;
   white-space: initial; }
   .plan-options .button-text {
-    white-space: pre-wrap; }
+    white-space: pre-wrap;
+    display: table-cell;
+    vertical-align: middle; }
 
 .name-input {
   display: inline-block;
@@ -408,6 +416,9 @@ select option {
     margin-bottom: 4px; }
   .text-input input {
     width: 100%; }
+  @media (max-height: 600px) {
+    .text-input {
+      margin-bottom: 0px !important; } }
 
 .response-input {
   position: absolute;
@@ -428,7 +439,7 @@ select option {
   .response-input a {
     background-color: #FCFCFC;
     height: 20px;
-    width: 80px;
+    width: 60px;
     color: #212121;
     line-height: 20px; }
 
