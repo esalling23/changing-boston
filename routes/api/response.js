@@ -88,11 +88,19 @@ exports.respond = function(req, res) {
 
             console.log(response, "RESPONSE")
 
+            if (response.comments)
+                response.commentCnt = this.comments.length();
+            else 
+              response.commentCnt = 0;
+
+              response.save();
+
             prompt.responses.push(response);
             prompt.save((err, newprompt) => {
 
                 var responseData = {
-                  response: response
+                  response: response, 
+                  id: newprompt.promptId
                 }
                 
                 Templates.Load('partials/response', responseData, (html) => {

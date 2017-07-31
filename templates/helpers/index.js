@@ -16,6 +16,12 @@ module.exports = function() {
 
     };
 
+    _helpers.date = function(str) {
+
+        return Date.parse(str);
+
+    };
+
     return _helpers;
 
 

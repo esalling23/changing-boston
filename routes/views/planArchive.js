@@ -26,7 +26,8 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
 
-        var queryPrompt = Prompt.model.findOne({'promptId': req.params.plan}, {}, {});
+        var queryPrompt = Prompt.model.findOne({'promptId': req.params.id}, {}, {})
+        .populate('planner responses');
 
         queryPrompt.exec(function(err, resultPrompt) {
             if (err) throw err;

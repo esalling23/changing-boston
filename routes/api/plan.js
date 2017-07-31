@@ -166,8 +166,6 @@ exports.launch = function(req, res) {
 
 exports.reload = function(req, res) {
 
-    console.log('reloading', res.locals);
-
     // Locate the prompt
     Prompt.model.findOne({ promptId: req.query.plan }).populate('responses').exec(function (err, session) {
 
@@ -176,13 +174,13 @@ exports.reload = function(req, res) {
             return;
         }
 
-        console.log(session)
+        console.log(session);
 
-        let data = { 
+        let data = {
             responses: session.responses
-        };
+        }
 
-        Templates.Load('partials/response', data, function(html) {
+        Templates.Load('partials/responseGroup', data, function(html) {
 
             res.send({data: data, eventData: html});
 

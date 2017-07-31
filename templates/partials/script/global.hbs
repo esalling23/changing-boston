@@ -260,7 +260,7 @@
 							});
 						else {
 							$('#prompt-input').val('');
-							// $('.popup').fadeIn();
+							$('.popup').fadeIn();
 							console.log('did it');
 							// Now update player window
 						}
@@ -324,15 +324,15 @@
 						else {
 							console.log('did it');
 							$('.icon.selected:not(.item)').removeClass('selected');
-							// $('.popup').fadeIn(function(){
-							// 	$('.confirm').on('click', function() {
+							$('.popup').fadeIn(function(){
+								$('.confirm').on('click', function() {
+									window.location = '/archive/' + data.data.id;
+								});
 
-							// 	});
-
-							// 	$('.abort').on('click', function() {
-									
-							// 	})
-							// });
+								$('.abort').on('click', function() {
+									$('.popup').fadeOut();
+								});
+							});
 							// Now update player window
 						}
 					})
@@ -784,7 +784,13 @@
 
 	{{#ifeq section 'present'}}
 
-		$('#response-group').isotope({
+		$('.popular-responses').isotope({
+			itemSelector: '.item', 
+			filter: {
+				
+			}
+		});
+		$('.new-responses').isotope({
 			itemSelector: '.item'
 		});
 
@@ -805,11 +811,22 @@
 		        $.get("/api/reload/", data, function(data){
 		        	console.log(data);
 		        	if (data) {
-		        		_.each(data.response, function(item){
-		        			$('#response-group').prepend(item).isotope({
-								itemSelector: '.response-item'
-							});
-		        		})
+		     //    		_.each(data.response, function(item){
+		     //    			$('#response-group').prepend(item).isotope({
+							// 	itemSelector: '.response-item'
+							// });
+		     //    		})
+		     			$('#new-responses').html(data.responses);
+		     			$('#new-responses').isotope({
+		     				itemSelector: '.item', 
+		     				getSortData: {
+							    date: '[data-created] parseInt'
+						    }
+		     			});
+
+		     			$('#new-responses').isotope({
+		     				sortBy: '-date'
+		     			})
 						
 					}
 

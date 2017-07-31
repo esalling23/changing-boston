@@ -10,8 +10,8 @@
 */
 --}}
 
-<div class="item {{#ifeq response.type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-3">
-	<div class="response">
+<div class="item {{#ifeq response.type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-1">
+	<div class="response" id="{{response.id}}">
 	{{#ifeq response.type 'Text'}}
 		<p> {{response.response}} </p>
 	{{else}}
