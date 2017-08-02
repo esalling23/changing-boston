@@ -154,6 +154,7 @@ input[type=text] {
     color: $color-black;
     margin: 8px;
 	font-size: 24px;
+	z-index: 1000000;
 	@include transition(all, 0.5s);
 
 	&:hover, &:focus {
