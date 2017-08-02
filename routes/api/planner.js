@@ -15,7 +15,6 @@ var Game = require(appRoot + '/lib/PromptManager'),
 exports.create = function(req, res) {
 
     // Check if this user already has a profile
-    console.log(req.query.email)
     var query = Planner.model.findOne({ email:req.query.email });
     query.exec(function (err, profile) {
 
