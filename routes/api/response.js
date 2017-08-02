@@ -118,23 +118,145 @@ exports.respond = function(req, res) {
 
 };
 
-// Comments and Likes
+
+// Api responses
+exports.respond = function(req, res) {
+
+    Prompt.model.findOne({ promptId: req.query.plan }).populate('icons').exec((err, prompt) => {
+
+        // var Icon = this.keystone.list('Icon').model;
+        Icon.model.findOne({ '_id': req.query.response }).exec((err, icon) => {
+
+          if (icon) {
+
+            var response = {
+              name: req.query.creator,
+              type: req.query.type,
+              iconKey: req.query.response, 
+              iconUrl: icon.icon.url, 
+              creator: req.query.creator
+            }
+
+          } else {
+
+            var response = {
+              name: req.query.creator,
+              type: req.query.type,
+              response: req.query.response, 
+              creator: req.query.creator
+            }
+
+          }
+
+          // Create response item
+          new Response.model(response).save((err, response) => {
+
+            if (response.comments)
+                response.commentCnt = this.comments.length();
+            else 
+              response.commentCnt = 0;
+
+              response.save();
+
+            prompt.responses.push(response);
+            prompt.save((err, newprompt) => {
+
+                var responseData = {
+                  response: response, 
+                  id: newprompt.promptId
+                }
+                
+                Templates.Load('partials/response', responseData, (html) => {
+                  // Send the new response 
+                  res.send({ html: html, data: responseData });
+
+                });
+                
+
+            });
+            
+          });
+
+        });
+
+    });
+
+};
+
+// Add Comments and Likes
 exports.update = function(req, res) {
 
-    Prompt.model.findOne({ promptId: req.query.plan })
+    Response.model.findOne({ response_key: req.query.response })
     .populate('comments')
-    .exec(function(err, session){
-
-        if (req.query.comment)
-            session.comments.push(req.query.comment);
+    .exec(function(err, response){
 
         if (req.query.like)
             session.likes += req.query.like;
 
-        res.send('success');
+        if (req.query.comment) {
+
+          var commentData = {
+            name: "Comment-" + req.query.creator,
+            comment: req.query.comment,
+            creator: req.query.creator, 
+            origin: response
+          }
+
+          // Create comment item
+          new Comment.model(commentData).save((err, comment) => {
+
+            comment.save();
+
+            response.comments.push(comment);
+            response.save((err, newresponse) => {
+
+                var responseData = {
+                  comment: comment,
+                  commentCnt: response.commentCnt, 
+                  likes: response.likes
+                }
+                
+                Templates.Load('partials/comment', responseData, (html) => {
+                  // Send the new response 
+                  res.send({ html: html, data: responseData });
+
+                });
+                
+
+            });
+            
+          });
+        } else {
+
+          var responseData = {
+            commentCnt: response.commentCnt, 
+            likes: response.likes
+          }
+          res.send({ data: responseData });
+
+        }
+
     })
 
 
 };
 
+// Get Comments
+exports.comments = function(req, res) {
 
+    Response.model.findOne({ response_key: req.query.response })
+    .populate('comments')
+    .exec(function(err, response){
+
+      var responseData = {
+        comment: response.comments
+      }
+      
+      Templates.Load('partials/commentFeed', responseData, (html) => {
+        // Send the new response 
+        res.send({ html: html, data: responseData });
+
+      });
+
+    });
+};

@@ -54,7 +54,7 @@ input, a, .btn {
 
 #go-to {
     position: absolute;
-    bottom: 30px;
+    bottom: 0px;
     left: 0px;
     padding-left: 10px;
     padding-top: 8px;
@@ -284,6 +284,7 @@ input[type=text] {
 	height:100%;
 	position: relative;
 	padding-bottom: 40px;
+	margin-top:-40px;
 
 	&.scrollable {
 		overflow-y: scroll;
@@ -329,6 +330,7 @@ input[type=text] {
 
 .prompt-wrapper {
 	padding: 20px;
+    margin-top: 40px;
 
 	@media(max-width:768px) {
 		padding: 8px;
@@ -421,6 +423,32 @@ input[type=text] {
 		display: table-cell;
 		vertical-align: middle;
 	}
+
+	&.open {
+		height:100%;
+		width:100%;
+		margin:0px auto;
+		left: 0px !important;
+		top: 0px !important;
+
+		.response {
+			width: 200px;
+			height:200px;
+			margin: 0px auto;
+
+			img {
+			    height: 190px;
+			    width: 190px;
+			}
+		}
+		.tag {
+			font-size: 18px;
+		}
+
+		.response-comments {
+			display:block;
+		}
+	}
 }
 
 // Prompt 
@@ -430,7 +458,7 @@ input[type=text] {
 	color: $color-white;
     padding: 10px 0px;
     position: relative;
-    margin-top: -60px;
+    margin-top: -20px;
     width: 100%;
 
     @media(max-width: 768px) {
@@ -608,6 +636,9 @@ select {
   @media(max-height: 600px) {
   	height:200px;
   }
+	@media(max-height:480px) {
+		height: 140px;
+	}
 }
 
 .icon-feed {
@@ -732,6 +763,7 @@ select {
 	@media(max-height:600px) {
 		margin-bottom: 0px !important;
 	}
+
 }
 
 .response-input {

@@ -45,10 +45,11 @@ router.get('/', routes.views.index);
 router.get('/archive', routes.views.archives);
 router.get('/archive/:id', routes.views.planArchive);
 
-
+// Planner signin
 router.get('/api/login', keystone.middleware.api, routes.api.planner.get);
 router.get('/api/signup', keystone.middleware.api, routes.api.planner.create);
 
+// Planner 
 router.get('/planner', routes.views.group);
 router.get('/planner/profile/:id', routes.views.planner);
 router.get('/plan/:promptId', routes.views.present);
@@ -60,11 +61,17 @@ router.get('/api/launch', keystone.middleware.api, routes.api.plan.launch);
 
 router.get('/api/response', keystone.middleware.api, routes.api.response.create);
 
+// Looping reload for presentation screen
 router.get('/api/reload', keystone.middleware.api, routes.api.plan.reload);
+
+// Create and save response to prompt
 router.get('/api/responding', keystone.middleware.api, routes.api.response.respond);
 
+// Find prompt
 router.get('/api/find', keystone.middleware.api, routes.api.response.get);
-router.get('/api/archive', keystone.middleware.api, routes.api.plan.archive);
+
+// Load comments for responses
+router.get('/api/comments', keystone.middleware.api, routes.api.response.comments);
 
 // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 // router.get('/protected', middleware.requireUser, routes.views.protected);

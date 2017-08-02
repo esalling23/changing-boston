@@ -10,18 +10,28 @@
 */
 --}}
 
-<div class="item {{#ifeq type 'Text'}}text{{else}}icon{{/ifeq}} col-xs-1 col-lg-1" data-created="{{date created}}" data-comments="{{commentCnt}}" data-likes="{{likes}}">
+<div class="item {{#ifeq response.type 'Text'}}text{{else}}icon{{/ifeq}} col-xs-1 col-lg-1" data-created="{{date response.created}}" data-comments="{{response.commentCnt}}" data-likes="{{response.likes}}">
 
-	{{#if comments}} <div class="comment-bubble bubble">{{commentCnt}}</div> {{/if}}
+	{{#if response.comments}} <div class="comment-bubble bubble">{{response.commentCnt}}</div> {{/if}}
 
-	{{#if likes}} <div class="like-bubble bubble">{{likes}}</div> {{/if}}
+	{{#if response.likes}} <div class="like-bubble bubble">{{response.likes}}</div> {{/if}}
 
-	<div class="response" id="{{id}}">
-		{{#ifeq type 'Text'}}
-			<p> {{response}} </p>
+	<div class="response" id="{{response.id}}">
+		{{#ifeq response.type 'Text'}}
+			<p> {{response.response}} </p>
 		{{else}}
-			{{{cloudinaryUrl iconUrl width=80 height=80 crop='scale' quality=100}}}
+			{{{cloudinaryUrl response.iconUrl width=80 height=80 crop='scale' quality=100}}}
 		{{/ifeq}}
 	</div>
-	<div class="tag">{{creator}}</div>
+	<div class="tag">{{response.creator}}</div>
+
+	{{#ifeq archive true}}
+	<div class="response-comments" style="display:none">
+		<ul>
+		{{#each response.comments}}
+			<li>{{this}}</li>
+		{{/each}}
+		</ul>
+	</div>
+	{{/ifeq}}
 </div>

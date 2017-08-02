@@ -872,40 +872,75 @@
 	{{#ifeq section 'archive'}}
 
 	$('#archive-grid').isotope({
-		itemSelector: '.prompt-wrapper'
+		itemSelector: '.prompt-wrapper', 
+		masonry: { 
+			columnWidth: $('#archive-grid').width() / 12,
+			gutter: $('#archive-grid').width() / 12
+		}
+	});
+	$('#archived-responses').isotope({
+		itemSelector: '.item', 
+		masonry: { 
+			columnWidth: $('#archived-responses').width() / 12, 
+			gutter: $('#archived-responses').width() / 12 
+		}
 	});
 
-	$('#prompt-choice').on('click', function(){
+	$('.item').unbind('click').on('click', function() {
 
-		var data = {};
+		$(this).addClass('open');
 
-		if (!plan) {
-			data.plan = $('#prompt-select option:selected').attr('id');
-		} else {
-			data.plan = plan;
-		}
+		var data = {
+			response: $(this).find('.response').attr('id')
+		};
 
-		if (!sessionStorage.getItem('plan'))
-			sessionStorage.setItem('plan', data.plan )
-
-		if (!data.plan)
-			console.log("uh oh did you select anything?!")
-		else {
-			console.log("let's get that sucker for you");
-
-			$.get("/api/archive/", data, function(data){
-				console.log(data, " loaded yourself a plan");
-				$('#response-input').html(data.eventData).fadeIn(function(){
-					$('.prompt-input').addClass('chosen')
-					loadLive(data.data.promptId);
+	    $.get("/api/comments/", data, function(data){
+	    	console.log(data);
+	    	if (data) {
+				$('#archived-responses .item').hide(function(){
+					$('#archived-responses .item.open .response-comments').html(data.eventData)
+					$('#archived-responses .item.open').fadeIn();
 				});
-			})
-			.fail(function() {
-			    alert( "error" );
-			});
-		}
+			}
+		})
+		.fail(function(err) {
+		    alert( "error" + err );
+		});
 
+		
 	});
+
+	// $('#prompt-choice').on('click', function(){
+
+	// 	var data = {};
+
+	// 	if (!plan) {
+	// 		data.plan = $('#prompt-select option:selected').attr('id');
+	// 	} else {
+	// 		data.plan = plan;
+	// 	}
+
+	// 	if (!sessionStorage.getItem('plan'))
+	// 		sessionStorage.setItem('plan', data.plan )
+
+	// 	if (!data.plan)
+	// 		console.log("uh oh did you select anything?!")
+	// 	else {
+	// 		console.log("let's get that sucker for you");
+
+	// 		$.get("/api/archive/", data, function(data){
+	// 			console.log(data, " loaded yourself a plan");
+	// 			$('#response-input').html(data.eventData).fadeIn(function(){
+	// 				$('.prompt-input').addClass('chosen')
+	// 				loadLive(data.data.promptId);
+	// 			});
+	// 		})
+	// 		.fail(function() {
+	// 		    alert( "error" );
+	// 		});
+	// 	}
+
+	// });
 
 
 	{{/ifeq}}

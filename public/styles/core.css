@@ -38,7 +38,7 @@ input:focus, a:focus, .btn:focus {
 
 #go-to {
   position: absolute;
-  bottom: 30px;
+  bottom: 0px;
   left: 0px;
   padding-left: 10px;
   padding-top: 8px;
@@ -227,7 +227,8 @@ input[type=text] {
 .page-wrapper {
   height: 100%;
   position: relative;
-  padding-bottom: 40px; }
+  padding-bottom: 40px;
+  margin-top: -40px; }
   .page-wrapper.scrollable {
     overflow-y: scroll; }
 
@@ -258,7 +259,8 @@ input[type=text] {
     vertical-align: middle; }
 
 .prompt-wrapper {
-  padding: 20px; }
+  padding: 20px;
+  margin-top: 40px; }
   @media (max-width: 768px) {
     .prompt-wrapper {
       padding: 8px; } }
@@ -323,6 +325,23 @@ input[type=text] {
   .item p {
     display: table-cell;
     vertical-align: middle; }
+  .item.open {
+    height: 100%;
+    width: 100%;
+    margin: 0px auto;
+    left: 0px !important;
+    top: 0px !important; }
+    .item.open .response {
+      width: 200px;
+      height: 200px;
+      margin: 0px auto; }
+      .item.open .response img {
+        height: 190px;
+        width: 190px; }
+    .item.open .tag {
+      font-size: 18px; }
+    .item.open .response-comments {
+      display: block; }
 
 .prompt {
   font-size: 36px;
@@ -330,7 +349,7 @@ input[type=text] {
   color: #FCFCFC;
   padding: 10px 0px;
   position: relative;
-  margin-top: -60px;
+  margin-top: -20px;
   width: 100%; }
   @media (max-width: 768px) {
     .prompt {
@@ -467,6 +486,9 @@ select option {
   @media (max-height: 600px) {
     .icon-input {
       height: 200px; } }
+  @media (max-height: 480px) {
+    .icon-input {
+      height: 140px; } }
 
 .icon-feed {
   height: 100px;

@@ -19,24 +19,17 @@
 
 			{{prompt.prompt}}
 
+			<p>Click on a response to like or comment.</p>
+
 			{{!-- {{prompt.location}} --}}
 					
 		</div>
 
-		<div class="row grid responses" id="response-group">
+		<div class="row grid responses" id="archived-responses">
 
 		{{#each prompt.responses}}
 
-			<div class="item {{#ifeq type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-3">
-				<div class="response">
-				{{#ifeq type 'Text'}}
-					<p> {{response}} </p>
-				{{else}}
-					{{{cloudinaryUrl iconUrl width=80 height=80 crop='scale' quality=100}}}
-				{{/ifeq}}
-				</div>
-				<div class="tag">{{creator}}</div>
-			</div>
+			{{>response response=this archive=true}}
 
 		{{/each}}
 

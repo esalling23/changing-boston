@@ -45,7 +45,6 @@ exports = module.exports = function(req, res) {
                     return;
                 }
                 else if (prompt.planner.id == req.params.id) {
-                    console.log("this plan was made by this fucker")
                     locals.plans = resultPrompt;
                 }
                 
