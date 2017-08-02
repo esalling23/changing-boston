@@ -775,3 +775,14 @@ select {
 
 // Present page
 
+.present {
+	.prompt {
+		h1 {
+			margin-top: 10px;
+		}
+		h2 { 
+			margin-top: 0px;
+		}
+	}
+}
+
