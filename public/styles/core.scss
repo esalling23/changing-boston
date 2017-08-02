@@ -283,6 +283,11 @@ input[type=text] {
 .page-wrapper {
 	height:100%;
 	position: relative;
+	padding-bottom: 40px;
+
+	&.scrollable {
+		overflow-y: scroll;
+	}
 }
 
 .profile {
@@ -324,6 +329,42 @@ input[type=text] {
 
 .prompt-wrapper {
 	padding: 20px;
+
+	@media(max-width:768px) {
+		padding: 8px;
+	}
+
+	&.archived {
+		height: 100px;
+		width: 48%;
+		font-size: 18px;
+		padding: 8px;
+		background-color: $color-blue-lite;
+		color: $color-black;
+		margin: 2% 1%;
+		overflow: hidden;
+	}
+}
+
+#archive-grid {
+
+	.prompt {
+		font-size: 24px;
+		text-align: center;
+		color: $color-white;
+	    padding: 10px 0px;
+	    position: relative;
+	    margin-top: 0px;
+	    width: 100%;
+	}
+
+	.prompt-wrapper {
+		transition: all 0.2s;
+
+		&:hover, &:focus {
+			transform: scale(1.05);
+		}
+	}
 }
 
 // Response item
@@ -388,14 +429,22 @@ input[type=text] {
 	text-align: center;
 	color: $color-white;
     padding: 10px 0px;
-    position: absolute;
-    top: -10px;
+    position: relative;
+    margin-top: -60px;
     width: 100%;
 
+    @media(max-width: 768px) {
+    	margin-top: -20px;
+		font-size: 24px;
+
+    	h1 {
+    		font-size: 24px;
+    	}
+    }
 }
 
 #response-group {
-	margin-top: 80px;
+	// margin-top: 80px;
 }
 
 .response-grid {
@@ -412,7 +461,16 @@ input[type=text] {
 	height: 60%;
 }
 
-@media(min-height: 780px)  {
+@media(min-width: 2000px)  {
+	.grid-xlg-4 {
+		max-height: 780px;
+	}
+	.grid-xlg-1 {
+		max-height: 240px;
+	}
+}
+
+@media(min-height: 1024px) and (max-width: 2000px)  {
 	.grid-lg-3 {
 		max-height: 540px;
 	}
@@ -421,12 +479,21 @@ input[type=text] {
 	}
 }
 
-@media(max-height: 780px) and (min-height: 480px) {
+@media(min-height: 700px) and (max-height: 1024px)  {
 	.grid-md-2 {
-		max-height: 340px;
+		max-height: 380px;
 	}
 	.grid-md-1 {
 		max-height: 240px;
+	}
+}
+
+@media(max-height: 700px) and (min-height: 480px) {
+	.grid-sm-2 {
+		max-height: 380px;
+	}
+	.grid-sm-1 {
+		max-height: 200px;
 	}
 }
 

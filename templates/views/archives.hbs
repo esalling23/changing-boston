@@ -14,41 +14,22 @@
 <div class="container-fluid archive col-sm-12 col-lg-12">
 
 
-<div class="prompt-group" id="prompt-grid">
+<div class="prompt-group row" id="archive-grid">
 {{#each prompt}}
 
-	<div class="prompt-wrapper" id="{{prompt_key}}" href="/archive/{{prompt_key}}">
+	<a href="/archive/{{promptId}}">
+		<div class="prompt-wrapper archived" id="{{prompt_key}}">
 
-		<div class="prompt-wrapper" id="{{promptId}}">
+			<div class="row prompt">
 
-		<div class="row prompt">
+				{{prompt}}
 
-			{{prompt}}
-
-			{{!-- {{prompt.location}} --}}
-					
-		</div>
-
-		<div class="row grid responses" id="response-group">
-
-		{{#each responses}}
-
-			<div class="item {{#ifeq type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-3">
-				<div class="response">
-				{{#ifeq type 'Text'}}
-					<p> {{response}} </p>
-				{{else}}
-					{{{cloudinaryUrl iconUrl width=80 height=80 crop='scale' quality=100}}}
-				{{/ifeq}}
-				</div>
-				<div class="tag">{{creator}}</div>
+				{{prompt.location}}
+						
 			</div>
 
-		{{/each}}
-
 		</div>
-
-	</div>
+	</a>
 
 {{/each}}
 </div>

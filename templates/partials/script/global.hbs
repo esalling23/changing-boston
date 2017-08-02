@@ -783,7 +783,7 @@
 	{{/ifeq}}
 
 	{{#ifeq section 'present'}}
-	
+
 		var reloading = false;
 
 		function timeout() {
@@ -870,6 +870,10 @@
 	{{/ifeq}}
 
 	{{#ifeq section 'archive'}}
+
+	$('#archive-grid').isotope({
+		itemSelector: '.prompt-wrapper'
+	});
 
 	$('#prompt-choice').on('click', function(){
 

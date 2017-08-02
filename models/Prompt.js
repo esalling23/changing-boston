@@ -61,8 +61,8 @@ Prompt.add({
 		noedit: true
 	},
 	demoSurvey: { type: Types.Textarea, label: 'Demographics Survey Embed Link' },
-	promptId: { type: String, label: "This is the special room code for this prompt" }
-	// createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
+	promptId: { type: String, label: "This is the special room code for this prompt" },
+	created: { type: Date, default: Date.now, noedit: true, hidden: true }
 });
 
 // TO DO: Add after that adds ID of 4 random letters for session sockets
