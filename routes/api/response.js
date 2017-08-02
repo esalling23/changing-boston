@@ -87,8 +87,8 @@ exports.respond = function(req, res) {
           // Create response item
           new Response.model(response).save((err, response) => {
 
-            if (response.comments)
-                response.commentCnt = this.comments.length();
+            if (response.comments.length > 0)
+                response.commentCnt = response.comments.length;
             else 
               response.commentCnt = 0;
 

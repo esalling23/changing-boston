@@ -18,6 +18,16 @@ input, a, .btn {
 	}
 }
 
+.maximal {
+	border: 1px solid $color-black;
+	color: $color-black;
+
+	&:hover, &:focus {
+		border: 1px solid lighten($color-black, 10%);
+		color: lighten($color-black, 10%);
+	}
+}
+
 .error {
 	display:none;
 	padding: 8px;

@@ -260,8 +260,15 @@
 							});
 						else {
 							$('#prompt-input').val('');
-							$('.popup').fadeIn();
-							console.log('did it');
+							$('.popup').fadeIn(function(){
+								$('.confirm').on('click', function() {
+									window.location = '/archive/' + data.data.id;
+								});
+
+								$('.abort').on('click', function() {
+									$('.popup').fadeOut();
+								});
+							});
 							// Now update player window
 						}
 					})

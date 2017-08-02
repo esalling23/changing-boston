@@ -8,6 +8,13 @@ body, html {
 input:focus, a:focus, .btn:focus {
   outline: none; }
 
+.maximal {
+  border: 1px solid #212121;
+  color: #212121; }
+  .maximal:hover, .maximal:focus {
+    border: 1px solid #3b3a3a;
+    color: #3b3a3a; }
+
 .error {
   display: none;
   padding: 8px;
