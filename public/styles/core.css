@@ -13,8 +13,12 @@ input:focus, a:focus, .btn:focus {
   padding: 8px;
   width: 100%;
   height: 60px;
-  color: #212121;
+  color: #DCDCDC;
   background-color: #6C91A3; }
+  .error.response {
+    position: absolute;
+    bottom: 0px;
+    height: 30px; }
 
 .row {
   margin: 0px; }
@@ -640,6 +644,9 @@ select option {
     font-size: 18px;
     margin: 0px;
     padding: 0px; }
+
+.present .prompt-wrapper {
+  margin-top: -40px; }
 
 .present .prompt h1 {
   margin-top: 10px; }
