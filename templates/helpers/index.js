@@ -9,6 +9,11 @@ module.exports = function() {
      * Local HBS Helpers
      * ===================
      */	
+     _helpers.add = function(num, num2) {
+
+        return num + num2;
+
+    };
 
      _helpers.ifLongerThan = function(array, length, options) {
 

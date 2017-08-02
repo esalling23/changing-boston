@@ -233,10 +233,14 @@
 				if ($('#prompt-input').val() == '' || $('#name-input').val() == '') {
 
 					if ($('#name-input').val() == '') {
-						$('.error').text('Please add a name, any name will do!').fadeIn(function(){
+						$('.error').text('Please add a name, any name will do!')
+						.fadeIn(function(){
+							$('.error').on('click', function(){
+			    				$('.error').hide();
+			    			});
 							setTimeout(function(){
 								$('.error').fadeOut();
-							}, 8000);
+							}, 4000);
 						});
 					}
 					
@@ -254,9 +258,12 @@
 	            	$.get("/api/responding/", data, function(data){
 						if (data.error_code)
 							$('.error').text(data.msg).fadeIn(function(){
+								$('.error').on('click', function(){
+				    				$('.error').hide();
+				    			});
 								setTimeout(function(){
 									$('.error').fadeOut();
-								});
+								}, 4000);
 							});
 						else {
 							$('#prompt-input').val('');
@@ -303,10 +310,14 @@
 
 	      		if (!icon || $('#name-input').val() == '') {
 	      			if ($('#name-input').val() == '') {
-						$('.error').text('Please add a name, any name will do!').fadeIn(function(){
+						$('.error').text('Please add a name, any name will do!')
+						.fadeIn(function(){
+							$('.error').on('click', function(){
+			    				$('.error').hide();
+			    			});
 							setTimeout(function(){
 								$('.error').fadeOut();
-							});
+							}, 4000);
 						});
 					}
 	      			return;
@@ -324,9 +335,12 @@
 	      			$.get("/api/responding/", data, function(data){
 						if (data.error_code)
 							$('.error.response').text(data.msg).fadeIn(function(){
+								$('.error').on('click', function(){
+				    				$('.error').hide();
+				    			});
 								setTimeout(function(){
 									$('.error').fadeOut();
-								}, 8000);
+								}, 4000);
 							});
 						else {
 							console.log('did it');
@@ -568,9 +582,12 @@
 
 			if (!data.password || !data.email) {
 				$('.error').text('Please fill in all fields').fadeIn(function(){
+					$('.error').on('click', function(){
+	    				$('.error').hide();
+	    			});
 					setTimeout(function(){
 						$('.error').fadeOut();
-					});
+					}, 5000);
 				});
 				  
 			} else {
@@ -579,9 +596,12 @@
 				$.get("/api/login/", data, function(data){
 					if (data.error_code)
 						$('.error').text(data.msg).fadeIn(function(){
+							$('.error').on('click', function(){
+			    				$('.error').hide();
+			    			});
 							setTimeout(function(){
 								$('.error').fadeOut();
-							});
+							}, 5000);
 						});
 					else 
 						window.location = data;
@@ -601,9 +621,12 @@
 
 			if (!data.password || !data.email || !data.name) {
 				$('.error').text('Please fill in all fields').fadeIn(function(){
+					$('.error').on('click', function(){
+	    				$('.error').hide();
+	    			});
 					setTimeout(function(){
 						$('.error').fadeOut();
-					});
+					}, 5000);
 				});
 				  
 			} else {
@@ -612,9 +635,12 @@
 				$.get("/api/signup/", data, function(data){
 					if (data.error_code)
 						$('.error').text(data.msg).fadeIn(function(){
+							$('.error').on('click', function(){
+			    				$('.error').hide();
+			    			});
 							setTimeout(function(){
 								$('.error').fadeOut();
-							});
+							}, 5000);
 						});
 					else 
 						window.location = data;
@@ -878,20 +904,20 @@
 
 	{{#ifeq section 'archive'}}
 
-	$('#archive-grid').isotope({
-		itemSelector: '.prompt-wrapper', 
-		masonry: { 
-			columnWidth: $('#archive-grid').width() / 12,
-			gutter: $('#archive-grid').width() / 12
-		}
-	});
-	$('#archived-responses').isotope({
-		itemSelector: '.item', 
-		masonry: { 
-			columnWidth: $('#archived-responses').width() / 12, 
-			gutter: $('#archived-responses').width() / 12 
-		}
-	});
+	// $('#archive-grid').isotope({
+	// 	itemSelector: '.prompt-wrapper', 
+	// 	masonry: { 
+	// 		columnWidth: $('#archive-grid').width() / 12,
+	// 		gutter: $('#archive-grid').width() / 12
+	// 	}
+	// });
+	// $('#archived-responses').isotope({
+	// 	itemSelector: '.item', 
+	// 	masonry: { 
+	// 		columnWidth: $('#archived-responses').width() / 12, 
+	// 		gutter: $('#archived-responses').width() / 12 
+	// 	}
+	// });
 
 	$('.item').unbind('click').on('click', function(e) {
 		if ($(this).hasClass('open'))
@@ -954,7 +980,7 @@
 							});
 						});
 
-						$('#comment-send').unbind('click').on('click', function(){
+						$('.response-comments #comment-send').unbind('click').on('click', function(){
 							var data = {
 								response: selected,
 					    		comment: $('#response-comment-input').val(), 
@@ -962,10 +988,26 @@
 					    	};
 
 					    	if (!data.comment) {
-					    		$('.error.comment').text('Please add a comment').fadeIn();
+					    		$('.error.comment').text('Please add a comment')
+					    		.fadeIn(function(){
+					    			$('.error').on('click', function(){
+					    				$('.error').hide();
+					    			});
+					    			setTimeout(function(){
+					    				$('.error.comment').fadeOut();
+					    			}, 5000);
+					    		});
 					    		return;
 					    	} else if (!data.creator) {
-					    		$('.error.comment').text('Please add a name').fadeIn();
+					    		$('.error.comment').text('Please add a name')
+					    		.fadeIn(function(){
+					    			$('.error').on('click', function(){
+					    				$('.error').hide();
+					    			});
+					    			setTimeout(function(){
+					    				$('.error.comment').fadeOut();
+					    			}, 5000);
+					    		});
 					    		return;
 					    	}
 
@@ -983,6 +1025,8 @@
 					        		$(commentWrap).addClass('comment');
 					     			$('.comment-feed').append(commentWrap);
 					     			$('.comment-bubble').text($('.comment-feed .comment').length);
+					     			$('#response-comment-input').val('');
+
 								}
 
 							})

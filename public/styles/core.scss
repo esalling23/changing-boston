@@ -462,6 +462,7 @@ input[type=text] {
 		left: 0px !important;
 		top: 0px !important;
 		overflow: scroll;
+	    margin-bottom: 100px;
 
 		.response {
 			width: 200px;
@@ -487,6 +488,7 @@ input[type=text] {
 			font-size: 18px;
 		    padding-right: 30px;
 		    padding-left: 30px;
+		    border-bottom: 2px solid $color-black;
 		}
 
 		.response-comments {
@@ -853,29 +855,30 @@ select {
     left: 0px;
 }
 
-.comment {
-    margin: 4px;
-    border: 1px solid black;
-    padding: 4px;
-    line-height: 1;
-    text-align: left;
+.comment-feed {
+	.comment {
+	    margin: 4px;
+	    border: 1px solid black;
+	    padding: 4px;
+	    line-height: 1;
+	    text-align: left;
 
-    h3 {
-    	display: inline;
-    	font-size: 16px;
-    	margin: 0px;
-    	padding: 0px;
+	    h3 {
+	    	display: inline;
+	    	font-size: 16px;
+	    	margin: 0px;
+	    	padding: 0px;
 
-    }
-    p {
-    	display:inline;
-    	color: $color-blue;
-    	font-size: 18px;
-    	margin: 0px;
-    	padding: 0px;
-    }
+	    }
+	    p {
+	    	display:inline;
+	    	color: $color-blue;
+	    	font-size: 18px;
+	    	margin: 0px;
+	    	padding: 0px;
+	    }
+	}
 }
-
 
 // Input page
 

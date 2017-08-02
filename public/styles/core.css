@@ -354,7 +354,8 @@ input[type=text] {
     margin: 0px auto;
     left: 0px !important;
     top: 0px !important;
-    overflow: scroll; }
+    overflow: scroll;
+    margin-bottom: 100px; }
     .item.open .response {
       width: 200px;
       height: 200px;
@@ -371,7 +372,8 @@ input[type=text] {
     .item.open .tag {
       font-size: 18px;
       padding-right: 30px;
-      padding-left: 30px; }
+      padding-left: 30px;
+      border-bottom: 2px solid #212121; }
     .item.open .response-comments {
       display: block !important; }
 
@@ -432,10 +434,11 @@ input[type=text] {
   font-size: 10px;
   line-height: 30px;
   border-radius: 15px;
-  border: 1px solid #606060;
+  border: 3px solid #606060;
   background-size: 25px 25px;
   background-position: center;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  }
 
 .comment-bubble {
   top: -5px;
@@ -446,9 +449,10 @@ input[type=text] {
 .like-bubble {
   top: -5px;
   right: -5px;
-  background-color: #AAD9C4;
+  background-color: #0ec372;
   background-image: url("/images/like.png");
-  background-position-y: top; }
+  background-position-y: top;
+  }
 
 #prompt-input {
   color: #212121;
@@ -634,18 +638,18 @@ select option {
   margin-top: 10px;
   left: 0px; }
 
-.comment {
+.comment-feed .comment {
   margin: 4px;
   border: 1px solid black;
   padding: 4px;
   line-height: 1;
   text-align: left; }
-  .comment h3 {
+  .comment-feed .comment h3 {
     display: inline;
     font-size: 16px;
     margin: 0px;
     padding: 0px; }
-  .comment p {
+  .comment-feed .comment p {
     display: inline;
     color: #6C91A3;
     font-size: 18px;
