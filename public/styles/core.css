@@ -280,7 +280,6 @@ input[type=text] {
   position: relative;
   margin-top: 0px;
   width: 100%; }
-
 #archive-grid .prompt-wrapper {
   transition: all 0.2s; }
   #archive-grid .prompt-wrapper:hover, #archive-grid .prompt-wrapper:focus {
@@ -353,27 +352,27 @@ input[type=text] {
 @media (min-width: 2000px) {
   .grid-xlg-4 {
     max-height: 780px; }
+
   .grid-xlg-1 {
     max-height: 240px; } }
-
 @media (min-height: 1024px) and (max-width: 2000px) {
   .grid-lg-3 {
     max-height: 540px; }
+
   .grid-lg-1 {
     max-height: 240px; } }
-
 @media (min-height: 700px) and (max-height: 1024px) {
   .grid-md-2 {
     max-height: 380px; }
-  .grid-md-1 {
-    max-height: 240px; } }
 
+  .grid-md-1 {
+    max-height: 200px; } }
 @media (max-height: 700px) and (min-height: 480px) {
   .grid-sm-2 {
     max-height: 380px; }
+
   .grid-sm-1 {
     max-height: 200px; } }
-
 .bubble {
   position: absolute;
   width: 30px;
