@@ -12,7 +12,7 @@
 
 <div class="item {{#ifeq response.type 'Text'}}text{{else}}icon{{/ifeq}} col-xs-1 col-lg-1" data-created="{{date response.created}}" data-comments="{{response.commentCnt}}" data-likes="{{response.likes}}">
 
-	{{#if response.comments}} <div class="comment-bubble bubble">{{response.commentCnt}}</div> {{/if}}
+	{{#ifLongerThan response.comments 0}} <div class="comment-bubble bubble">{{response.commentCnt}}</div> {{/ifLongerThan}}
 
 	{{#if response.likes}} <div class="like-bubble bubble">{{response.likes}}</div> {{/if}}
 

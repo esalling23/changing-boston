@@ -126,6 +126,11 @@ exports.update = function(req, res) {
     .populate('comments')
     .exec(function(err, response){
 
+        if (response.comments.length > 0)
+          response.commentCnt = response.comments.length;
+        else 
+          response.commentCnt = 0;
+
         if (req.query.like) {
             response.likes += parseFloat(req.query.like);
             response.save();

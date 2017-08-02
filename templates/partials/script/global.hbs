@@ -982,6 +982,7 @@
 					        		$(commentWrap).append(comment);
 					        		$(commentWrap).addClass('comment');
 					     			$('.comment-feed').append(commentWrap);
+					     			$('.comment-bubble').text($('.comment-feed .comment').length);
 								}
 
 							})
