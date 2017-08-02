@@ -11,17 +11,26 @@
 --}}
 
 
-{{#each responses}}
+<div class="response-grid row grid-lg-3 grid-md-1" id="popular-responses">
 
-	<div class="item {{#ifeq type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-3">
-		<div class="response">
-		{{#ifeq type 'Text'}}
-			<p> {{response}} </p>
-		{{else}}
-			{{{cloudinaryUrl iconUrl width=80 height=80 crop='scale' quality=100}}}
-		{{/ifeq}}
-		</div>
-		<div class="tag">{{creator}}</div>
-	</div>
+<h4>Most Popular</h4>
+
+{{#each popular}}
+
+	{{> response this}}
 
 {{/each}}
+
+</div>
+
+<div class="response-grid row grid-lg-1" id="new-responses">
+
+<h4>New Responses</h4>
+
+{{#each recent}}
+
+	{{> response this}}
+
+{{/each}}
+
+</div>

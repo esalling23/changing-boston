@@ -10,13 +10,18 @@
 */
 --}}
 
-<div class="item {{#ifeq response.type 'Text'}}text{{else}}icon{{/ifeq}} col-sm-1">
-	<div class="response" id="{{response.id}}">
-	{{#ifeq response.type 'Text'}}
-		<p> {{response.response}} </p>
-	{{else}}
-		{{{cloudinaryUrl response.iconUrl width=80 height=80 crop='scale' quality=100}}}
-	{{/ifeq}}
+<div class="item {{#ifeq type 'Text'}}text{{else}}icon{{/ifeq}} col-xs-1 col-lg-1" data-created="{{date created}}" data-comments="{{commentCnt}}" data-likes="{{likes}}">
+
+	{{#if comments}} <div class="comment-bubble bubble">{{commentCnt}}</div> {{/if}}
+
+	{{#if likes}} <div class="like-bubble bubble">{{likes}}</div> {{/if}}
+
+	<div class="response" id="{{id}}">
+		{{#ifeq type 'Text'}}
+			<p> {{response}} </p>
+		{{else}}
+			{{{cloudinaryUrl iconUrl width=80 height=80 crop='scale' quality=100}}}
+		{{/ifeq}}
 	</div>
-	<div class="tag">{{response.creator}}</div>
+	<div class="tag">{{creator}}</div>
 </div>

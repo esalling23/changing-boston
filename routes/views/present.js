@@ -51,7 +51,30 @@ exports = module.exports = function(req, res) {
         queryPrompt.exec(function(err, resultPrompt) {
             if (err) throw err;
 
-            locals.responses = resultPrompt.responses.sort('-created');
+            var popular = _.map(resultPrompt.responses, function(response) {
+                if (response.commentCnt === undefined)
+                    response.commentCnt = 0;
+                if (response.likes === undefined)
+                    response.likes = 0;
+                response.popularity = response.commentCnt + response.likes;
+                return response;
+            });
+
+            popular.sort( function (a, b) {
+                return parseFloat(b.popularity) - parseFloat(a.popularity);
+            })
+
+            var recent = _.map(resultPrompt.responses, function(response) {
+                response.created = new Date(response.created);
+                return response;
+            });
+
+            recent.sort( function (a, b) {
+                return new Date(b.created) - new Date(a.created);
+            });
+
+            locals.popular = popular;
+            locals.recent = recent;
 
             locals.prompt = resultPrompt;
 

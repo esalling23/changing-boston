@@ -174,10 +174,31 @@ exports.reload = function(req, res) {
             return;
         }
 
-        console.log(session);
+        var popular = _.map(session.responses, function(response) {
+            if (response.commentCnt === undefined)
+                response.commentCnt = 0;
+            if (response.likes === undefined)
+                response.likes = 0;
+            response.popularity = parseFloat(response.commentCnt) + parseFloat(response.likes);
+            return response;
+        });
+
+        popular = popular.sort( function (a, b) {
+            return parseFloat(b.popularity) - parseFloat(a.popularity);
+        });
+
+        var recent = _.map(session.responses, function(response) {
+            response.created = new Date(response.created);
+            return response;
+        });
+
+        recent = recent.sort( function (a, b) {
+            return new Date(b.created) - new Date(a.created);
+        });
 
         let data = {
-            responses: session.responses
+            popular: popular, 
+            recent: recent
         }
 
         Templates.Load('partials/responseGroup', data, function(html) {

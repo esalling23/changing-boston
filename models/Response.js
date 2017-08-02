@@ -63,6 +63,6 @@ Response.add({
 /**
  * Model Registration
  */
-Response.defaultSort = '-createdAt';
+Response.defaultSort = '-created';
 Response.defaultColumns = 'name, updatedAt';
 Response.register();

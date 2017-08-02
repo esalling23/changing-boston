@@ -783,17 +783,7 @@
 	{{/ifeq}}
 
 	{{#ifeq section 'present'}}
-
-		$('.popular-responses').isotope({
-			itemSelector: '.item', 
-			filter: {
-				
-			}
-		});
-		$('.new-responses').isotope({
-			itemSelector: '.item'
-		});
-
+	
 		var reloading = false;
 
 		function timeout() {
@@ -811,23 +801,7 @@
 		        $.get("/api/reload/", data, function(data){
 		        	console.log(data);
 		        	if (data) {
-		     //    		_.each(data.response, function(item){
-		     //    			$('#response-group').prepend(item).isotope({
-							// 	itemSelector: '.response-item'
-							// });
-		     //    		})
-		     			$('#new-responses').html(data.responses);
-		     			$('#new-responses').isotope({
-		     				itemSelector: '.item', 
-		     				getSortData: {
-							    date: '[data-created] parseInt'
-						    }
-		     			});
-
-		     			$('#new-responses').isotope({
-		     				sortBy: '-date'
-		     			})
-						
+		     			$('#response-group').html(data.eventData);
 					}
 
 					reloading = false;

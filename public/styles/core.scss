@@ -337,6 +337,7 @@ input[type=text] {
 	margin: 10px;
 	font-size:24px;
 
+
 	.tag {
     	display: block;
     	font-size: 12px;
@@ -370,6 +371,8 @@ input[type=text] {
 		img {
 			height: 90px;
 			width: 90px;
+		    margin: 0 auto;
+
 		}
 	}
 
@@ -394,6 +397,69 @@ input[type=text] {
 #response-group {
 	margin-top: 80px;
 }
+
+.response-grid {
+	width: 100%;
+	position: fixed;
+	overflow:hidden;
+}
+
+#new-responses {
+	bottom: 40px;
+}
+
+#popular-responses {
+	height: 60%;
+}
+
+@media(max-height: 1000px) and (min-height: 780px)  {
+	.grid-lg-3 {
+		max-height: 540px;
+	}
+	.grid-lg-1 {
+		max-height: 240px;
+	}
+}
+
+@media(max-height: 780px) and (min-height: 480px) {
+	.grid-md-2 {
+		max-height: 340px;
+	}
+	.grid-md-1 {
+		max-height: 240px;
+	}
+}
+
+.bubble {
+	position: absolute;
+    width: 30px;
+    height: 30px;
+    font-size: 10px;
+    line-height: 30px;
+    border-radius: 15px;
+    border: 1px solid $color-grey;
+    background-size: 25px 25px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.comment-bubble {
+	top: -5px;
+    left: -5px;
+    background-color: $color-blue-lite;
+    background-image: url('/images/comment.png');
+
+}
+
+.like-bubble {
+	top: -5px;
+    right: -5px;
+    background-color: $color-green-lite;
+    background-image: url('/images/like.png');
+	background-position-y: top;
+
+}
+
 
 #prompt-input {
 	color: $color-black;
