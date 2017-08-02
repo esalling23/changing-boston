@@ -11,7 +11,13 @@
 --}}
 
 <div class="comment-feed">
-	{{#each comments}}
-		{{>comment this}}
+	{{#each comment}}
+		{{>comment}}
 	{{/each}}
 </div>
+<div class="comment-input">
+	Comment:<input id="response-comment-input">
+	Name:<input id="response-name-input">
+	<a id="comment-send">send</a>
+</div>
+<div class="error comment"></div>

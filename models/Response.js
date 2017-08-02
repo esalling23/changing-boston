@@ -41,7 +41,8 @@ Response.add({
 	comments: { 
 		type: Types.Relationship, 
 		ref: 'Comment', 
-		label: 'Response Comments'
+		label: 'Response Comments', 
+		many: true
 	}, 
 	commentCnt: { type: Number, label: 'Comment Count'},
 	likes: { type: Number, label: 'Like Count' },

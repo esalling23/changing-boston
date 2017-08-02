@@ -886,20 +886,103 @@
 		}
 	});
 
-	$('.item').unbind('click').on('click', function() {
+	$('.item').unbind('click').on('click', function(e) {
+		if ($(this).hasClass('open'))
+			return;
 
-		$(this).addClass('open');
+		e.bubbles = false;
+	    e.stopImmediatePropagation();
+	    e.preventDefault();
+	    e.stopPropagation();
+
+		var selected = $(this).find('.response').attr('id');
 
 		var data = {
-			response: $(this).find('.response').attr('id')
+			response: selected
 		};
 
 	    $.get("/api/comments/", data, function(data){
 	    	console.log(data);
 	    	if (data) {
-				$('#archived-responses .item').hide(function(){
-					$('#archived-responses .item.open .response-comments').html(data.eventData)
-					$('#archived-responses .item.open').fadeIn();
+				$('#archived-responses .item').hide();
+				$('#' + selected).closest('.item').addClass('open');
+				$('#archived-responses .item.open .response-comments').html(data.html);
+				$('#archived-responses .item.open').fadeIn(function(){
+					$('.instructions').hide(function() {
+						$('#response-back').show().unbind('click').on('click', function(){
+							$('.item.open').hide().removeClass('open');
+							$('#archived-responses .item').fadeIn();
+							$('#response-back').hide(function(){
+								$('.instructions').show();
+							});
+						});
+						$('#' + selected).siblings('.like-bubble')
+						.unbind('click')
+						.on('click', function(e){
+
+							e.bubbles = false;
+						    e.stopImmediatePropagation();
+						    e.preventDefault();
+						    e.stopPropagation();
+
+							if ($(this).hasClass('liked'))
+								var like = -1;
+							else 
+								var like = 1;
+
+							var data = {
+								response: selected,
+					    		like: like
+					    	};
+
+					        $.get("/api/commenting/", data, function(data){
+					        	console.log(data);
+					        	if (data) {
+					        		$('#' + selected).siblings('.like-bubble').toggleClass('liked').text(data.data.likes);
+								}
+
+							})
+							.fail(function(err) {
+							    alert( "error" + err );
+							});
+						});
+
+						$('#comment-send').unbind('click').on('click', function(){
+							var data = {
+								response: selected,
+					    		comment: $('#response-comment-input').val(), 
+					    		creator: $('#response-name-input').val()
+					    	};
+
+					    	if (!data.comment) {
+					    		$('.error.comment').text('Please add a comment').fadeIn();
+					    		return;
+					    	} else if (!data.creator) {
+					    		$('.error.comment').text('Please add a name').fadeIn();
+					    		return;
+					    	}
+
+					        $.get("/api/commenting/", data, function(data){
+					        	console.log(data);
+					        	if (data) {
+					        		var data = data.data;
+					        		var commentWrap = document.createElement('div');
+					        		var comment = document.createElement('h3');
+					        		var creator = document.createElement('p');
+					        		$(comment).text(data.comment.comment);
+					        		$(creator).text(data.comment.creator + ': ');
+					        		$(commentWrap).append(creator);
+					        		$(commentWrap).append(comment);
+					        		$(commentWrap).addClass('comment');
+					     			$('.comment-feed').append(commentWrap);
+								}
+
+							})
+							.fail(function(err) {
+							    alert( "error" + err );
+							});
+						});
+					});
 				});
 			}
 		})

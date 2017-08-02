@@ -66,6 +66,8 @@ router.get('/api/reload', keystone.middleware.api, routes.api.plan.reload);
 
 // Create and save response to prompt
 router.get('/api/responding', keystone.middleware.api, routes.api.response.respond);
+// Create and save comment or like to response 
+router.get('/api/commenting', keystone.middleware.api, routes.api.response.update);
 
 // Find prompt
 router.get('/api/find', keystone.middleware.api, routes.api.response.get);

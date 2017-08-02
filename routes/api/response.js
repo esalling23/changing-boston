@@ -9,6 +9,7 @@ var GameSession = keystone.list('PlanSession'),
     Prompt = keystone.list('Prompt'),
     Icon = keystone.list('Icon'),
     Response = keystone.list('Response'),
+    Comment = keystone.list('Comment'),
     TemplateLoader = require(appRoot + '/lib/TemplateLoader'),
     Templates = new TemplateLoader(),
     Session = require(appRoot + '/lib/SessionManager');
@@ -54,7 +55,7 @@ exports.get = function(req, res) {
 
 };
 
-// Api responses
+// Add Responses to Prompts
 exports.respond = function(req, res) {
 
     Prompt.model.findOne({ promptId: req.query.plan }).populate('icons').exec((err, prompt) => {
@@ -118,93 +119,30 @@ exports.respond = function(req, res) {
 
 };
 
-
-// Api responses
-exports.respond = function(req, res) {
-
-    Prompt.model.findOne({ promptId: req.query.plan }).populate('icons').exec((err, prompt) => {
-
-        // var Icon = this.keystone.list('Icon').model;
-        Icon.model.findOne({ '_id': req.query.response }).exec((err, icon) => {
-
-          if (icon) {
-
-            var response = {
-              name: req.query.creator,
-              type: req.query.type,
-              iconKey: req.query.response, 
-              iconUrl: icon.icon.url, 
-              creator: req.query.creator
-            }
-
-          } else {
-
-            var response = {
-              name: req.query.creator,
-              type: req.query.type,
-              response: req.query.response, 
-              creator: req.query.creator
-            }
-
-          }
-
-          // Create response item
-          new Response.model(response).save((err, response) => {
-
-            if (response.comments)
-                response.commentCnt = this.comments.length();
-            else 
-              response.commentCnt = 0;
-
-              response.save();
-
-            prompt.responses.push(response);
-            prompt.save((err, newprompt) => {
-
-                var responseData = {
-                  response: response, 
-                  id: newprompt.promptId
-                }
-                
-                Templates.Load('partials/response', responseData, (html) => {
-                  // Send the new response 
-                  res.send({ html: html, data: responseData });
-
-                });
-                
-
-            });
-            
-          });
-
-        });
-
-    });
-
-};
-
-// Add Comments and Likes
+// Add Comments and Likes to Responses
 exports.update = function(req, res) {
 
-    Response.model.findOne({ response_key: req.query.response })
+    Response.model.findOne({ '_id': req.query.response })
     .populate('comments')
     .exec(function(err, response){
 
-        if (req.query.like)
-            session.likes += req.query.like;
+        if (req.query.like) {
+            response.likes += parseFloat(req.query.like);
+            response.save();
+        }
 
         if (req.query.comment) {
 
           var commentData = {
             name: "Comment-" + req.query.creator,
             comment: req.query.comment,
-            creator: req.query.creator, 
-            origin: response
+            creator: req.query.creator
           }
 
           // Create comment item
           new Comment.model(commentData).save((err, comment) => {
 
+            // comment.origin = response;
             comment.save();
 
             response.comments.push(comment);
@@ -212,15 +150,15 @@ exports.update = function(req, res) {
 
                 var responseData = {
                   comment: comment,
-                  commentCnt: response.commentCnt, 
-                  likes: response.likes
+                  commentCnt: newresponse.commentCnt, 
+                  likes: newresponse.likes
                 }
                 
-                Templates.Load('partials/comment', responseData, (html) => {
+                // Templates.Load('partials/comment', responseData, (html) => {
                   // Send the new response 
-                  res.send({ html: html, data: responseData });
+                  res.send({ data: responseData });
 
-                });
+                // });
                 
 
             });
@@ -241,10 +179,10 @@ exports.update = function(req, res) {
 
 };
 
-// Get Comments
+// Get Comments for Response Archives
 exports.comments = function(req, res) {
 
-    Response.model.findOne({ response_key: req.query.response })
+    Response.model.findOne({ '_id': req.query.response })
     .populate('comments')
     .exec(function(err, response){
 
