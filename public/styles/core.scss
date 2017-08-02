@@ -349,20 +349,24 @@ input[type=text] {
 
 	&.archived {
 		height: 100px;
-		width: 48%;
 		font-size: 18px;
 		padding: 8px;
 		background-color: $color-blue-lite;
 		color: $color-black;
 		margin: 2% 1%;
 		overflow: hidden;
+
+		.prompt {
+			font-size: 14px;
+		}
 	}
 }
 
 #archive-grid {
 
 	.prompt {
-		font-size: 24px;
+		font-size: 18px;
+		line-height: 1;
 		text-align: center;
 		color: $color-white;
 	    padding: 10px 0px;
@@ -836,17 +840,23 @@ select {
 .comment {
     margin: 4px;
     border: 1px solid black;
-    padding: 8px;
+    padding: 4px;
+    line-height: 1;
+    text-align: left;
 
     h3 {
     	display: inline;
     	font-size: 16px;
+    	margin: 0px;
+    	padding: 0px;
 
     }
     p {
     	display:inline;
     	color: $color-blue;
     	font-size: 18px;
+    	margin: 0px;
+    	padding: 0px;
     }
 }
 

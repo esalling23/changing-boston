@@ -276,16 +276,18 @@ input[type=text] {
       padding: 8px; } }
   .prompt-wrapper.archived {
     height: 100px;
-    width: 48%;
     font-size: 18px;
     padding: 8px;
     background-color: #A3CCE0;
     color: #212121;
     margin: 2% 1%;
     overflow: hidden; }
+    .prompt-wrapper.archived .prompt {
+      font-size: 14px; }
 
 #archive-grid .prompt {
-  font-size: 24px;
+  font-size: 18px;
+  line-height: 1;
   text-align: center;
   color: #FCFCFC;
   padding: 10px 0px;
@@ -624,14 +626,20 @@ select option {
 .comment {
   margin: 4px;
   border: 1px solid black;
-  padding: 8px; }
+  padding: 4px;
+  line-height: 1;
+  text-align: left; }
   .comment h3 {
     display: inline;
-    font-size: 16px; }
+    font-size: 16px;
+    margin: 0px;
+    padding: 0px; }
   .comment p {
     display: inline;
     color: #6C91A3;
-    font-size: 18px; }
+    font-size: 18px;
+    margin: 0px;
+    padding: 0px; }
 
 .present .prompt h1 {
   margin-top: 10px; }
