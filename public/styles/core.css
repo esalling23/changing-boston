@@ -57,7 +57,7 @@ input:focus, a:focus, .btn:focus {
 
 #go-to {
   position: absolute;
-  bottom: 0px;
+  bottom: 30px;
   left: 0px;
   padding-left: 10px;
   padding-top: 8px;
@@ -332,7 +332,7 @@ input[type=text] {
     background-color: #DCDCDC; }
     .item.text p {
       padding: 4px;
-      font-size: 18px; }
+      font-size: 10px; }
   .item .response {
     height: 100px;
     width: 100px;
@@ -395,7 +395,8 @@ input[type=text] {
 .response-grid {
   width: 100%;
   position: fixed;
-  overflow: hidden; }
+  overflow: hidden;
+  width: calc(100% - 80px); }
 
 #new-responses {
   bottom: 40px; }
@@ -434,11 +435,10 @@ input[type=text] {
   font-size: 10px;
   line-height: 30px;
   border-radius: 15px;
-  border: 3px solid #606060;
+  border: 1px solid #212121;
   background-size: 25px 25px;
   background-position: center;
-  background-repeat: no-repeat;
-  }
+  background-repeat: no-repeat; }
 
 .comment-bubble {
   top: -5px;
@@ -449,10 +449,9 @@ input[type=text] {
 .like-bubble {
   top: -5px;
   right: -5px;
-  background-color: #0ec372;
+  background-color: #AAD9C4;
   background-image: url("/images/like.png");
-  background-position-y: top;
-  }
+  background-position-y: top; }
 
 #prompt-input {
   color: #212121;
