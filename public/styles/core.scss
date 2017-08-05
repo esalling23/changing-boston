@@ -478,11 +478,13 @@ input[type=text] {
 		.comment-bubble {
 			top: 205px;
 		    left: 5px;
+		    display:block !important;
 		}
 
 		.like-bubble {
 			top: 205px;
 		    right: 5px;
+		    display:block !important;
 		}
 		.tag {
 			font-size: 18px;

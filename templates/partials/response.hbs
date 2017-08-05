@@ -12,9 +12,9 @@
 
 <div class="item {{#ifeq response.type 'Text'}}text{{else}}icon{{/ifeq}} col-xs-1 col-lg-1" data-created="{{date response.created}}" data-comments="{{response.commentCnt}}" data-likes="{{response.likes}}">
 
-	{{#ifLongerThan response.comments 0}} <div class="comment-bubble bubble">{{add response.commentCnt 1}}</div> {{/ifLongerThan}}
+	<div class="comment-bubble bubble" {{#ifLongerThan response.comments 0}}{{else}}style="display:none"{{/ifLongerThan}}>{{#ifLongerThan response.comments 0}}{{add response.commentCnt 1}}{{else}}0{{/ifLongerThan}}</div> 
 
-	{{#if response.likes}} <div class="like-bubble bubble">{{response.likes}}</div> {{/if}}
+	<div class="like-bubble bubble" {{#if response.likes}}{{else}}style="display:none"{{/if}}>{{response.likes}}</div> 
 
 	<div class="response" id="{{response.id}}">
 		{{#ifeq response.type 'Text'}}

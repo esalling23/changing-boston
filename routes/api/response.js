@@ -132,8 +132,21 @@ exports.update = function(req, res) {
           response.commentCnt = 0;
 
         if (req.query.like) {
+          if (response.likes)
             response.likes += parseFloat(req.query.like);
+          else 
+            response.likes = parseFloat(req.query.like);
+
             response.save();
+
+
+            var responseData = {
+              commentCnt: response.commentCnt, 
+              likes: response.likes
+            }
+            res.send({ data: responseData });
+
+            return;
         }
 
         if (req.query.comment) {
@@ -169,14 +182,6 @@ exports.update = function(req, res) {
             });
             
           });
-        } else {
-
-          var responseData = {
-            commentCnt: response.commentCnt, 
-            likes: response.likes
-          }
-          res.send({ data: responseData });
-
         }
 
     })
