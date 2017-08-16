@@ -37,7 +37,7 @@ Prompt.add({
 	location: { type: Types.Location, label: "Location" },
 	promptAlt: { type: Types.TextArray, label: "Alternate Prompts", note: 'Generally for different languages' },
 	altLang: { type: Types.TextArray, label: "Alternate Prompt Languages", note: 'There should be one language per prompt' },
-	description: { type: Types.Markdown, label: 'Background Context' },
+	description: { type: Types.Markdown, label: 'Background Context', required: true, initial: true },
 	icons: {
 		type: Types.Relationship, 
 		ref: 'Icon', 

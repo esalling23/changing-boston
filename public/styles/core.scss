@@ -79,14 +79,21 @@ input, a, .btn {
 
 #go-to {
     position: absolute;
-    bottom: 30px;
-    left: 0px;
+    bottom: 40px;
+    left: 40px;
     padding-left: 10px;
     padding-top: 8px;
     height: 40px;
     margin-top: 60px;
     width: 100%;
+    color: white;
     background-color: $color-blue;
+
+    span {
+    	font-style: italic;
+	    padding-right: 8px;
+	    padding-left: 4px;
+    }
 }
 
 // Body
@@ -403,18 +410,18 @@ input[type=text] {
 // Response item
 .item {
 	height: 150px;
-	width: 100px;
+	width: 200px;
     padding: 0px;
 	color: $color-black;
 	text-align:center;
 	display: table;
-	margin: 10px;
+	margin: 5px 10px;
 	font-size:24px;
 
 
 	.tag {
     	display: block;
-    	font-size: 12px;
+    	font-size: 16px;
     	padding-top: 4px;
     	height: 40px;
     	border-top: 4px solid $color-black;
@@ -428,19 +435,19 @@ input[type=text] {
 
 		p {
 			padding: 4px;
-			font-size: 10px;
+			font-size: 14px;
 		}
 	}
 
     .response {
     	height: 100px;
-    	width: 100px;
+    	width: 100%;
 	    display: table;
     }
 
 	&.icon {
 		height: 150px;
-	    width: 100px;
+	    width: 200px;
 		background-color: $color-grey-lite;
 		img {
 			height: 90px;
@@ -499,6 +506,7 @@ input[type=text] {
 	}
 }
 
+
 // Prompt 
 .prompt {
 	font-size: 36px;
@@ -531,7 +539,7 @@ input[type=text] {
 }
 
 #new-responses {
-	bottom: 40px;
+	bottom: 50px;
 }
 
 #popular-responses {
@@ -558,7 +566,7 @@ input[type=text] {
 
 @media(min-height: 700px) and (max-height: 1024px)  {
 	.grid-md-2 {
-		max-height: 380px;
+		max-height: 360px;
 	}
 	.grid-md-1 {
 		max-height: 200px;
@@ -702,7 +710,7 @@ select {
 	width: 100px;
 	padding:0px;
 	display: inline-block;
-    border: 1px solid $color-black;
+    border: 2px solid $color-black;
     img {
     	display: block;
     }
@@ -900,6 +908,18 @@ select {
 		h2 { 
 			margin-top: 0px;
 		}
+	}
+
+	.prompt-desc {
+		width: 20%;
+		border: 2px solid black;
+		height: 100%;
+		padding: 10px;
+		margin-top: 40px;
+		background-color: $color-blue-lite;
+		color: black;
+		line-height: 1.2;
+		font-size: 16px;
 	}
 }
 

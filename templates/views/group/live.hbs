@@ -30,14 +30,27 @@
 					
 		</div>
 
-		<div class="grid responses" id="response-group">
+		<div class="row">
 
-			{{>responseGroup}}
+			{{#if prompt.description}}
 
+			<div class="prompt-desc col-sm-4">
+
+			{{{prompt.description.html}}}
+
+			</div>
+
+			{{/if}}
+
+			<div class="grid responses col-sm-8" id="response-group">
+
+				{{>responseGroup}}
+
+			</div>
 		</div>
 
 	</div>
 
-	<h3 id="go-to">Go to placebase.net to contribute</h3>
+	<h3 id="go-to">Go to  <span>placebase.net</span>  to contribute</h3>
 
 </div> <!-- .container-fluid -->
