@@ -24,7 +24,7 @@ var Response = new keystone.List('Response',
 		label: 'Responses',
 		singular: 'Response',
 		// track: true, 
-		autokey: { path: 'response_key', from: 'name', unique: true }
+		autokey: { path: 'response_key', from: 'creator', unique: true }
 	});
 
 /**
