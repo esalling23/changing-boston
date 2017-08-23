@@ -409,8 +409,8 @@ input[type=text] {
 
 // Response item
 .item {
-	height: 150px;
-	width: 200px;
+	height: $response-height;
+	width: $response-width;
     padding: 0px;
 	color: $color-black;
 	text-align:center;
@@ -429,7 +429,7 @@ input[type=text] {
 
 
 	&.text {
-		height: 150px;
+		height: $response-height;
 		border: 2px solid $color-black;
 		background-color: $color-grey-lite;
 
@@ -446,8 +446,8 @@ input[type=text] {
     }
 
 	&.icon {
-		height: 150px;
-	    width: 200px;
+		height: $response-height;
+    width: $response-width;
 		background-color: $color-grey-lite;
 		img {
 			height: 90px;
@@ -531,11 +531,16 @@ input[type=text] {
 	// margin-top: 80px;
 }
 
+.grid {
+  position: relative;
+  width: 80%;
+  padding-right: 0px;
+}
+
 .response-grid {
 	width: 100%;
-	position: fixed;
+	position: relative;
 	overflow:hidden;
-	width: calc(100% - 80px);
 }
 
 #new-responses {
@@ -915,7 +920,7 @@ select {
 		border: 2px solid black;
 		height: 100%;
 		padding: 10px;
-		margin-top: 40px;
+		margin-top: 0px;
 		background-color: $color-blue-lite;
 		color: black;
 		line-height: 1.2;
